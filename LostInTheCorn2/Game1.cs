@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using LostInTheCorn2;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -28,8 +29,10 @@ namespace LostInTheCorn
         public Vector3 camInitPosition;
         public Vector3 initForward;
 
-
-
+        public Player2D redSquare;
+        private Texture2D redRectangle;
+        private Texture2D whiteRectangle;
+        public Walls2D walls;
 
 
 
@@ -51,6 +54,8 @@ namespace LostInTheCorn
             initForward = new Vector3(1,0,0);
             camInitPosition = new Vector3(10, 1, 0);
 
+            redSquare = new Player2D();
+            walls = new Walls2D();
 
             base.Initialize();
         }
@@ -77,6 +82,13 @@ namespace LostInTheCorn
             penguin = Content.Load<Model>("PenguinTextured");
             block = Content.Load<Model>("ShrimpleWallOneSquareHole");
 
+            //Texturen für 2D Objekte
+            redRectangle = new Texture2D(GraphicsDevice, 1, 1);
+            redRectangle.SetData(new[] { Color.Red });
+
+
+            whiteRectangle = new Texture2D(GraphicsDevice, 1, 1);
+            whiteRectangle.SetData(new[] { Color.White});
         }
 
         protected override void Update(GameTime gameTime)
@@ -89,6 +101,8 @@ namespace LostInTheCorn
             cam.Update(gameTime, player);
 
             var kstate = Keyboard.GetState();
+
+            redSquare.Update(gameTime, walls.getWalls());
 
             base.Update(gameTime);
         }
@@ -111,6 +125,8 @@ namespace LostInTheCorn
             blockObject.Draw(block, cam, blockObject.ObjectWorld);
             player.Draw(penguin, cam, player.PlayerWorld);
 
+            walls.Draw(_spriteBatch,whiteRectangle);
+            redSquare.Draw(_spriteBatch,redRectangle);
             base.Draw(gameTime);
         }
     }
