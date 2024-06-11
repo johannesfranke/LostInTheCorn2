@@ -172,7 +172,7 @@ namespace LostInTheCorn
             
             //Rotation um den Spieler
             Forward = player.PlayerForward + new Vector3(0,-0.5f,0);
-            CamPosition = (player.PlayerPosition - (player.PlayerForward * 15)) * new Vector3(1, 15f, 1);
+            CamPosition = (player.PlayerPosition - (player.PlayerForward * 15)) + new Vector3(0,15,0);
             
         }
     }

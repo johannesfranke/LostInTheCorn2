@@ -131,9 +131,9 @@ namespace LostInTheCorn
                     effect.World = objectWorld;
                     effect.View = cam.View;
                     effect.Projection = cam.Projection;
+                    
 
                 }
-
                 mesh.Draw();
             }
         }

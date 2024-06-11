@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using LostInTheCorn2.map;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -15,20 +16,21 @@ namespace LostInTheCorn
         private SpriteBatch _spriteBatch;
         Camera cam;
         Player player;
-        Objects penguinObject;
-        Objects blockObject;
+        private MapDrawer Map;
+
 
         private SpriteFont font;
         public float MovementUnitsPerSecond { get; set; } = 30f;
 
         private Model penguin;
-        private Model block;
+        public Model WallCube;
 
-        private Vector3 blockPosition;
+
         public Vector3 camInitPosition;
         public Vector3 initForward;
 
-
+        private Vector3 startMapPos;
+        private int sizeCube;
 
 
 
@@ -47,9 +49,13 @@ namespace LostInTheCorn
         {
 
             
-            blockPosition = new Vector3(0, -0.1f, 0);
             initForward = new Vector3(1,0,0);
             camInitPosition = new Vector3(10, 1, 0);
+
+            startMapPos = new Vector3(4, 0, 0);
+            sizeCube = 2; //weiß nicht was die actual größe von dem Cube ist (Größe ist geraten, lol)
+           
+           
 
 
             base.Initialize();
@@ -62,10 +68,10 @@ namespace LostInTheCorn
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             font = Content.Load<SpriteFont>("File");
-
-            blockObject = new Objects("block", blockPosition);
             
-            player = new Player("Main", new Vector3(0, 1, 0), this.Window);
+            player = new Player("Main", new Vector3(0, 0, 0), this.Window);
+            WallCube = Content.Load<Model>(@"greenCube");
+
             cam = new Camera(GraphicsDevice, this.Window);
 
             cam.CamPosition = camInitPosition;
@@ -74,8 +80,9 @@ namespace LostInTheCorn
             cam.Forward = initForward;
             player.PlayerForward = initForward;
 
+            Map = new MapDrawer(cam, startMapPos, sizeCube);
             penguin = Content.Load<Model>("PenguinTextured");
-            block = Content.Load<Model>("ShrimpleWallOneSquareHole");
+
 
         }
 
@@ -87,8 +94,6 @@ namespace LostInTheCorn
             //Kamera und Spieler sollen geupdatet werden
             player.Update(gameTime);
             cam.Update(gameTime, player);
-
-            var kstate = Keyboard.GetState();
 
             base.Update(gameTime);
         }
@@ -107,8 +112,7 @@ namespace LostInTheCorn
 
             _spriteBatch.End();
 
-
-            blockObject.Draw(block, cam, blockObject.ObjectWorld);
+            Map.DrawWorld(WallCube);
             player.Draw(penguin, cam, player.PlayerWorld);
 
             base.Draw(gameTime);
