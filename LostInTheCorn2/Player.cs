@@ -23,7 +23,7 @@ namespace LostInTheCorn
 
         
         public float MovementUnitsPerSecond { get; set; } = 30f;
-        public float RotationRadiansPerSecond { get; set; } = 60f;
+        public float RotationRadiansPerSecond { get; set; } = 45f;
 
 
         public String name;

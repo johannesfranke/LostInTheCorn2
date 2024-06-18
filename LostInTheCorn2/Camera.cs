@@ -28,7 +28,7 @@ namespace LostInTheCorn
 
         //Bewegungs- und Rotationsgeschwindigkeit
         public float MovementUnitsPerSecond { get; set; } = 30f;
-        public float RotationRadiansPerSecond { get; set; } = 60f;
+        public float RotationRadiansPerSecond { get; set; } = 45f;
 
         public Vector3 camPosition;
         public Vector3 playerPosition;
@@ -172,7 +172,7 @@ namespace LostInTheCorn
             
             //Rotation um den Spieler
             Forward = player.PlayerForward + new Vector3(0,-0.5f,0);
-            CamPosition = (player.PlayerPosition - (player.PlayerForward * 15)) + new Vector3(0,15,0);
+            CamPosition = (player.PlayerPosition - (player.PlayerForward * 7)) + new Vector3(0,8,0);
             
         }
     }
