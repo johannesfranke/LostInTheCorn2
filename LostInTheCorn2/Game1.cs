@@ -54,7 +54,6 @@ namespace LostInTheCorn
         {
             sceneManager = new(GraphicsDevice, this.Window);
 
-
             //initForward = new Vector3(1,0,0);
             //camInitPosition = new Vector3(10, 1, 0);
 
@@ -89,7 +88,7 @@ namespace LostInTheCorn
             //Map = new MapDrawer(cam, startMapPos, sizeCube);
             //penguin = Content.Load<Model>("PenguinTextured");
 
-            sceneManager.AddScene(new GameScene(Content, GraphicsDevice, this.Window, sceneManager, keyboardHelper));
+            sceneManager.AddScene(new StartMenu(Content, GraphicsDevice, this.Window, sceneManager, keyboardHelper));
 
 
         }

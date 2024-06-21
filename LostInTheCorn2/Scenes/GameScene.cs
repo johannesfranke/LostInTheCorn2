@@ -46,6 +46,8 @@ namespace LostInTheCorn2.Scenes
             this.window = window;
             this.sceneManager = sceneManager;
             this.keyboardHelper = keyboardHelper;
+            //graphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
+
         }
 
         public void Load(){
