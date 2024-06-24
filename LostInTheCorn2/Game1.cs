@@ -1,10 +1,12 @@
-﻿using LostInTheCorn2.map;
+﻿using LostInTheCorn2;
+using LostInTheCorn2.map;
 using LostInTheCorn2.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.ComponentModel;
 using System.Linq.Expressions;
 using static System.Formats.Asn1.AsnWriter;
 
@@ -36,7 +38,7 @@ namespace LostInTheCorn
         private SceneManager sceneManager;
         KeyboardHelper keyboardHelper;
 
-
+        public static Game1 Instance { get; private set; }
 
 
 
@@ -44,10 +46,10 @@ namespace LostInTheCorn
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = false;
+            IsMouseVisible = true;
             _graphics.IsFullScreen = false;
             keyboardHelper = new KeyboardHelper();
-
+            Instance = this;
         }
 
         protected override void Initialize()
@@ -70,25 +72,15 @@ namespace LostInTheCorn
         {
             Content = new ContentManager(this.Services, "Content");
 
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
+            Globals.contentManager = this.Content;
+            Globals.keyboardHelper = this.keyboardHelper;
+            Globals.sceneManager = this.sceneManager;
+            Globals.graphicsDevice = this.GraphicsDevice;
+            Globals.gameWindow = this.Window;
+           
 
-            font = Content.Load<SpriteFont>("File");
-            
-            //player = new Player("Main", new Vector3(0, 0, 0), this.Window);
-            //WallCube = Content.Load<Model>(@"greenCube");
-
-            //cam = new Camera(GraphicsDevice, this.Window);
-
-            //cam.CamPosition = camInitPosition;
-
-            ////Blickrichtung zur Initialisierung
-            //cam.Forward = initForward;
-            //player.PlayerForward = initForward;
-
-            //Map = new MapDrawer(cam, startMapPos, sizeCube);
-            //penguin = Content.Load<Model>("PenguinTextured");
-
-            sceneManager.AddScene(new StartMenu(Content, GraphicsDevice, this.Window, sceneManager, keyboardHelper));
+            Globals.sceneManager.AddScene(new StartMenu());
 
 
         }
@@ -96,8 +88,8 @@ namespace LostInTheCorn
         protected override void Update(GameTime gameTime)
         {
 
-            keyboardHelper.Update();
-            sceneManager.GetCurrentScene().Update(gameTime);
+            Globals.keyboardHelper.Update();
+            Globals.sceneManager.GetCurrentScene().Update(gameTime);
 
             ////Kamera und Spieler sollen geupdatet werden
             //player.Update(gameTime);
@@ -110,23 +102,25 @@ namespace LostInTheCorn
         protected override void Draw(GameTime gameTime)
         {
             //GraphicsDevice.Clear(Color.CornflowerBlue);
-            
+
             //Werte als Sprites zum Testen
-            _spriteBatch.Begin();
+            Globals.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 
             sceneManager.GetCurrentScene().Draw(_spriteBatch, GraphicsDevice);
-            
+
             //_spriteBatch.DrawString(font, "camPos" + cam.camPosition, new Vector2(0, 2*120), Color.Black);
             //_spriteBatch.DrawString(font, "playerPos" + player.PlayerPosition, new Vector2(0, 2*135), Color.Black);
             //_spriteBatch.DrawString(font, "camForward" + cam.Forward, new Vector2(0, 2*150), Color.Black);
             //_spriteBatch.DrawString(font, "playerForward" + player.PlayerForward, new Vector2(0, 2 * 165), Color.Black);
 
-            _spriteBatch.End();
-
-            //Map.DrawWorld(WallCube);
-            //player.Draw(penguin, cam, player.PlayerWorld);
+            Globals.spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        public void SetFullScreen()
+        {
+
         }
     }
 }

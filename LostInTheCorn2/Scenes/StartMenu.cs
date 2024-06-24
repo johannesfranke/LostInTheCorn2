@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using LostInTheCorn;
+using LostInTheCorn2.UIClasses;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -19,30 +21,35 @@ namespace LostInTheCorn2.Scenes
         GameWindow window;
         KeyboardHelper keyboardHelper;
 
-        public StartMenu(ContentManager contentManager, GraphicsDevice graphicsDevice, GameWindow window, SceneManager sceneManager, KeyboardHelper keyboardHelper)
+        
+
+        public StartMenu()
         {
-            this.contentManager = contentManager;
-            this.graphicsDevice = graphicsDevice;
-            this.window = window;
-            this.sceneManager = sceneManager;
-            this.keyboardHelper = keyboardHelper;
+            
         }
 
         public void Load()
         {
 
+            Game1.Instance.IsMouseVisible = true;
+
+            //uIManager = new UIClasses.UIManager(graphicsDevice);
+            Texture2D startButton_Texture = Globals.contentManager.Load<Texture2D>("startButton");
+
+            
         }
         public void Update(GameTime gameTime)
         {
-            if (keyboardHelper.IsKeyPressed(Keys.Space))
+            if (Globals.keyboardHelper.IsKeyPressed(Keys.W))
             {
-                sceneManager.AddScene(new GameScene(this.contentManager, this.graphicsDevice, this.window, sceneManager, keyboardHelper));
+                Globals.sceneManager.AddScene(new GameScene(this.contentManager, this.graphicsDevice, this.window, sceneManager, keyboardHelper));
             }
         }
         public void Draw(SpriteBatch _spriteBatch, GraphicsDevice graphicsDevice)
         {
             //Wird später rausgenommen, sodass man den aktuellen Spielstand sieht
             graphicsDevice.Clear(Color.DarkGreen);
+   
         }
     }
 }

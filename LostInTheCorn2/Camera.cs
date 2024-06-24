@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using LostInTheCorn2;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -73,7 +74,7 @@ namespace LostInTheCorn
         //wird nur bei der Initialisierung verwendet
         public void ReCreateThePerspectiveProjectionMatrix(GraphicsDevice gd, float fovInDegrees)
         {
-            float aspectRatio = graphicsDevice.Viewport.Width / (float)graphicsDevice.Viewport.Height;
+            float aspectRatio = Globals.graphicsDevice.Viewport.Width / (float)Globals.graphicsDevice.Viewport.Height;
             projection = Matrix.CreatePerspectiveFieldOfView(fovInDegrees * (float)((3.14159265358f) / 180f), aspectRatio, .05f, 1000f);
         }
 
@@ -129,7 +130,7 @@ namespace LostInTheCorn
         public void Controls(GameTime gameTime, Player player)
         {
             KeyboardState keyboardState = Keyboard.GetState();
-            MouseState mouseState = Mouse.GetState(gameWindow);
+            MouseState mouseState = Mouse.GetState(Globals.gameWindow);
             
             if (keyboardState.IsKeyDown(Keys.W)) {
                 moveForward(gameTime, player);

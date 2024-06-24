@@ -36,7 +36,7 @@ namespace LostInTheCorn2.Scenes
             {
                 if (keyboardHelper.IsKeyPressed(Keys.Escape))
                 {
-                    sceneManager.RemoveScene();
+                    Globals.sceneManager.RemoveScene();
                 }
             }
             public void Draw(SpriteBatch _spriteBatch, GraphicsDevice graphicsDevice)

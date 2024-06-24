@@ -1,12 +1,21 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿#region Includes
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Text;
+using System.Xml.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
 
-namespace LostInTheCorn2.Scenes
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using System.Text;
+#endregion
+
+namespace LostInTheCorn2
 {
     public class KeyboardHelper
     {
@@ -16,8 +25,7 @@ namespace LostInTheCorn2.Scenes
 
         public KeyboardHelper()
         {
-            currentKeyboardState = Keyboard.GetState();
-            previousKeyboardState = currentKeyboardState;
+            
         }
 
         public void Update()

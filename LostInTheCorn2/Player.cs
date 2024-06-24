@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Input;
+using LostInTheCorn2;
 
 
 namespace LostInTheCorn
@@ -82,7 +83,7 @@ namespace LostInTheCorn
         public void Controls(GameTime gameTime)
         {
             KeyboardState keyboardState = Keyboard.GetState();
-            MouseState mouseState = Mouse.GetState(gameWindow);
+            MouseState mouseState = Mouse.GetState(Globals.gameWindow);
            
             if(keyboardState.IsKeyDown(Keys.W))
             {

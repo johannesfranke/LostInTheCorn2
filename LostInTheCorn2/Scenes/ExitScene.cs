@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using LostInTheCorn;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -12,28 +13,22 @@ namespace LostInTheCorn2.Scenes
 {
     internal class ExitScene:IScene
     {
-        private SceneManager sceneManager;
         private ContentManager contentManager;
         GraphicsDevice graphicsDevice;
         GameWindow window;
-        KeyboardHelper keyboardHelper;
 
-        public ExitScene(ContentManager contentManager, GraphicsDevice graphicsDevice, GameWindow window, SceneManager sceneManager, KeyboardHelper keyboardHelper) {
-            this.contentManager = contentManager;
-            this.graphicsDevice = graphicsDevice;
-            this.window = window;
-            this.sceneManager = sceneManager;
-            this.keyboardHelper = keyboardHelper;
+        public ExitScene() {
+            
         }
 
         public void Load()
         {
-
+            Game1.Instance.IsMouseVisible = true;
         }
         public void Update(GameTime gameTime) {
-            if (keyboardHelper.IsKeyPressed(Keys.Escape))
+            if (Globals.keyboardHelper.IsKeyPressed(Keys.Escape))
             {
-                sceneManager.RemoveScene();
+                Globals.sceneManager.RemoveScene();
             }
         }
         public void Draw(SpriteBatch _spriteBatch, GraphicsDevice graphicsDevice)
