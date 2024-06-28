@@ -3,9 +3,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
-using System.Linq.Expressions;
-using static System.Formats.Asn1.AsnWriter;
 
 namespace LostInTheCorn
 {
@@ -23,8 +20,6 @@ namespace LostInTheCorn
         public float MovementUnitsPerSecond { get; set; } = 30f;
 
         private Model penguin;
-        public Model WallCube;
-
 
         public Vector3 camInitPosition;
         public Vector3 initForward;
@@ -48,14 +43,14 @@ namespace LostInTheCorn
         protected override void Initialize()
         {
 
-            
-            initForward = new Vector3(1,0,0);
+
+            initForward = new Vector3(1, 0, 0);
             camInitPosition = new Vector3(10, 1, 0);
 
             startMapPos = new Vector3(4, 0, 0);
             sizeCube = 2; //weiß nicht was die actual größe von dem Cube ist (Größe ist geraten, lol)
-           
-           
+
+
 
 
             base.Initialize();
@@ -68,10 +63,8 @@ namespace LostInTheCorn
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             font = Content.Load<SpriteFont>("File");
-            
-            player = new Player("Main", new Vector3(0, 0, 0), this.Window);
-            WallCube = Content.Load<Model>(@"greenCube");
 
+            player = new Player("Main", new Vector3(0, 0, 0), this.Window);
             cam = new Camera(GraphicsDevice, this.Window);
 
             cam.CamPosition = camInitPosition;
@@ -82,6 +75,10 @@ namespace LostInTheCorn
 
             Map = new MapDrawer(cam, startMapPos, sizeCube);
             penguin = Content.Load<Model>("PenguinTextured");
+
+            Map.SetModels(
+                Content.Load<Model>("Wall"),
+                Content.Load<Model>("Floor"));
 
 
         }
@@ -101,13 +98,13 @@ namespace LostInTheCorn
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            
+
             //Werte als Sprites zum Testen
             _spriteBatch.Begin();
-            
-            _spriteBatch.DrawString(font, "camPos" + cam.camPosition, new Vector2(0, 2*120), Color.Black);
-            _spriteBatch.DrawString(font, "playerPos" + player.PlayerPosition, new Vector2(0, 2*135), Color.Black);
-            _spriteBatch.DrawString(font, "camForward" + cam.Forward, new Vector2(0, 2*150), Color.Black);
+
+            _spriteBatch.DrawString(font, "camPos" + cam.camPosition, new Vector2(0, 2 * 120), Color.Black);
+            _spriteBatch.DrawString(font, "playerPos" + player.PlayerPosition, new Vector2(0, 2 * 135), Color.Black);
+            _spriteBatch.DrawString(font, "camForward" + cam.Forward, new Vector2(0, 2 * 150), Color.Black);
             _spriteBatch.DrawString(font, "playerForward" + player.PlayerForward, new Vector2(0, 2 * 165), Color.Black);
 
             _spriteBatch.End();
