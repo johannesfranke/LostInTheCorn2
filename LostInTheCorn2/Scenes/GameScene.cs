@@ -93,7 +93,15 @@ namespace LostInTheCorn2.Scenes
         }
         public void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice){
 
-            graphicsDevice.Clear(Color.Blue);
+            graphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.CornflowerBlue, 1.0f, 0);
+
+            //depth buffer configuration
+            graphicsDevice.DepthStencilState = DepthStencilState.Default;
+
+            // Verändert die Transparenz der 3D Modelle
+            graphicsDevice.BlendState = BlendState.AlphaBlend;
+            graphicsDevice.DepthStencilState = DepthStencilState.Default;
+
 
             Map.DrawWorld(WallCube);
             player.Draw(penguin, cam, player.PlayerWorld);

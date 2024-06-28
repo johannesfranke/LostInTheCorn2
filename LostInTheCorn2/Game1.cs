@@ -15,7 +15,7 @@ namespace LostInTheCorn
     public class Game1 : Game
     {
 
-        private GraphicsDeviceManager _graphics;
+        public GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         //Camera cam;
         //Player player;
@@ -62,6 +62,9 @@ namespace LostInTheCorn
             //startMapPos = new Vector3(4, 0, 0);
             //sizeCube = 2; //weiß nicht was die actual größe von dem Cube ist (Größe ist geraten, lol)
 
+            _graphics.PreferredBackBufferHeight = 1080;
+            _graphics.PreferredBackBufferWidth = 1920;
+            _graphics.ApplyChanges();
 
 
 
@@ -91,10 +94,6 @@ namespace LostInTheCorn
             Globals.keyboardHelper.Update();
             Globals.sceneManager.GetCurrentScene().Update(gameTime);
 
-            ////Kamera und Spieler sollen geupdatet werden
-            //player.Update(gameTime);
-            //cam.Update(gameTime, player);
-
 
             base.Update(gameTime);
         }
@@ -104,16 +103,18 @@ namespace LostInTheCorn
             //GraphicsDevice.Clear(Color.CornflowerBlue);
 
             //Werte als Sprites zum Testen
-            Globals.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
-
             sceneManager.GetCurrentScene().Draw(_spriteBatch, GraphicsDevice);
+
+
+            //Globals.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+
 
             //_spriteBatch.DrawString(font, "camPos" + cam.camPosition, new Vector2(0, 2*120), Color.Black);
             //_spriteBatch.DrawString(font, "playerPos" + player.PlayerPosition, new Vector2(0, 2*135), Color.Black);
             //_spriteBatch.DrawString(font, "camForward" + cam.Forward, new Vector2(0, 2*150), Color.Black);
             //_spriteBatch.DrawString(font, "playerForward" + player.PlayerForward, new Vector2(0, 2 * 165), Color.Black);
 
-            Globals.spriteBatch.End();
+            //Globals.spriteBatch.End();
 
             base.Draw(gameTime);
         }
