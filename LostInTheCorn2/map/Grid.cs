@@ -1,9 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LostInTheCorn2.map
 {
@@ -14,7 +11,7 @@ namespace LostInTheCorn2.map
         public int RowsOfGrid { get; set; }
         private List<List<int>> Rows { get; set; }
 
-        public List<Matrix> Positions { get; set; }
+        public List<PositionInfo> Positions { get; set; }
 
         public Grid()
         {
@@ -35,9 +32,9 @@ namespace LostInTheCorn2.map
             RowsOfGrid++;
         }
 
-        public void SetPositions(Vector3 startPositionMap, int sizeCube)
+        public void SetPositions(Vector3 startPositionMap, float sizeCube)
         {
-            Positions = new List<Matrix>();
+            Positions = new List<PositionInfo>();
 
             float x = startPositionMap.X;
             float y = startPositionMap.Y;
@@ -46,11 +43,9 @@ namespace LostInTheCorn2.map
             {
                 foreach (var field in row)
                 {
-                    if (field == 1)
-                    {
-                        var cubeWorld = Matrix.CreateWorld(new Vector3(x, y, z), Vector3.Forward, Vector3.Up);
-                        Positions.Add(cubeWorld);
-                    }
+                    var worldOfDrawing = Matrix.CreateWorld(new Vector3(x, y, z), Vector3.Forward, Vector3.Up);
+                    var positionInfo = new PositionInfo(worldOfDrawing, field);
+                    Positions.Add(positionInfo);
 
                     x = (x >= 0) ? x + sizeCube : x - sizeCube;
                 }

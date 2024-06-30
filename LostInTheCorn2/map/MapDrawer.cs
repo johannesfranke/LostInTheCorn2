@@ -1,22 +1,20 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using LostInTheCorn;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LostInTheCorn;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace LostInTheCorn2.map
 {
-    internal class MapDrawer
+    public class MapDrawer
     {
         //TODO: Kamera austauschen mit richtiger Cam
         private Camera Cam;
 
         private Grid Grid;
 
-        public MapDrawer(Camera cam, Vector3 startMap, int sizeCube)
+        private Model Wall;
+        private Model PlaneFloor;
+
+        public MapDrawer(Camera cam, Vector3 startMap, float sizeCube)
         {
             //Setzen des Grids und der Position in Grid-Klasse
             Grid = Grid.SetGrid();
@@ -25,18 +23,29 @@ namespace LostInTheCorn2.map
             this.Cam = cam;
         }
 
-
-        public void DrawWorld(Model wallCube)
+        public void SetModels(Model wall, Model planeFloor)
+        {
+            //setzen Models vor dem drawen
+            Wall = wall;
+            PlaneFloor = planeFloor;
+        }
+        public void DrawWorld()
         {
             foreach (var pos in Grid.Positions)
             {
-                drawCube(wallCube, pos);
+                if (pos.Info == WhatToDraw.PlaneFloor)
+                {
+                    drawModel(PlaneFloor, pos.Position);
+                }
+                else if (pos.Info == WhatToDraw.Wall)
+                {
+                    drawModel(Wall, pos.Position);
+                }
             }
         }
-
-        private void drawCube(Model wallCube, Matrix pos)
+        public void drawModel(Model model, Matrix pos)
         {
-            foreach (var mesh in wallCube.Meshes)
+            foreach (var mesh in model.Meshes)
             {
                 foreach (BasicEffect effect in mesh.Effects)
                 {
