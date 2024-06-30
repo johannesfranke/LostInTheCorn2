@@ -14,6 +14,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System.Text;
 using LostInTheCorn2.Scenes;
+using LostInTheCorn2.UIClasses;
 #endregion
 
 
@@ -38,6 +39,10 @@ namespace LostInTheCorn2
         public static GameWindow gameWindow;
 
         public static GraphicsDeviceManager graphicsDeviceManager;
+
+        public static ButtonActions buttonActions;
+
+        public static SpriteFont font;
 
         public static float GetDistance(Vector2 pos, Vector2 target)
         {

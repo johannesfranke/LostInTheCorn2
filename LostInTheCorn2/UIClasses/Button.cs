@@ -19,7 +19,7 @@ using LostInTheCorn2;
 
 namespace LostInTheCorn2
 {
-    public class Button2d : Animated2d
+    public class Button : Animated2d
     {
 
         public bool isPressed, isHovered;
@@ -32,7 +32,7 @@ namespace LostInTheCorn2
         public Action OnClickAction;
 
 
-        public Button2d(string PATH, Vector2 POS, Vector2 DIMS, Vector2 FRAMES, string FONTPATH, string TEXT, Action onClickAction = null)
+        public Button(string PATH, Vector2 POS, Vector2 DIMS, Vector2 FRAMES, string FONTPATH, string TEXT, Action onClickAction = null)
             : base(PATH, POS, DIMS, FRAMES, Color.White)
         {
             text = TEXT;
@@ -45,8 +45,7 @@ namespace LostInTheCorn2
             isPressed = false;
             hoverColor = new Color(200, 230, 255);
 
-            CreatePerFrameAnimations();
-            frameAnimations = true;
+            
             OnClickAction = onClickAction;
 
         }
@@ -106,14 +105,6 @@ namespace LostInTheCorn2
             {
                 tempColor = hoverColor;
             }
-
-
-            Globals.basicEffect.Parameters["xSize"].SetValue((float)myModel.Bounds.Width);
-            Globals.basicEffect.Parameters["ySize"].SetValue((float)myModel.Bounds.Height);
-            Globals.basicEffect.Parameters["xDraw"].SetValue((float)((int)dims.X));
-            Globals.basicEffect.Parameters["yDraw"].SetValue((float)((int)dims.Y));
-            Globals.basicEffect.Parameters["filterColor"].SetValue(tempColor.ToVector4());
-            Globals.basicEffect.CurrentTechnique.Passes[0].Apply();
 
             base.Draw(OFFSET);
 

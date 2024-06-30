@@ -30,6 +30,8 @@ namespace LostInTheCorn2.Scenes
 
         GraphicsDeviceManager graphicsDeviceManager;
 
+        Button startGameButton; 
+
         
 
         public StartMenu()
@@ -48,8 +50,11 @@ namespace LostInTheCorn2.Scenes
 
             //muss noch angepasst werden be
             screenRectangle = new Rectangle(0, 0, Globals.graphicsDevice.Viewport.Width, Globals.graphicsDevice.Viewport.Height);
+            SpriteFont font = Globals.contentManager.Load<SpriteFont>("StandardFont");
+            Globals.font = font;
 
 
+            startGameButton = new Button("startButton", new Vector2(100, 100), new Vector2(100, 100), new Vector2(100, 100), "", "Start", Globals.buttonActions.startGame);
             //uIManager = new UIClasses.UIManager(graphicsDevice);
             //Texture2D startButton_Texture = Globals.contentManager.Load<Texture2D>("startButton");
 
@@ -61,6 +66,7 @@ namespace LostInTheCorn2.Scenes
             {
                 Globals.sceneManager.AddScene(new GameScene(this.contentManager, this.graphicsDevice, this.window, sceneManager, keyboardHelper));
             }
+            startGameButton.Update(new Vector2(100,100));
         }
         public void Draw(SpriteBatch _spriteBatch, GraphicsDevice graphicsDevice)
         {
@@ -82,7 +88,16 @@ namespace LostInTheCorn2.Scenes
 
             Globals.spriteBatch.Begin();
             //Wird später rausgenommen, sodass man den aktuellen Spielstand sieht
-            Globals.spriteBatch.Draw(renderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            //Globals.spriteBatch.Draw(renderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            Globals.spriteBatch.DrawString(Globals.font ,"isHovered" + startGameButton.isHovered, new Vector2(0, 2*120), Color.Black);
+            Globals.spriteBatch.DrawString(Globals.font, "mousePos: " + Globals.mouseHelper.newMousePos, new Vector2(0, 1*120), Color.White);
+            Globals.spriteBatch.DrawString(Globals.font, "isPressed: " + startGameButton.isPressed, new Vector2(0, 3 * 120), Color.White);
+            Globals.spriteBatch.DrawString(Globals.font, "leftclick: " + Globals.mouseHelper.newMouse.LeftButton, new Vector2(0, 4 * 120), Color.White);
+            Globals.spriteBatch.DrawString(Globals.font, "buttonAction" + startGameButton.OnClickAction, new Vector2(0, 5 * 120), Color.White);
+
+
+
+            startGameButton.Draw(new Vector2(100,100));
 
             Globals.spriteBatch.End();
             

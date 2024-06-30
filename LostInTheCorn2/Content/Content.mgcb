@@ -25,13 +25,6 @@
 /processorParam:TextureFormat=Color
 /build:backGroundFloor.jpg
 
-#begin File.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:File.spritefont
-
 #begin greenCube.fbx
 /importer:FbxImporter
 /processor:ModelProcessor
@@ -77,7 +70,7 @@
 /processorParam:RotationX=0
 /processorParam:RotationY=90
 /processorParam:RotationZ=0
-/processorParam:Scale=0.4
+/processorParam:Scale=0.25
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:PenguinTextured.fbx
@@ -100,6 +93,13 @@
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:ShrimpleWallOneSquareHole.fbx
+
+#begin StandardFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:StandardFont.spritefont
 
 #begin startButton.png
 /importer:TextureImporter

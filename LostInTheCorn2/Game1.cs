@@ -1,6 +1,7 @@
 ﻿using LostInTheCorn2;
 using LostInTheCorn2.map;
 using LostInTheCorn2.Scenes;
+using LostInTheCorn2.UIClasses;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -22,7 +23,9 @@ namespace LostInTheCorn
         //private MapDrawer Map;
 
 
-        private SpriteFont font;
+        //private SpriteFont font;
+        private BasicEffect basicEffect;
+        private ButtonActions buttonActions;
         //public float MovementUnitsPerSecond { get; set; } = 30f;
 
         //private Model penguin;
@@ -37,6 +40,7 @@ namespace LostInTheCorn
 
         private SceneManager sceneManager;
         KeyboardHelper keyboardHelper;
+        MouseHelper mouseHelper;
 
         public static Game1 Instance { get; private set; }
 
@@ -49,7 +53,11 @@ namespace LostInTheCorn
             IsMouseVisible = true;
             _graphics.IsFullScreen = false;
             keyboardHelper = new KeyboardHelper();
+            mouseHelper = new MouseHelper();
             Instance = this;
+            
+            
+            buttonActions = new ButtonActions();
         }
 
         protected override void Initialize()
@@ -75,13 +83,18 @@ namespace LostInTheCorn
         {
             Content = new ContentManager(this.Services, "Content");
 
+
+
             Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
             Globals.contentManager = this.Content;
             Globals.keyboardHelper = this.keyboardHelper;
+            Globals.mouseHelper = this.mouseHelper;
             Globals.sceneManager = this.sceneManager;
             Globals.graphicsDevice = this.GraphicsDevice;
             Globals.gameWindow = this.Window;
-           
+            Globals.buttonActions = this.buttonActions;
+            Globals.basicEffect = new BasicEffect(Globals.graphicsDevice);
+            //Globals.font = this.font;
 
             Globals.sceneManager.AddScene(new StartMenu());
 
@@ -92,6 +105,7 @@ namespace LostInTheCorn
         {
 
             Globals.keyboardHelper.Update();
+            Globals.mouseHelper.Update();
             Globals.sceneManager.GetCurrentScene().Update(gameTime);
 
 
