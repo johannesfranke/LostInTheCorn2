@@ -1,18 +1,16 @@
 ﻿using LostInTheCorn;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace LostInTheCorn2.map
 {
     public class MapDrawer
     {
-        //TODO: Kamera austauschen mit richtiger Cam
         private Camera Cam;
 
         private Grid Grid;
-
-        private Model Wall;
-        private Model PlaneFloor;
+        private Dictionary<int, Model> ModelsWithEnumInfo { get; set; } = new Dictionary<int, Model> { };
 
         public MapDrawer(Camera cam, Vector3 startMap, float sizeCube)
         {
@@ -23,23 +21,26 @@ namespace LostInTheCorn2.map
             this.Cam = cam;
         }
 
-        public void SetModels(Model wall, Model planeFloor)
+
+        public void SetModelWithEnum(int key, Model value)
         {
-            //setzen Models vor dem drawen
-            Wall = wall;
-            PlaneFloor = planeFloor;
+            ModelsWithEnumInfo.TryAdd(key, value);
         }
+
         public void DrawWorld()
         {
             foreach (var pos in Grid.Positions)
             {
-                if (pos.Info == WhatToDraw.PlaneFloor)
+                switch (pos.Info)
                 {
-                    drawModel(PlaneFloor, pos.Position);
-                }
-                else if (pos.Info == WhatToDraw.Wall)
-                {
-                    drawModel(Wall, pos.Position);
+                    case WhatToDraw.PlaneFloor:
+                        drawModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position);
+                        break;
+                    case WhatToDraw.Wall:
+                        drawModel(ModelsWithEnumInfo.GetValueOrDefault(1), pos.Position);
+                        break;
+                    default:
+                        break;
                 }
             }
         }

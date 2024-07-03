@@ -58,15 +58,16 @@ namespace LostInTheCorn2.map
             //Change Grid here!
 
             Grid grid = new Grid();
-            var row9 = new List<int> { 1, 1, 1, 0, 0, 1, 1, 1, 1 };
-            var row8 = new List<int> { 1, 0, 0, 0, 0, 0, 1, 0, 1 };
-            var row7 = new List<int> { 1, 0, 0, 0, 0, 0, 1, 0, 1 };
-            var row6 = new List<int> { 1, 0, 0, 0, 1, 1, 1, 0, 1 };
-            var row5 = new List<int> { 1, 0, 0, 0, 0, 0, 1, 0, 1 };
-            var row4 = new List<int> { 1, 0, 0, 0, 0, 0, 1, 0, 1 };
-            var row3 = new List<int> { 1, 0, 0, 0, 0, 0, 0, 0, 1 };
-            var row2 = new List<int> { 1, 0, 0, 0, 0, 0, 0, 0, 1 };
-            var row1 = new List<int> { 1, 0, 0, 1, 1, 1, 1, 1, 1 };
+            var row10 = new List<int> { 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1 };
+            var row9 = new List<int> { 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1 };
+            var row8 = new List<int> { 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1 };
+            var row7 = new List<int> { 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1 };
+            var row6 = new List<int> { 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1 };
+            var row5 = new List<int> { 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1 };
+            var row4 = new List<int> { 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1 };
+            var row3 = new List<int> { 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1 };
+            var row2 = new List<int> { 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1 };
+            var row1 = new List<int> { 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1 };
 
             grid.AddRow(row1);
             grid.AddRow(row2);
@@ -79,6 +80,7 @@ namespace LostInTheCorn2.map
             grid.AddRow(row7);
             grid.AddRow(row8);
             grid.AddRow(row9);
+            grid.AddRow(row10);
             return grid;
         }
     }

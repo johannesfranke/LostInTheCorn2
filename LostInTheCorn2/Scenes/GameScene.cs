@@ -67,9 +67,8 @@ namespace LostInTheCorn2.Scenes
             sizeCube = 13.18f; //weiß nicht was die actual größe von dem Cube ist (Größe ist geraten, lol)
             Map = new MapDrawer(cam, startMapPos, sizeCube);
 
-            Map.SetModels(
-                Globals.contentManager.Load<Model>("Corn"),
-                Globals.contentManager.Load<Model>("Floor"));
+            Map.SetModelWithEnum(0, Globals.contentManager.Load<Model>("PlaneFloor"));
+            Map.SetModelWithEnum(1, Globals.contentManager.Load<Model>("Corn"));
         }
 
         public void Update(GameTime gameTime)
