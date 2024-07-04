@@ -91,9 +91,9 @@ internal class Grid
     }
     public static Matrix rotateRandom(Matrix position)
     {
-        var random = new Random(DateTime.Now.Millisecond);
+        var random = new Random();
         var numBetweenZeroAndTwo = random.Next(0, 3);
-        var angle = 1 * numBetweenZeroAndTwo;
+        var angle = (float)(numBetweenZeroAndTwo * Math.PI / 2.0);
         var rotationMatrix = Matrix.CreateFromAxisAngle(position.Up, angle);
         return rotationMatrix * position;
     }
