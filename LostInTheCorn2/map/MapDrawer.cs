@@ -1,4 +1,5 @@
 ﻿using LostInTheCorn;
+using LostInTheCorn2.ModelFunction;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -34,27 +35,13 @@ namespace LostInTheCorn2.map
                 switch (pos.Info)
                 {
                     case WhatToDraw.PlaneFloor:
-                        drawModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position);
+                        Drawable.drawModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
                         break;
                     case WhatToDraw.Wall:
-                        drawModel(ModelsWithEnumInfo.GetValueOrDefault(1), pos.Position);
+                        Drawable.drawModel(ModelsWithEnumInfo.GetValueOrDefault(1), pos.Position, Cam);
                         break;
                     default:
                         break;
-                }
-            }
-        }
-        public void drawModel(Model model, Matrix pos)
-        {
-            foreach (var mesh in model.Meshes)
-            {
-                foreach (BasicEffect effect in mesh.Effects)
-                {
-                    effect.EnableDefaultLighting();
-                    effect.View = Cam.View;
-                    effect.World = pos;
-                    effect.Projection = Cam.Projection;
-                    mesh.Draw();
                 }
             }
         }
