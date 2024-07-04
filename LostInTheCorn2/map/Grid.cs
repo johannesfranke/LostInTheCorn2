@@ -1,9 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LostInTheCorn2.map
 {
@@ -14,7 +11,7 @@ namespace LostInTheCorn2.map
         public int RowsOfGrid { get; set; }
         private List<List<int>> Rows { get; set; }
 
-        public List<Matrix> Positions { get; set; }
+        public List<PositionInfo> Positions { get; set; }
 
         public Grid()
         {
@@ -35,9 +32,9 @@ namespace LostInTheCorn2.map
             RowsOfGrid++;
         }
 
-        public void SetPositions(Vector3 startPositionMap, int sizeCube)
+        public void SetPositions(Vector3 startPositionMap, float sizeCube)
         {
-            Positions = new List<Matrix>();
+            Positions = new List<PositionInfo>();
 
             float x = startPositionMap.X;
             float y = startPositionMap.Y;
@@ -46,11 +43,9 @@ namespace LostInTheCorn2.map
             {
                 foreach (var field in row)
                 {
-                    if (field == 1)
-                    {
-                        var cubeWorld = Matrix.CreateWorld(new Vector3(x, y, z), Vector3.Forward, Vector3.Up);
-                        Positions.Add(cubeWorld);
-                    }
+                    var worldOfDrawing = Matrix.CreateWorld(new Vector3(x, y, z), Vector3.Forward, Vector3.Up);
+                    var positionInfo = new PositionInfo(worldOfDrawing, field);
+                    Positions.Add(positionInfo);
 
                     x = (x >= 0) ? x + sizeCube : x - sizeCube;
                 }
@@ -63,15 +58,16 @@ namespace LostInTheCorn2.map
             //Change Grid here!
 
             Grid grid = new Grid();
-            var row9 = new List<int> { 1, 1, 1, 0, 0, 1, 1, 1, 1 };
-            var row8 = new List<int> { 1, 0, 0, 0, 0, 0, 1, 0, 1 };
-            var row7 = new List<int> { 1, 0, 0, 0, 0, 0, 1, 0, 1 };
-            var row6 = new List<int> { 1, 0, 0, 0, 1, 1, 1, 0, 1 };
-            var row5 = new List<int> { 1, 0, 0, 0, 0, 0, 1, 0, 1 };
-            var row4 = new List<int> { 1, 0, 0, 0, 0, 0, 1, 0, 1 };
-            var row3 = new List<int> { 1, 0, 0, 0, 0, 0, 0, 0, 1 };
-            var row2 = new List<int> { 1, 0, 0, 0, 0, 0, 0, 0, 1 };
-            var row1 = new List<int> { 1, 0, 0, 1, 1, 1, 1, 1, 1 };
+            var row10 = new List<int> { 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1 };
+            var row9 = new List<int> { 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1 };
+            var row8 = new List<int> { 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1 };
+            var row7 = new List<int> { 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1 };
+            var row6 = new List<int> { 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1 };
+            var row5 = new List<int> { 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1 };
+            var row4 = new List<int> { 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1 };
+            var row3 = new List<int> { 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1 };
+            var row2 = new List<int> { 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1 };
+            var row1 = new List<int> { 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1 };
 
             grid.AddRow(row1);
             grid.AddRow(row2);
@@ -84,6 +80,7 @@ namespace LostInTheCorn2.map
             grid.AddRow(row7);
             grid.AddRow(row8);
             grid.AddRow(row9);
+            grid.AddRow(row10);
             return grid;
         }
     }

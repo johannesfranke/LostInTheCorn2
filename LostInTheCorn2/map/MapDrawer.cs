@@ -1,22 +1,18 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using LostInTheCorn;
 using Microsoft.Xna.Framework;
-using System;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LostInTheCorn;
 
 namespace LostInTheCorn2.map
 {
-    internal class MapDrawer
+    public class MapDrawer
     {
-        //TODO: Kamera austauschen mit richtiger Cam
         private Camera Cam;
 
         private Grid Grid;
+        private Dictionary<int, Model> ModelsWithEnumInfo { get; set; } = new Dictionary<int, Model> { };
 
-        public MapDrawer(Camera cam, Vector3 startMap, int sizeCube)
+        public MapDrawer(Camera cam, Vector3 startMap, float sizeCube)
         {
             //Setzen des Grids und der Position in Grid-Klasse
             Grid = Grid.SetGrid();
@@ -26,17 +22,31 @@ namespace LostInTheCorn2.map
         }
 
 
-        public void DrawWorld(Model wallCube)
+        public void SetModelWithEnum(int key, Model value)
+        {
+            ModelsWithEnumInfo.TryAdd(key, value);
+        }
+
+        public void DrawWorld()
         {
             foreach (var pos in Grid.Positions)
             {
-                drawCube(wallCube, pos);
+                switch (pos.Info)
+                {
+                    case WhatToDraw.PlaneFloor:
+                        drawModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position);
+                        break;
+                    case WhatToDraw.Wall:
+                        drawModel(ModelsWithEnumInfo.GetValueOrDefault(1), pos.Position);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
-
-        private void drawCube(Model wallCube, Matrix pos)
+        public void drawModel(Model model, Matrix pos)
         {
-            foreach (var mesh in wallCube.Meshes)
+            foreach (var mesh in model.Meshes)
             {
                 foreach (BasicEffect effect in mesh.Effects)
                 {
