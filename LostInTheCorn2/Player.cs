@@ -1,6 +1,5 @@
 ﻿using LostInTheCorn2.Globals;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 
@@ -112,23 +111,6 @@ namespace LostInTheCorn
             var radians = amount * -RotationRadiansPerSecond * (float)gameTime.ElapsedGameTime.TotalSeconds;
             Matrix matrix = Matrix.CreateFromAxisAngle(playerWorld.Up, MathHelper.ToRadians(radians));
             PlayerForward = Vector3.TransformNormal(PlayerForward, matrix);
-        }
-
-
-        public void Draw(Model model, Camera cam, Matrix objectWorld)
-        {
-            foreach (ModelMesh mesh in model.Meshes)
-            {
-                foreach (BasicEffect effect in mesh.Effects)
-                {
-                    effect.World = objectWorld;
-                    effect.View = cam.View;
-                    effect.Projection = cam.Projection;
-
-
-                }
-                mesh.Draw();
-            }
         }
     }
 }

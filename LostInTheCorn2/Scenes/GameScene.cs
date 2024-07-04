@@ -1,6 +1,7 @@
 ﻿using LostInTheCorn;
 using LostInTheCorn2.Globals;
 using LostInTheCorn2.map;
+using LostInTheCorn2.ModelFunction;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -81,7 +82,7 @@ namespace LostInTheCorn2.Scenes
 
 
             Map.DrawWorld();
-            player.Draw(penguin, cam, player.PlayerWorld);
+            Drawable.drawModel(penguin, player.PlayerWorld, cam);
         }
     }
 }
