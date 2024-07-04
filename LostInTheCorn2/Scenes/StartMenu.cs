@@ -26,7 +26,7 @@ namespace LostInTheCorn2.Scenes
 
             Game1.Instance.IsMouseVisible = true;
             renderTarget = new RenderTarget2D(Visuals.GraphicsDevice, 1920, 1080);
-            startScreen = XXXXXXXXGlobals.ContentManager.Load<Texture2D>("LostInTheCornScreen");
+            startScreen = Functional.ContentManager.Load<Texture2D>("LostInTheCornScreen");
 
 
             //muss noch angepasst werden be
@@ -40,7 +40,7 @@ namespace LostInTheCorn2.Scenes
         }
         public void Update(GameTime gameTime)
         {
-            if (XXXXXXXXGlobals.KeyboardHelper.IsKeyPressed(Keys.W))
+            if (Functional.KeyboardHelper.IsKeyPressed(Keys.W))
             {
                 Visuals.SceneManager.AddScene(new GameScene());
                 // Graphics device aus game1 hinzufügen

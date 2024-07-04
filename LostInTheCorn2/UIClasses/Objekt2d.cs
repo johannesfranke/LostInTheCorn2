@@ -21,7 +21,7 @@ namespace LostInTheCorn2
             dims = new Vector2(DIMS.X, DIMS.Y);
             rot = 0.0f;
 
-            myModel = XXXXXXXXGlobals.ContentManager.Load<Texture2D>(PATH);
+            myModel = Functional.ContentManager.Load<Texture2D>(PATH);
         }
 
         public virtual void Update(Vector2 OFFSET)
@@ -36,7 +36,7 @@ namespace LostInTheCorn2
 
         public virtual bool HoverImg(Vector2 OFFSET)
         {
-            Vector2 mousePos = new Vector2(XXXXXXXXGlobals.mouseHelper.newMousePos.X, XXXXXXXXGlobals.mouseHelper.newMousePos.Y);
+            Vector2 mousePos = new Vector2(Functional.mouseHelper.newMousePos.X, Functional.mouseHelper.newMousePos.Y);
 
             if (mousePos.X >= (pos.X + OFFSET.X) - dims.X / 2 && mousePos.X <= (pos.X + OFFSET.X) + dims.X / 2 && mousePos.Y >= (pos.Y + OFFSET.Y) - dims.Y / 2 && mousePos.Y <= (pos.Y + OFFSET.Y) + dims.Y / 2)
             {

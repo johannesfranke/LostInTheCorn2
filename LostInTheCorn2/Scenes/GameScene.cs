@@ -40,7 +40,7 @@ namespace LostInTheCorn2.Scenes
 
             player = new Player("Main", new Vector3(0, 0, 0));
             player.PlayerForward = initForward;
-            penguin = XXXXXXXXGlobals.ContentManager.Load<Model>("PenguinTextured");
+            penguin = Functional.ContentManager.Load<Model>("PenguinTextured");
 
             cam = new Camera();
             cam.CamPosition = camInitPosition;
@@ -51,15 +51,15 @@ namespace LostInTheCorn2.Scenes
             sizeCube = 13.18f; //weiß nicht was die actual größe von dem Cube ist (Größe ist geraten, lol)
             Map = new MapDrawer(cam, startMapPos, sizeCube);
 
-            Map.SetModelWithEnum(0, XXXXXXXXGlobals.ContentManager.Load<Model>("PlaneFloor"));
-            Map.SetModelWithEnum(1, XXXXXXXXGlobals.ContentManager.Load<Model>("Corn"));
+            Map.SetModelWithEnum(0, Functional.ContentManager.Load<Model>("PlaneFloor"));
+            Map.SetModelWithEnum(1, Functional.ContentManager.Load<Model>("Corn"));
         }
 
         public void Update(GameTime gameTime)
         {
 
 
-            if (XXXXXXXXGlobals.KeyboardHelper.IsKeyPressed(Keys.Escape))
+            if (Functional.KeyboardHelper.IsKeyPressed(Keys.Escape))
             {
                 Visuals.SceneManager.AddScene(new ExitScene());
             }

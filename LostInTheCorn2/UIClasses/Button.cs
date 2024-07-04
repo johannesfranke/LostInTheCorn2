@@ -28,7 +28,7 @@ namespace LostInTheCorn2
 
             if (FONTPATH != "")
             {
-                font = XXXXXXXXGlobals.ContentManager.Load<SpriteFont>(FONTPATH);
+                font = Functional.ContentManager.Load<SpriteFont>(FONTPATH);
             }
 
             isPressed = false;
@@ -46,12 +46,12 @@ namespace LostInTheCorn2
             {
                 isHovered = true;
 
-                if (XXXXXXXXGlobals.mouseHelper.LeftClick())
+                if (Functional.mouseHelper.LeftClick())
                 {
                     isHovered = false;
                     isPressed = true;
                 }
-                else if (XXXXXXXXGlobals.mouseHelper.LeftClickRelease())
+                else if (Functional.mouseHelper.LeftClickRelease())
                 {
                     RunBtnClick();
                 }
@@ -62,7 +62,7 @@ namespace LostInTheCorn2
                 isHovered = false;
             }
 
-            if (!XXXXXXXXGlobals.mouseHelper.LeftClick() && !XXXXXXXXGlobals.mouseHelper.LeftClickHold())
+            if (!Functional.mouseHelper.LeftClick() && !Functional.mouseHelper.LeftClickHold())
             {
                 isPressed = false;
             }

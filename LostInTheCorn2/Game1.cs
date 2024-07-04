@@ -47,8 +47,8 @@ namespace LostInTheCorn
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             Visuals.SetSpriteBatch(this._spriteBatch);
-            XXXXXXXXGlobals.SetContentManager(Content);
-            XXXXXXXXGlobals.SetKeyboardHelper(keyboardHelper);
+            Functional.SetContentManager(Content);
+            Functional.SetKeyboardHelper(keyboardHelper);
             Visuals.SetSceneManager(sceneManager);
             Visuals.SetGraphicsDevice(GraphicsDevice);
             Visuals.SetGameWindow(Window);
@@ -62,7 +62,7 @@ namespace LostInTheCorn
         protected override void Update(GameTime gameTime)
         {
 
-            XXXXXXXXGlobals.KeyboardHelper.Update();
+            Functional.KeyboardHelper.Update();
             Visuals.SceneManager.GetCurrentScene().Update(gameTime);
 
 
