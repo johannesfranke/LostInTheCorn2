@@ -44,6 +44,7 @@ namespace LostInTheCorn
 
         protected override void LoadContent()
         {
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
             XXXXXXXXGlobals.spriteBatch = new SpriteBatch(GraphicsDevice);
             XXXXXXXXGlobals.contentManager = this.Content;
             XXXXXXXXGlobals.keyboardHelper = this.keyboardHelper;
