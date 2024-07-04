@@ -42,12 +42,12 @@ namespace LostInTheCorn2
 
         public void UpdateTimer()
         {
-            timer += Globals.gameTime.ElapsedGameTime;
+            timer += XXXXXXXXGlobals.gameTime.ElapsedGameTime;
         }
 
         public void UpdateTimer(float SPEED)
         {
-            timer += TimeSpan.FromTicks((long)(Globals.gameTime.ElapsedGameTime.Ticks * SPEED));
+            timer += TimeSpan.FromTicks((long)(XXXXXXXXGlobals.gameTime.ElapsedGameTime.Ticks * SPEED));
         }
 
         public virtual void AddToTimer(int MSEC)

@@ -10,7 +10,7 @@ namespace LostInTheCorn2.Scenes
     {
         private SceneManager sceneManager;
         ContentManager contentManager;
-        GraphicsDevice graphicsDevice = Globals.graphicsDevice; // war die ganze Zeit vorher null
+        GraphicsDevice graphicsDevice = XXXXXXXXGlobals.graphicsDevice; // war die ganze Zeit vorher null
         GameWindow window;
         KeyboardHelper keyboardHelper;
 
@@ -27,7 +27,7 @@ namespace LostInTheCorn2.Scenes
 
         public StartMenu()
         {
-            contentManager = Globals.contentManager;
+            contentManager = XXXXXXXXGlobals.contentManager;
 
         }
 
@@ -35,12 +35,12 @@ namespace LostInTheCorn2.Scenes
         {
 
             Game1.Instance.IsMouseVisible = true;
-            renderTarget = new RenderTarget2D(Globals.graphicsDevice, 1920, 1080);
+            renderTarget = new RenderTarget2D(XXXXXXXXGlobals.graphicsDevice, 1920, 1080);
             startScreen = contentManager.Load<Texture2D>("LostInTheCornScreen");
 
 
             //muss noch angepasst werden be
-            screenRectangle = new Rectangle(0, 0, Globals.graphicsDevice.Viewport.Width, Globals.graphicsDevice.Viewport.Height);
+            screenRectangle = new Rectangle(0, 0, XXXXXXXXGlobals.graphicsDevice.Viewport.Width, XXXXXXXXGlobals.graphicsDevice.Viewport.Height);
 
 
             //uIManager = new UIClasses.UIManager(graphicsDevice);
@@ -50,9 +50,9 @@ namespace LostInTheCorn2.Scenes
         }
         public void Update(GameTime gameTime)
         {
-            if (Globals.keyboardHelper.IsKeyPressed(Keys.W))
+            if (XXXXXXXXGlobals.keyboardHelper.IsKeyPressed(Keys.W))
             {
-                Globals.sceneManager.AddScene(new GameScene(this.contentManager, this.graphicsDevice, this.window, sceneManager, keyboardHelper));
+                XXXXXXXXGlobals.sceneManager.AddScene(new GameScene(this.contentManager, this.graphicsDevice, this.window, sceneManager, keyboardHelper));
                 // Graphics device aus game1 hinzufügen
             }
         }
@@ -61,24 +61,24 @@ namespace LostInTheCorn2.Scenes
 
             scale = 1F / (1080F / graphicsDevice.Viewport.Height);
 
-            Globals.graphicsDevice.SetRenderTarget(renderTarget);
-            Globals.graphicsDevice.Clear(Color.CornflowerBlue);
+            XXXXXXXXGlobals.graphicsDevice.SetRenderTarget(renderTarget);
+            XXXXXXXXGlobals.graphicsDevice.Clear(Color.CornflowerBlue);
 
-            Globals.spriteBatch.Begin();
+            XXXXXXXXGlobals.spriteBatch.Begin();
 
-            Globals.spriteBatch.Draw(startScreen, screenRectangle, Color.White);
+            XXXXXXXXGlobals.spriteBatch.Draw(startScreen, screenRectangle, Color.White);
 
-            Globals.spriteBatch.End();
+            XXXXXXXXGlobals.spriteBatch.End();
 
-            Globals.graphicsDevice.SetRenderTarget(null);
-            Globals.graphicsDevice.Clear(Color.CornflowerBlue);
+            XXXXXXXXGlobals.graphicsDevice.SetRenderTarget(null);
+            XXXXXXXXGlobals.graphicsDevice.Clear(Color.CornflowerBlue);
 
 
-            Globals.spriteBatch.Begin();
+            XXXXXXXXGlobals.spriteBatch.Begin();
             //Wird später rausgenommen, sodass man den aktuellen Spielstand sieht
-            Globals.spriteBatch.Draw(renderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            XXXXXXXXGlobals.spriteBatch.Draw(renderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
 
-            Globals.spriteBatch.End();
+            XXXXXXXXGlobals.spriteBatch.End();
 
 
 

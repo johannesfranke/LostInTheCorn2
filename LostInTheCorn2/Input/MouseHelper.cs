@@ -84,7 +84,7 @@ namespace LostInTheCorn2
 
         public virtual float GetDistanceFromClick()
         {
-            return Globals.GetDistance(newMousePos, firstMousePos);
+            return XXXXXXXXGlobals.GetDistance(newMousePos, firstMousePos);
         }
 
         public virtual void GetMouseAndAdjust()
@@ -113,7 +113,7 @@ namespace LostInTheCorn2
 
         public virtual bool LeftClick()
         {
-            if (newMouse.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && oldMouse.LeftButton != Microsoft.Xna.Framework.Input.ButtonState.Pressed && newMouse.Position.X >= 0 && newMouse.Position.X <= Globals.screenWidth && newMouse.Position.Y >= 0 && newMouse.Position.Y <= Globals.screenHeight)
+            if (newMouse.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && oldMouse.LeftButton != Microsoft.Xna.Framework.Input.ButtonState.Pressed && newMouse.Position.X >= 0 && newMouse.Position.X <= XXXXXXXXGlobals.screenWidth && newMouse.Position.Y >= 0 && newMouse.Position.Y <= XXXXXXXXGlobals.screenHeight)
             {
                 return true;
             }
@@ -125,7 +125,7 @@ namespace LostInTheCorn2
         {
             bool holding = false;
 
-            if (newMouse.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && oldMouse.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && newMouse.Position.X >= 0 && newMouse.Position.X <= Globals.screenWidth && newMouse.Position.Y >= 0 && newMouse.Position.Y <= Globals.screenHeight)
+            if (newMouse.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && oldMouse.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && newMouse.Position.X >= 0 && newMouse.Position.X <= XXXXXXXXGlobals.screenWidth && newMouse.Position.Y >= 0 && newMouse.Position.Y <= XXXXXXXXGlobals.screenHeight)
             {
                 holding = true;
 
@@ -153,7 +153,7 @@ namespace LostInTheCorn2
 
         public virtual bool RightClick()
         {
-            if (newMouse.RightButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && oldMouse.RightButton != Microsoft.Xna.Framework.Input.ButtonState.Pressed && newMouse.Position.X >= 0 && newMouse.Position.X <= Globals.screenWidth && newMouse.Position.Y >= 0 && newMouse.Position.Y <= Globals.screenHeight)
+            if (newMouse.RightButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && oldMouse.RightButton != Microsoft.Xna.Framework.Input.ButtonState.Pressed && newMouse.Position.X >= 0 && newMouse.Position.X <= XXXXXXXXGlobals.screenWidth && newMouse.Position.Y >= 0 && newMouse.Position.Y <= XXXXXXXXGlobals.screenHeight)
             {
                 return true;
             }
@@ -165,7 +165,7 @@ namespace LostInTheCorn2
         {
             bool holding = false;
 
-            if (newMouse.RightButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && oldMouse.RightButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && newMouse.Position.X >= 0 && newMouse.Position.X <= Globals.screenWidth && newMouse.Position.Y >= 0 && newMouse.Position.Y <= Globals.screenHeight)
+            if (newMouse.RightButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && oldMouse.RightButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && newMouse.Position.X >= 0 && newMouse.Position.X <= XXXXXXXXGlobals.screenWidth && newMouse.Position.Y >= 0 && newMouse.Position.Y <= XXXXXXXXGlobals.screenHeight)
             {
                 holding = true;
 
