@@ -1,19 +1,8 @@
 ﻿#region Includes
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+using LostInTheCorn2.Globals;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-using System.Text;
-using LostInTheCorn2;
+using System;
 #endregion
 
 
@@ -39,7 +28,7 @@ namespace LostInTheCorn2
 
             if (FONTPATH != "")
             {
-                font = Globals.contentManager.Load<SpriteFont>(FONTPATH);
+                font = Functional.ContentManager.Load<SpriteFont>(FONTPATH);
             }
 
             isPressed = false;
@@ -57,12 +46,12 @@ namespace LostInTheCorn2
             {
                 isHovered = true;
 
-                if (Globals.mouseHelper.LeftClick())
+                if (Functional.mouseHelper.LeftClick())
                 {
                     isHovered = false;
                     isPressed = true;
                 }
-                else if (Globals.mouseHelper.LeftClickRelease())
+                else if (Functional.mouseHelper.LeftClickRelease())
                 {
                     RunBtnClick();
                 }
@@ -73,7 +62,7 @@ namespace LostInTheCorn2
                 isHovered = false;
             }
 
-            if (!Globals.mouseHelper.LeftClick() && !Globals.mouseHelper.LeftClickHold())
+            if (!Functional.mouseHelper.LeftClick() && !Functional.mouseHelper.LeftClickHold())
             {
                 isPressed = false;
             }
@@ -108,19 +97,19 @@ namespace LostInTheCorn2
             }
 
 
-            Globals.basicEffect.Parameters["xSize"].SetValue((float)myModel.Bounds.Width);
-            Globals.basicEffect.Parameters["ySize"].SetValue((float)myModel.Bounds.Height);
-            Globals.basicEffect.Parameters["xDraw"].SetValue((float)((int)dims.X));
-            Globals.basicEffect.Parameters["yDraw"].SetValue((float)((int)dims.Y));
-            Globals.basicEffect.Parameters["filterColor"].SetValue(tempColor.ToVector4());
-            Globals.basicEffect.CurrentTechnique.Passes[0].Apply();
+            Visuals.basicEffect.Parameters["xSize"].SetValue((float)myModel.Bounds.Width);
+            Visuals.basicEffect.Parameters["ySize"].SetValue((float)myModel.Bounds.Height);
+            Visuals.basicEffect.Parameters["xDraw"].SetValue((float)((int)dims.X));
+            Visuals.basicEffect.Parameters["yDraw"].SetValue((float)((int)dims.Y));
+            Visuals.basicEffect.Parameters["filterColor"].SetValue(tempColor.ToVector4());
+            Visuals.basicEffect.CurrentTechnique.Passes[0].Apply();
 
             base.Draw(OFFSET);
 
             if (font != null)
             {
                 Vector2 strDims = font.MeasureString(text);
-                Globals.spriteBatch.DrawString(font, text, pos + OFFSET + new Vector2(-strDims.X / 2, -strDims.Y / 2), Color.Black);
+                Visuals.SpriteBatch.DrawString(font, text, pos + OFFSET + new Vector2(-strDims.X / 2, -strDims.Y / 2), Color.Black);
             }
         }
     }

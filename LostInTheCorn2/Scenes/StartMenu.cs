@@ -1,6 +1,6 @@
 ﻿using LostInTheCorn;
+using LostInTheCorn2.Globals;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -8,12 +8,6 @@ namespace LostInTheCorn2.Scenes
 {
     internal class StartMenu : IScene
     {
-        private SceneManager sceneManager;
-        ContentManager contentManager;
-        GraphicsDevice graphicsDevice = Globals.graphicsDevice; // war die ganze Zeit vorher null
-        GameWindow window;
-        KeyboardHelper keyboardHelper;
-
         Texture2D startScreen;
         RenderTarget2D renderTarget;
 
@@ -21,13 +15,9 @@ namespace LostInTheCorn2.Scenes
 
         public float scale = 0.44444f;
 
-        GraphicsDeviceManager graphicsDeviceManager;
-
-
 
         public StartMenu()
         {
-            contentManager = Globals.contentManager;
 
         }
 
@@ -35,12 +25,12 @@ namespace LostInTheCorn2.Scenes
         {
 
             Game1.Instance.IsMouseVisible = true;
-            renderTarget = new RenderTarget2D(Globals.graphicsDevice, 1920, 1080);
-            startScreen = contentManager.Load<Texture2D>("LostInTheCornScreen");
+            renderTarget = new RenderTarget2D(Visuals.GraphicsDevice, 1920, 1080);
+            startScreen = Functional.ContentManager.Load<Texture2D>("LostInTheCornScreen");
 
 
             //muss noch angepasst werden be
-            screenRectangle = new Rectangle(0, 0, Globals.graphicsDevice.Viewport.Width, Globals.graphicsDevice.Viewport.Height);
+            screenRectangle = new Rectangle(0, 0, Visuals.GraphicsDevice.Viewport.Width, Visuals.GraphicsDevice.Viewport.Height);
 
 
             //uIManager = new UIClasses.UIManager(graphicsDevice);
@@ -50,35 +40,35 @@ namespace LostInTheCorn2.Scenes
         }
         public void Update(GameTime gameTime)
         {
-            if (Globals.keyboardHelper.IsKeyPressed(Keys.W))
+            if (Functional.KeyboardHelper.IsKeyPressed(Keys.W))
             {
-                Globals.sceneManager.AddScene(new GameScene(this.contentManager, this.graphicsDevice, this.window, sceneManager, keyboardHelper));
+                Visuals.SceneManager.AddScene(new GameScene());
                 // Graphics device aus game1 hinzufügen
             }
         }
-        public void Draw(SpriteBatch _spriteBatch, GraphicsDevice graphicsDevice)
+        public void Draw()
         {
 
-            scale = 1F / (1080F / graphicsDevice.Viewport.Height);
+            scale = 1F / (1080F / Visuals.GraphicsDevice.Viewport.Height);
 
-            Globals.graphicsDevice.SetRenderTarget(renderTarget);
-            Globals.graphicsDevice.Clear(Color.CornflowerBlue);
+            Visuals.GraphicsDevice.SetRenderTarget(renderTarget);
+            Visuals.GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            Globals.spriteBatch.Begin();
+            Visuals.SpriteBatch.Begin();
 
-            Globals.spriteBatch.Draw(startScreen, screenRectangle, Color.White);
+            Visuals.SpriteBatch.Draw(startScreen, screenRectangle, Color.White);
 
-            Globals.spriteBatch.End();
+            Visuals.SpriteBatch.End();
 
-            Globals.graphicsDevice.SetRenderTarget(null);
-            Globals.graphicsDevice.Clear(Color.CornflowerBlue);
+            Visuals.GraphicsDevice.SetRenderTarget(null);
+            Visuals.GraphicsDevice.Clear(Color.CornflowerBlue);
 
 
-            Globals.spriteBatch.Begin();
+            Visuals.SpriteBatch.Begin();
             //Wird später rausgenommen, sodass man den aktuellen Spielstand sieht
-            Globals.spriteBatch.Draw(renderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            Visuals.SpriteBatch.Draw(renderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
 
-            Globals.spriteBatch.End();
+            Visuals.SpriteBatch.End();
 
 
 

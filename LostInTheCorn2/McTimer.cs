@@ -1,12 +1,6 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
+﻿using LostInTheCorn2.Globals;
+using System;
 using System.Xml.Linq;
-using System.Text;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework;
-using LostInTheCorn2;
 
 namespace LostInTheCorn2
 {
@@ -42,12 +36,12 @@ namespace LostInTheCorn2
 
         public void UpdateTimer()
         {
-            timer += Globals.gameTime.ElapsedGameTime;
+            timer += Functional.gameTime.ElapsedGameTime;
         }
 
         public void UpdateTimer(float SPEED)
         {
-            timer += TimeSpan.FromTicks((long)(Globals.gameTime.ElapsedGameTime.Ticks * SPEED));
+            timer += TimeSpan.FromTicks((long)(Functional.gameTime.ElapsedGameTime.Ticks * SPEED));
         }
 
         public virtual void AddToTimer(int MSEC)

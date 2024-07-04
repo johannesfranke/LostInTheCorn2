@@ -1,48 +1,33 @@
-﻿using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+﻿using LostInTheCorn2.Globals;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Input;
 
 
 namespace LostInTheCorn2.Scenes
+{
+    internal class LoadingScene : IScene
     {
-        internal class LoadingScene : IScene
+
+        public LoadingScene()
         {
-            private SceneManager sceneManager;
-            private ContentManager contentManager;
-            GraphicsDevice graphicsDevice;
-            GameWindow window;
-            KeyboardHelper keyboardHelper;
 
-            public LoadingScene(ContentManager contentManager, GraphicsDevice graphicsDevice, GameWindow window, SceneManager sceneManager, KeyboardHelper keyboardHelper)
-            {
-                this.contentManager = contentManager;
-                this.graphicsDevice = graphicsDevice;
-                this.window = window;
-                this.sceneManager = sceneManager;
-                this.keyboardHelper = keyboardHelper;
-            }
+        }
 
-            public void Load()
-            {
+        public void Load()
+        {
 
-            }
-            public void Update(GameTime gameTime)
+        }
+        public void Update(GameTime gameTime)
+        {
+            if (Functional.KeyboardHelper.IsKeyPressed(Keys.Escape))
             {
-                if (keyboardHelper.IsKeyPressed(Keys.Escape))
-                {
-                    Globals.sceneManager.RemoveScene();
-                }
-            }
-            public void Draw(SpriteBatch _spriteBatch, GraphicsDevice graphicsDevice)
-            {
-                //Wird später rausgenommen, sodass man den aktuellen Spielstand sieht
-                graphicsDevice.Clear(Color.White);
+                Visuals.SceneManager.RemoveScene();
             }
         }
+        public void Draw()
+        {
+            //Wird später rausgenommen, sodass man den aktuellen Spielstand sieht
+            Visuals.GraphicsDevice.Clear(Color.White);
+        }
     }
+}
