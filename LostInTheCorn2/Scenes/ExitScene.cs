@@ -26,9 +26,9 @@ namespace LostInTheCorn2.Scenes
             Game1.Instance.IsMouseVisible = true;
         }
         public void Update(GameTime gameTime) {
-            if (XXXXXXXXGlobals.keyboardHelper.IsKeyPressed(Keys.Escape))
+            if (XXXXXXXXGlobals.KeyboardHelper.IsKeyPressed(Keys.Escape))
             {
-                XXXXXXXXGlobals.sceneManager.RemoveScene();
+                XXXXXXXXGlobals.SceneManager.RemoveScene();
             }
         }
         public void Draw(SpriteBatch _spriteBatch, GraphicsDevice graphicsDevice)

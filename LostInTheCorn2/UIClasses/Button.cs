@@ -39,7 +39,7 @@ namespace LostInTheCorn2
 
             if (FONTPATH != "")
             {
-                font = XXXXXXXXGlobals.contentManager.Load<SpriteFont>(FONTPATH);
+                font = XXXXXXXXGlobals.ContentManager.Load<SpriteFont>(FONTPATH);
             }
 
             isPressed = false;
@@ -120,7 +120,7 @@ namespace LostInTheCorn2
             if (font != null)
             {
                 Vector2 strDims = font.MeasureString(text);
-                XXXXXXXXGlobals.spriteBatch.DrawString(font, text, pos + OFFSET + new Vector2(-strDims.X / 2, -strDims.Y / 2), Color.Black);
+                XXXXXXXXGlobals.SpriteBatch.DrawString(font, text, pos + OFFSET + new Vector2(-strDims.X / 2, -strDims.Y / 2), Color.Black);
             }
         }
     }

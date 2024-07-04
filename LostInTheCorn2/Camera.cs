@@ -73,7 +73,7 @@ namespace LostInTheCorn
         //wird nur bei der Initialisierung verwendet
         public void ReCreateThePerspectiveProjectionMatrix(GraphicsDevice gd, float fovInDegrees)
         {
-            float aspectRatio = XXXXXXXXGlobals.graphicsDevice.Viewport.Width / (float)XXXXXXXXGlobals.graphicsDevice.Viewport.Height;
+            float aspectRatio = XXXXXXXXGlobals.GraphicsDevice.Viewport.Width / (float)XXXXXXXXGlobals.GraphicsDevice.Viewport.Height;
             projection = Matrix.CreatePerspectiveFieldOfView(fovInDegrees * (float)((3.14159265358f) / 180f), aspectRatio, .05f, 1000f);
         }
 
@@ -129,7 +129,7 @@ namespace LostInTheCorn
         public void Controls(GameTime gameTime, Player player)
         {
             KeyboardState keyboardState = Keyboard.GetState();
-            MouseState mouseState = Mouse.GetState(XXXXXXXXGlobals.gameWindow);
+            MouseState mouseState = Mouse.GetState(XXXXXXXXGlobals.GameWindow);
 
             if (keyboardState.IsKeyDown(Keys.W))
             {

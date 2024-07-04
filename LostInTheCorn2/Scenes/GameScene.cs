@@ -56,7 +56,7 @@ namespace LostInTheCorn2.Scenes
 
             player = new Player("Main", new Vector3(0, 0, 0), window);
             player.PlayerForward = initForward;
-            penguin = XXXXXXXXGlobals.contentManager.Load<Model>("PenguinTextured");
+            penguin = XXXXXXXXGlobals.ContentManager.Load<Model>("PenguinTextured");
 
             cam = new Camera(graphicsDevice, window);
             cam.CamPosition = camInitPosition;
@@ -67,17 +67,17 @@ namespace LostInTheCorn2.Scenes
             sizeCube = 13.18f; //weiß nicht was die actual größe von dem Cube ist (Größe ist geraten, lol)
             Map = new MapDrawer(cam, startMapPos, sizeCube);
 
-            Map.SetModelWithEnum(0, XXXXXXXXGlobals.contentManager.Load<Model>("PlaneFloor"));
-            Map.SetModelWithEnum(1, XXXXXXXXGlobals.contentManager.Load<Model>("Corn"));
+            Map.SetModelWithEnum(0, XXXXXXXXGlobals.ContentManager.Load<Model>("PlaneFloor"));
+            Map.SetModelWithEnum(1, XXXXXXXXGlobals.ContentManager.Load<Model>("Corn"));
         }
 
         public void Update(GameTime gameTime)
         {
 
 
-            if (XXXXXXXXGlobals.keyboardHelper.IsKeyPressed(Keys.Escape))
+            if (XXXXXXXXGlobals.KeyboardHelper.IsKeyPressed(Keys.Escape))
             {
-                XXXXXXXXGlobals.sceneManager.AddScene(new ExitScene());
+                XXXXXXXXGlobals.SceneManager.AddScene(new ExitScene());
             }
             //Kamera und Spieler sollen geupdatet werden
             player.Update(gameTime);

@@ -13,7 +13,7 @@ namespace LostInTheCorn
         private SpriteBatch _spriteBatch;
         private SpriteFont font;
         private SceneManager sceneManager;
-        KeyboardHelper keyboardHelper;
+        private KeyboardHelper keyboardHelper;
 
         public static Game1 Instance { get; private set; }
 
@@ -45,15 +45,15 @@ namespace LostInTheCorn
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            XXXXXXXXGlobals.spriteBatch = new SpriteBatch(GraphicsDevice);
-            XXXXXXXXGlobals.contentManager = this.Content;
-            XXXXXXXXGlobals.keyboardHelper = this.keyboardHelper;
-            XXXXXXXXGlobals.sceneManager = this.sceneManager;
-            XXXXXXXXGlobals.graphicsDevice = this.GraphicsDevice;
-            XXXXXXXXGlobals.gameWindow = this.Window;
+            XXXXXXXXGlobals.SetSpriteBatch(this._spriteBatch);
+            XXXXXXXXGlobals.SetContentManager(Content);
+            XXXXXXXXGlobals.SetKeyboardHelper(keyboardHelper);
+            XXXXXXXXGlobals.SetSceneManager(sceneManager);
+            XXXXXXXXGlobals.SetGraphicsDevice(GraphicsDevice);
+            XXXXXXXXGlobals.SetGameWindow(Window);
 
 
-            XXXXXXXXGlobals.sceneManager.AddScene(new StartMenu());
+            XXXXXXXXGlobals.SceneManager.AddScene(new StartMenu());
 
 
         }
@@ -61,8 +61,8 @@ namespace LostInTheCorn
         protected override void Update(GameTime gameTime)
         {
 
-            XXXXXXXXGlobals.keyboardHelper.Update();
-            XXXXXXXXGlobals.sceneManager.GetCurrentScene().Update(gameTime);
+            XXXXXXXXGlobals.KeyboardHelper.Update();
+            XXXXXXXXGlobals.SceneManager.GetCurrentScene().Update(gameTime);
 
 
             base.Update(gameTime);

@@ -83,7 +83,7 @@ namespace LostInTheCorn
         public void Controls(GameTime gameTime)
         {
             KeyboardState keyboardState = Keyboard.GetState();
-            MouseState mouseState = Mouse.GetState(XXXXXXXXGlobals.gameWindow);
+            MouseState mouseState = Mouse.GetState(XXXXXXXXGlobals.GameWindow);
            
             if(keyboardState.IsKeyDown(Keys.W))
             {

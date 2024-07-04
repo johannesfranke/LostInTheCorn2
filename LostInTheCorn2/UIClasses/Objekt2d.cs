@@ -32,7 +32,7 @@ namespace LostInTheCorn2
             dims = new Vector2(DIMS.X, DIMS.Y);
             rot = 0.0f;
 
-            myModel = XXXXXXXXGlobals.contentManager.Load<Texture2D>(PATH);
+            myModel = XXXXXXXXGlobals.ContentManager.Load<Texture2D>(PATH);
         }
 
         public virtual void Update(Vector2 OFFSET)
@@ -61,7 +61,7 @@ namespace LostInTheCorn2
         {
             if (myModel != null)
             {
-                XXXXXXXXGlobals.spriteBatch.Draw(myModel, new Rectangle((int)(pos.X + OFFSET.X), (int)(pos.Y + OFFSET.Y), (int)dims.X, (int)dims.Y), null, Color.White, rot, new Vector2(myModel.Bounds.Width / 2, myModel.Bounds.Height / 2), new SpriteEffects(), 0);
+                XXXXXXXXGlobals.SpriteBatch.Draw(myModel, new Rectangle((int)(pos.X + OFFSET.X), (int)(pos.Y + OFFSET.Y), (int)dims.X, (int)dims.Y), null, Color.White, rot, new Vector2(myModel.Bounds.Width / 2, myModel.Bounds.Height / 2), new SpriteEffects(), 0);
             }
         }
 
@@ -69,7 +69,7 @@ namespace LostInTheCorn2
         {
             if (myModel != null)
             {
-                XXXXXXXXGlobals.spriteBatch.Draw(myModel, new Rectangle((int)(pos.X + OFFSET.X), (int)(pos.Y + OFFSET.Y), (int)dims.X, (int)dims.Y), null, COLOR, rot, new Vector2(ORIGIN.X, ORIGIN.Y), new SpriteEffects(), 0);
+                XXXXXXXXGlobals.SpriteBatch.Draw(myModel, new Rectangle((int)(pos.X + OFFSET.X), (int)(pos.Y + OFFSET.Y), (int)dims.X, (int)dims.Y), null, COLOR, rot, new Vector2(ORIGIN.X, ORIGIN.Y), new SpriteEffects(), 0);
             }
         }
     }
