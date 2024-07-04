@@ -1,19 +1,8 @@
 ﻿#region Includes
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+using LostInTheCorn2.Globals;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-using System.Text;
-using LostInTheCorn2;
+using System;
 #endregion
 
 
@@ -108,19 +97,19 @@ namespace LostInTheCorn2
             }
 
 
-            XXXXXXXXGlobals.basicEffect.Parameters["xSize"].SetValue((float)myModel.Bounds.Width);
-            XXXXXXXXGlobals.basicEffect.Parameters["ySize"].SetValue((float)myModel.Bounds.Height);
-            XXXXXXXXGlobals.basicEffect.Parameters["xDraw"].SetValue((float)((int)dims.X));
-            XXXXXXXXGlobals.basicEffect.Parameters["yDraw"].SetValue((float)((int)dims.Y));
-            XXXXXXXXGlobals.basicEffect.Parameters["filterColor"].SetValue(tempColor.ToVector4());
-            XXXXXXXXGlobals.basicEffect.CurrentTechnique.Passes[0].Apply();
+            Visuals.basicEffect.Parameters["xSize"].SetValue((float)myModel.Bounds.Width);
+            Visuals.basicEffect.Parameters["ySize"].SetValue((float)myModel.Bounds.Height);
+            Visuals.basicEffect.Parameters["xDraw"].SetValue((float)((int)dims.X));
+            Visuals.basicEffect.Parameters["yDraw"].SetValue((float)((int)dims.Y));
+            Visuals.basicEffect.Parameters["filterColor"].SetValue(tempColor.ToVector4());
+            Visuals.basicEffect.CurrentTechnique.Passes[0].Apply();
 
             base.Draw(OFFSET);
 
             if (font != null)
             {
                 Vector2 strDims = font.MeasureString(text);
-                XXXXXXXXGlobals.SpriteBatch.DrawString(font, text, pos + OFFSET + new Vector2(-strDims.X / 2, -strDims.Y / 2), Color.Black);
+                Visuals.SpriteBatch.DrawString(font, text, pos + OFFSET + new Vector2(-strDims.X / 2, -strDims.Y / 2), Color.Black);
             }
         }
     }

@@ -1,28 +1,21 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using LostInTheCorn2.Globals;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using LostInTheCorn2;
+using System;
 
 
 namespace LostInTheCorn
 {
     public class Player
     {
-        private GraphicsDevice graphicsDevice = null;
-        private GameWindow gameWindow = null;
-
         private MouseState mState = default(MouseState);
         private KeyboardState kbState = default(KeyboardState);
 
         private MouseState mouseState = default(MouseState);
         private KeyboardState keyboardState = default(KeyboardState);
 
-        
+
         public float MovementUnitsPerSecond { get; set; } = 30f;
         public float RotationRadiansPerSecond { get; set; } = 45f;
 
@@ -34,11 +27,10 @@ namespace LostInTheCorn
 
         private Vector3 up = Vector3.Up;
 
-        public Player(String name, Vector3 position, GameWindow window)
+        public Player(String name, Vector3 position)
         {
             PlayerPosition = position;
             playerWorld = Matrix.CreateTranslation(playerPosition);
-            gameWindow = window;
         }
 
 
@@ -83,9 +75,9 @@ namespace LostInTheCorn
         public void Controls(GameTime gameTime)
         {
             KeyboardState keyboardState = Keyboard.GetState();
-            MouseState mouseState = Mouse.GetState(XXXXXXXXGlobals.GameWindow);
-           
-            if(keyboardState.IsKeyDown(Keys.W))
+            MouseState mouseState = Mouse.GetState(Visuals.GameWindow);
+
+            if (keyboardState.IsKeyDown(Keys.W))
             {
                 moveForward(gameTime);
             }
@@ -95,7 +87,7 @@ namespace LostInTheCorn
             }
 
             Vector2 diff = mouseState.Position.ToVector2() - mState.Position.ToVector2();
-            if (diff.X != 0f )
+            if (diff.X != 0f)
                 //&& mouseState.LeftButton == ButtonState.Pressed, falls Spieler sich nicht ständig drehen soll
                 RotateLeftOrRight(gameTime, diff.X);
 
@@ -108,7 +100,7 @@ namespace LostInTheCorn
 
         public void moveForward(GameTime gameTime)
         {
-             PlayerPosition += (playerWorld.Forward * MovementUnitsPerSecond) * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            PlayerPosition += (playerWorld.Forward * MovementUnitsPerSecond) * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
         public void moveBackward(GameTime gameTime)
         {
@@ -132,7 +124,7 @@ namespace LostInTheCorn
                     effect.World = objectWorld;
                     effect.View = cam.View;
                     effect.Projection = cam.Projection;
-                    
+
 
                 }
                 mesh.Draw();

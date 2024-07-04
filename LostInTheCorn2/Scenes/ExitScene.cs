@@ -1,40 +1,38 @@
 ﻿using LostInTheCorn;
+using LostInTheCorn2.Globals;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LostInTheCorn2.Scenes
 {
-    internal class ExitScene:IScene
+    internal class ExitScene : IScene
     {
         private ContentManager contentManager;
         GraphicsDevice graphicsDevice;
         GameWindow window;
 
-        public ExitScene() {
-            
+        public ExitScene()
+        {
+
         }
 
         public void Load()
         {
             Game1.Instance.IsMouseVisible = true;
         }
-        public void Update(GameTime gameTime) {
+        public void Update(GameTime gameTime)
+        {
             if (XXXXXXXXGlobals.KeyboardHelper.IsKeyPressed(Keys.Escape))
             {
-                XXXXXXXXGlobals.SceneManager.RemoveScene();
+                Visuals.SceneManager.RemoveScene();
             }
         }
-        public void Draw(SpriteBatch _spriteBatch, GraphicsDevice graphicsDevice)
+        public void Draw()
         {
             //Wird später rausgenommen, sodass man den aktuellen Spielstand sieht
-            graphicsDevice.Clear(Color.White);
+            Visuals.GraphicsDevice.Clear(Color.White);
         }
     }
 }

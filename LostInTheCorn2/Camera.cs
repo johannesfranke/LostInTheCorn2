@@ -1,5 +1,5 @@
 ﻿#region Includes
-using LostInTheCorn2;
+using LostInTheCorn2.Globals;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -9,9 +9,6 @@ namespace LostInTheCorn
 {
     public class Camera
     {
-        private GraphicsDevice graphicsDevice = null;
-        private GameWindow gameWindow = null;
-
         private MouseState mState = default(MouseState);
         private KeyboardState kbState = default(KeyboardState);
 
@@ -32,16 +29,13 @@ namespace LostInTheCorn
         private Matrix view = Matrix.CreateLookAt(new Vector3(0, 0, 100), new Vector3(0, 0, 0), Vector3.UnitY);
         private Matrix projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), 800 / 480f, 0.1f, 100f);
 
-        public Camera(GraphicsDevice gfxDevice, GameWindow window)
+        public Camera()
         {
-            graphicsDevice = gfxDevice;
-
             var rs = new RasterizerState();
             rs.CullMode = CullMode.None;
-            graphicsDevice.RasterizerState = rs;
-            gameWindow = window;
+            Visuals.GraphicsDevice.RasterizerState = rs;
             ReCreateWorldAndView();
-            ReCreateThePerspectiveProjectionMatrix(gfxDevice, fieldOfViewDegrees);
+            ReCreateThePerspectiveProjectionMatrix(Visuals.GraphicsDevice, fieldOfViewDegrees);
         }
 
         //beschreibt, welche Achse die Höhe darstellt (hier (0,1,0))
@@ -73,7 +67,7 @@ namespace LostInTheCorn
         //wird nur bei der Initialisierung verwendet
         public void ReCreateThePerspectiveProjectionMatrix(GraphicsDevice gd, float fovInDegrees)
         {
-            float aspectRatio = XXXXXXXXGlobals.GraphicsDevice.Viewport.Width / (float)XXXXXXXXGlobals.GraphicsDevice.Viewport.Height;
+            float aspectRatio = Visuals.GraphicsDevice.Viewport.Width / (float)Visuals.GraphicsDevice.Viewport.Height;
             projection = Matrix.CreatePerspectiveFieldOfView(fovInDegrees * (float)((3.14159265358f) / 180f), aspectRatio, .05f, 1000f);
         }
 
@@ -129,7 +123,7 @@ namespace LostInTheCorn
         public void Controls(GameTime gameTime, Player player)
         {
             KeyboardState keyboardState = Keyboard.GetState();
-            MouseState mouseState = Mouse.GetState(XXXXXXXXGlobals.GameWindow);
+            MouseState mouseState = Mouse.GetState(Visuals.GameWindow);
 
             if (keyboardState.IsKeyDown(Keys.W))
             {

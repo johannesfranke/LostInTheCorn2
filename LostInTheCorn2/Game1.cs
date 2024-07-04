@@ -1,4 +1,5 @@
 ﻿using LostInTheCorn2;
+using LostInTheCorn2.Globals;
 using LostInTheCorn2.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -45,15 +46,15 @@ namespace LostInTheCorn
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            XXXXXXXXGlobals.SetSpriteBatch(this._spriteBatch);
+            Visuals.SetSpriteBatch(this._spriteBatch);
             XXXXXXXXGlobals.SetContentManager(Content);
             XXXXXXXXGlobals.SetKeyboardHelper(keyboardHelper);
-            XXXXXXXXGlobals.SetSceneManager(sceneManager);
-            XXXXXXXXGlobals.SetGraphicsDevice(GraphicsDevice);
-            XXXXXXXXGlobals.SetGameWindow(Window);
+            Visuals.SetSceneManager(sceneManager);
+            Visuals.SetGraphicsDevice(GraphicsDevice);
+            Visuals.SetGameWindow(Window);
 
 
-            XXXXXXXXGlobals.SceneManager.AddScene(new StartMenu());
+            Visuals.SceneManager.AddScene(new StartMenu());
 
 
         }
@@ -62,7 +63,7 @@ namespace LostInTheCorn
         {
 
             XXXXXXXXGlobals.KeyboardHelper.Update();
-            XXXXXXXXGlobals.SceneManager.GetCurrentScene().Update(gameTime);
+            Visuals.SceneManager.GetCurrentScene().Update(gameTime);
 
 
             base.Update(gameTime);
@@ -73,7 +74,7 @@ namespace LostInTheCorn
             //GraphicsDevice.Clear(Color.CornflowerBlue);
 
             //Werte als Sprites zum Testen
-            sceneManager.GetCurrentScene().Draw(_spriteBatch, GraphicsDevice);
+            sceneManager.GetCurrentScene().Draw();
 
 
             //Globals.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
