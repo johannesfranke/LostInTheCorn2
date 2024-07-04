@@ -15,9 +15,9 @@ public class XXXXXXXXGlobals
     public static int screenWidth { get; set; } = 0;
     public static ContentManager ContentManager { get; private set; }
     public static SpriteBatch SpriteBatch { get; private set; }
-    public static GameTime gameTime { get; private set; }
-    public static BasicEffect basicEffect { get; private set; }
-    public static MouseHelper mouseHelper { get; private set; }
+    public static GameTime gameTime { get; private set; } //probably null
+    public static BasicEffect basicEffect { get; private set; } //probably null
+    public static MouseHelper mouseHelper { get; private set; } //probably null
     public static KeyboardHelper KeyboardHelper { get; private set; }
     public static SceneManager SceneManager { get; private set; }
     public static GraphicsDevice GraphicsDevice { get; private set; }
