@@ -1,15 +1,8 @@
 ﻿using LostInTheCorn;
-using LostInTheCorn2.UIClasses;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LostInTheCorn2.Scenes
 {
@@ -17,7 +10,7 @@ namespace LostInTheCorn2.Scenes
     {
         private SceneManager sceneManager;
         ContentManager contentManager;
-        GraphicsDevice graphicsDevice;
+        GraphicsDevice graphicsDevice = Globals.graphicsDevice; // war die ganze Zeit vorher null
         GameWindow window;
         KeyboardHelper keyboardHelper;
 
@@ -30,7 +23,7 @@ namespace LostInTheCorn2.Scenes
 
         GraphicsDeviceManager graphicsDeviceManager;
 
-        
+
 
         public StartMenu()
         {
@@ -60,6 +53,7 @@ namespace LostInTheCorn2.Scenes
             if (Globals.keyboardHelper.IsKeyPressed(Keys.W))
             {
                 Globals.sceneManager.AddScene(new GameScene(this.contentManager, this.graphicsDevice, this.window, sceneManager, keyboardHelper));
+                // Graphics device aus game1 hinzufügen
             }
         }
         public void Draw(SpriteBatch _spriteBatch, GraphicsDevice graphicsDevice)
@@ -85,7 +79,7 @@ namespace LostInTheCorn2.Scenes
             Globals.spriteBatch.Draw(renderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
 
             Globals.spriteBatch.End();
-            
+
 
 
         }

@@ -1,28 +1,14 @@
 ﻿#region Includes
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+using LostInTheCorn2;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-using System.Text;
-using LostInTheCorn2;
 #endregion
 
 namespace LostInTheCorn
 {
     public class Camera
     {
-        
-
-
         private GraphicsDevice graphicsDevice = null;
         private GameWindow gameWindow = null;
 
@@ -49,6 +35,10 @@ namespace LostInTheCorn
         public Camera(GraphicsDevice gfxDevice, GameWindow window)
         {
             graphicsDevice = gfxDevice;
+
+            var rs = new RasterizerState();
+            rs.CullMode = CullMode.None;
+            graphicsDevice.RasterizerState = rs;
             gameWindow = window;
             ReCreateWorldAndView();
             ReCreateThePerspectiveProjectionMatrix(gfxDevice, fieldOfViewDegrees);
@@ -56,11 +46,13 @@ namespace LostInTheCorn
 
         //beschreibt, welche Achse die Höhe darstellt (hier (0,1,0))
         private Vector3 up = Vector3.Up;
-        public Vector3 CamPosition {
-            set {
+        public Vector3 CamPosition
+        {
+            set
+            {
                 camPosition = value;
                 world.Translation = value;
-                
+
                 // since we know here that a change has occured to the cameras world orientations we can update the view matrix.
                 ReCreateWorldAndView();
             }
@@ -68,11 +60,11 @@ namespace LostInTheCorn
             {
                 return world.Translation;
             }
-            
+
         }
 
         //Erstelle nach Veränderungen die Welt und den View neu
-        private void ReCreateWorldAndView() 
+        private void ReCreateWorldAndView()
         {
             world = Matrix.CreateWorld(CamPosition, world.Forward, up);
             view = Matrix.CreateLookAt(CamPosition, world.Translation + world.Forward, up);
@@ -117,7 +109,7 @@ namespace LostInTheCorn
         {
             set
             {
-                world = Matrix.CreateWorld(world.Translation, value , up);
+                world = Matrix.CreateWorld(world.Translation, value, up);
                 ReCreateWorldAndView();
             }
             get { return world.Forward; }
@@ -138,8 +130,9 @@ namespace LostInTheCorn
         {
             KeyboardState keyboardState = Keyboard.GetState();
             MouseState mouseState = Mouse.GetState(Globals.gameWindow);
-            
-            if (keyboardState.IsKeyDown(Keys.W)) {
+
+            if (keyboardState.IsKeyDown(Keys.W))
+            {
                 moveForward(gameTime, player);
             }
             if (keyboardState.IsKeyDown(Keys.S))
@@ -152,7 +145,8 @@ namespace LostInTheCorn
 
             // if(mouse bewegt sich)
             // drehe in die Richtung der Maus...
-            if (diff.X != 0f) {
+            if (diff.X != 0f)
+            {
                 //&& mouseState.LeftButton == ButtonState.Pressed, falls sich die Kamera nicht ständig bewegen soll
                 RotateLeftOrRight(gameTime, diff.X, player);
             }
@@ -174,14 +168,14 @@ namespace LostInTheCorn
         }
         public void RotateLeftOrRight(GameTime gameTime, float amount, Player player)
         {
-            var radians = amount * -RotationRadiansPerSecond * (float)gameTime.ElapsedGameTime.TotalSeconds;            
+            var radians = amount * -RotationRadiansPerSecond * (float)gameTime.ElapsedGameTime.TotalSeconds;
             Matrix matrix = Matrix.CreateFromAxisAngle(world.Up, MathHelper.ToRadians(radians));
             Forward = Vector3.TransformNormal(Forward, matrix);
-            
+
             //Rotation um den Spieler
-            Forward = player.PlayerForward + new Vector3(0,-0.5f,0);
-            CamPosition = (player.PlayerPosition - (player.PlayerForward * 7)) + new Vector3(0,8,0);
-            
+            Forward = player.PlayerForward + new Vector3(0, -0.5f, 0);
+            CamPosition = (player.PlayerPosition - (player.PlayerForward * 7)) + new Vector3(0, 8, 0);
+
         }
     }
 
