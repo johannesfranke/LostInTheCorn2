@@ -71,7 +71,7 @@ namespace LostInTheCorn2.Scenes
         public void Draw()
         {
 
-            Visuals.GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.CornflowerBlue, 1.0f, 0);
+            Visuals.GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.PeachPuff, 1.0f, 0);
 
             //depth buffer configuration
             Visuals.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
