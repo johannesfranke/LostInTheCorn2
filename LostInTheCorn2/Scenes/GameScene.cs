@@ -5,6 +5,8 @@ using LostInTheCorn2.ModelFunction;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Skyboxes;
+using System;
 
 namespace LostInTheCorn2.Scenes
 {
@@ -24,6 +26,14 @@ namespace LostInTheCorn2.Scenes
 
         private Vector3 startMapPos;
         private float sizeCube;
+
+        Skybox skybox;
+        Matrix world = Matrix.Identity;
+        Matrix view = Matrix.CreateLookAt(new Vector3(20, 0, 0), new Vector3(0, 0, 0), Vector3.UnitY);
+        Matrix projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), 800f / 600f, 0.1f, 100f);
+        Vector3 cameraPosition;
+        float angle = 0;
+        float distance = 20;
 
 
         public GameScene()
@@ -48,9 +58,12 @@ namespace LostInTheCorn2.Scenes
             //Blickrichtung zur Initialisierung
             cam.Forward = initForward;
 
+            skybox = new Skybox();
+
             startMapPos = new Vector3(4, 0, 0);
             sizeCube = 13.18f; //weiß nicht was die actual größe von dem Cube ist (Größe ist geraten, lol)
             Map = new MapDrawer(cam, startMapPos, sizeCube);
+
 
             Map.SetModelWithEnum(0, Functional.ContentManager.Load<Model>("PlaneFloor"));
             Map.SetModelWithEnum(1, Functional.ContentManager.Load<Model>("Corn"));
@@ -58,6 +71,9 @@ namespace LostInTheCorn2.Scenes
 
         public void Update(GameTime gameTime)
         {
+            angle += 0.002f;
+            cameraPosition = distance * new Vector3((float)Math.Sin(angle), 0, (float)Math.Cos(angle));
+            view = Matrix.CreateLookAt(cameraPosition, new Vector3(0, 0, 0), Vector3.UnitY);
 
 
             if (Functional.KeyboardHelper.IsKeyPressed(Keys.Escape))
@@ -70,8 +86,11 @@ namespace LostInTheCorn2.Scenes
         }
         public void Draw()
         {
+            Visuals.GraphicsDevice.RasterizerState.CullMode = CullMode.CullClockwiseFace;
+            skybox.Draw(view, projection, cameraPosition);
+            Visuals.GraphicsDevice.RasterizerState.CullMode = CullMode.CullCounterClockwiseFace;
 
-            Visuals.GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.PeachPuff, 1.0f, 0);
+            //Visuals.GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.PeachPuff, 1.0f, 0);
 
             //depth buffer configuration
             Visuals.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
