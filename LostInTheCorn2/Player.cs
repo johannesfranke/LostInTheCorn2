@@ -1,4 +1,5 @@
-﻿using LostInTheCorn2.Globals;
+﻿using LostInTheCorn2.Collision;
+using LostInTheCorn2.Globals;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -20,9 +21,9 @@ namespace LostInTheCorn
 
 
         public String name;
-        private Matrix playerWorld;
+        public Matrix playerWorld;
 
-        private Vector3 playerPosition;
+        public Vector3 playerPosition;
 
         private Vector3 up = Vector3.Up;
 
@@ -75,14 +76,21 @@ namespace LostInTheCorn
         {
             KeyboardState keyboardState = Keyboard.GetState();
             MouseState mouseState = Mouse.GetState(Visuals.GameWindow);
+            Collision playerCollision = new Collision(this);
 
-            if (keyboardState.IsKeyDown(Keys.W))
+            if (!playerCollision.collidesForward())
             {
-                moveForward(gameTime);
+                if (keyboardState.IsKeyDown(Keys.W))
+                {
+                    moveForward(gameTime);
+                }
             }
-            if (keyboardState.IsKeyDown(Keys.S))
+            if (!playerCollision.collidesBackward())
             {
-                moveBackward(gameTime);
+                if (keyboardState.IsKeyDown(Keys.S))
+                {
+                    moveBackward(gameTime);
+                }
             }
 
             Vector2 diff = mouseState.Position.ToVector2() - mState.Position.ToVector2();

@@ -3,6 +3,7 @@ using LostInTheCorn2.ModelFunction;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LostInTheCorn2.map;
 
@@ -13,6 +14,7 @@ public class MapDrawer
     private Grid Grid;
     private Dictionary<int, Model> ModelsWithEnumInfo { get; set; } = new Dictionary<int, Model> { };
 
+    public Rectangle[] rectangles;
     public MapDrawer(Camera cam, Vector3 startMap, float sizeCube)
     {
         //Setzen des Grids und der Position in Grid-Klasse
@@ -39,6 +41,8 @@ public class MapDrawer
                     break;
                 case WhatToDraw.Wall:
                     Drawable.drawModel(ModelsWithEnumInfo.GetValueOrDefault(1), pos.Position, Cam);
+                    //appende die derzeitige Pflanze in das Array
+                    rectangles.Append(new Rectangle(pos.Position.X, pos.Position.Y, (int)13.18f, (int)13.18f));
                     break;
                 default:
                     break;
