@@ -8,7 +8,6 @@ namespace LostInTheCorn2.Scenes
     public class SceneManager
     {
         private Stack<IScene> scenesStack { get; set; }
-        private SceneManager sceneManager { get; set; }
         private InputManager InputManager { get; set; }
 
         GraphicsDevice _graphicsDevice { get; set; }

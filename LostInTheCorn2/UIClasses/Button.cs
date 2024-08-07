@@ -21,6 +21,7 @@ namespace LostInTheCorn2
 
         public Action OnClickAction;
         private InputManager InputManager { get; set; } //noch nicht gesettet
+        SpriteBatch SpriteBatch { get; set; } // noch nicht gesettet
 
 
         public Button2d(string PATH, Vector2 POS, Vector2 DIMS, Vector2 FRAMES, string FONTPATH, string TEXT, Action onClickAction = null)
@@ -111,7 +112,7 @@ namespace LostInTheCorn2
             if (font != null)
             {
                 Vector2 strDims = font.MeasureString(text);
-                Visuals.SpriteBatch.DrawString(font, text, pos + OFFSET + new Vector2(-strDims.X / 2, -strDims.Y / 2), Color.Black);
+                SpriteBatch.DrawString(font, text, pos + OFFSET + new Vector2(-strDims.X / 2, -strDims.Y / 2), Color.Black);
             }
         }
     }

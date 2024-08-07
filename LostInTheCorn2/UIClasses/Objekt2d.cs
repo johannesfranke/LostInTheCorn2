@@ -17,6 +17,7 @@ namespace LostInTheCorn2
         public Texture2D myModel;
 
         private InputManager InputManager { get; set; } //noch nicht gesettet
+        private SpriteBatch SpriteBatch; { get; set; } // noch nicht gesettet
 
         public Objekt2d(string PATH, Vector2 POS, Vector2 DIMS)
         {
@@ -53,7 +54,7 @@ namespace LostInTheCorn2
         {
             if (myModel != null)
             {
-                Visuals.SpriteBatch.Draw(myModel, new Rectangle((int)(pos.X + OFFSET.X), (int)(pos.Y + OFFSET.Y), (int)dims.X, (int)dims.Y), null, Color.White, rot, new Vector2(myModel.Bounds.Width / 2, myModel.Bounds.Height / 2), new SpriteEffects(), 0);
+                SpriteBatch.Draw(myModel, new Rectangle((int)(pos.X + OFFSET.X), (int)(pos.Y + OFFSET.Y), (int)dims.X, (int)dims.Y), null, Color.White, rot, new Vector2(myModel.Bounds.Width / 2, myModel.Bounds.Height / 2), new SpriteEffects(), 0);
             }
         }
 
@@ -61,7 +62,7 @@ namespace LostInTheCorn2
         {
             if (myModel != null)
             {
-                Visuals.SpriteBatch.Draw(myModel, new Rectangle((int)(pos.X + OFFSET.X), (int)(pos.Y + OFFSET.Y), (int)dims.X, (int)dims.Y), null, COLOR, rot, new Vector2(ORIGIN.X, ORIGIN.Y), new SpriteEffects(), 0);
+                SpriteBatch.Draw(myModel, new Rectangle((int)(pos.X + OFFSET.X), (int)(pos.Y + OFFSET.Y), (int)dims.X, (int)dims.Y), null, COLOR, rot, new Vector2(ORIGIN.X, ORIGIN.Y), new SpriteEffects(), 0);
             }
         }
     }

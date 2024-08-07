@@ -17,11 +17,13 @@ namespace LostInTheCorn2.Scenes
         public float scale = 0.44444f;
 
         private InputManager InputManager { get; set; }
+        private SpriteBatch SpriteBatch;
 
 
-        public StartMenu(InputManager input)
+        public StartMenu(InputManager input, SpriteBatch spriteBatch)
         {
             InputManager = input;
+            SpriteBatch = spriteBatch;
         }
 
         public void Load()
@@ -57,21 +59,21 @@ namespace LostInTheCorn2.Scenes
             Visuals.GraphicsDevice.SetRenderTarget(renderTarget);
             Visuals.GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            Visuals.SpriteBatch.Begin();
+            SpriteBatch.Begin();
 
-            Visuals.SpriteBatch.Draw(startScreen, screenRectangle, Color.White);
+            SpriteBatch.Draw(startScreen, screenRectangle, Color.White);
 
-            Visuals.SpriteBatch.End();
+            SpriteBatch.End();
 
             Visuals.GraphicsDevice.SetRenderTarget(null);
             Visuals.GraphicsDevice.Clear(Color.CornflowerBlue);
 
 
-            Visuals.SpriteBatch.Begin();
+            SpriteBatch.Begin();
             //Wird später rausgenommen, sodass man den aktuellen Spielstand sieht
-            Visuals.SpriteBatch.Draw(renderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            SpriteBatch.Draw(renderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
 
-            Visuals.SpriteBatch.End();
+            SpriteBatch.End();
 
 
 

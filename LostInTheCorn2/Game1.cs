@@ -11,12 +11,11 @@ namespace LostInTheCorn
     {
 
         public GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
-        private SpriteFont font;
-        private SceneManager sceneManager;
+        public SpriteBatch _spriteBatch;
+        //private SpriteFont font { get; set; }
+        private SceneManager SceneManager;
         private InputManager InputManager;
-
-        public static Game1 Instance { get; private set; }
+        public static Game1 Instance;
 
 
 
@@ -33,7 +32,7 @@ namespace LostInTheCorn
         protected override void Initialize()
         {
             InputManager = new InputManager();
-            sceneManager = new(GraphicsDevice, this.Window, InputManager);
+            SceneManager = new(GraphicsDevice, Window, InputManager);
             _graphics.PreferredBackBufferHeight = 1080;
             _graphics.PreferredBackBufferWidth = 1920;
             _graphics.ApplyChanges();
@@ -46,15 +45,13 @@ namespace LostInTheCorn
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            Visuals.SetSpriteBatch(this._spriteBatch);
             Functional.SetContentManager(Content);
             //Functional.SetKeyboardHelper(keyboardHelper);
-            Visuals.SetSceneManager(sceneManager);
+            Visuals.SetSceneManager(SceneManager);
             Visuals.SetGraphicsDevice(GraphicsDevice);
-            Visuals.SetGameWindow(Window);
 
 
-            Visuals.SceneManager.AddScene(new StartMenu(InputManager));
+            Visuals.SceneManager.AddScene(new StartMenu(InputManager, _spriteBatch));
 
 
         }
@@ -75,7 +72,7 @@ namespace LostInTheCorn
             //GraphicsDevice.Clear(Color.CornflowerBlue);
 
             //Werte als Sprites zum Testen
-            sceneManager.GetCurrentScene().Draw();
+            SceneManager.GetCurrentScene().Draw();
 
 
             //Globals.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
