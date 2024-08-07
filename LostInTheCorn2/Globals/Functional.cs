@@ -10,19 +10,9 @@ public class Functional
 
     public static GameTime gameTime { get; private set; } //probably null
 
-    public static MouseHelper mouseHelper { get; private set; } //probably null
-    public static KeyboardHelper KeyboardHelper { get; private set; }
-
-
-
 
     public static void SetContentManager(ContentManager contentManager)
     {
         ContentManager = contentManager;
     }
-    public static void SetKeyboardHelper(KeyboardHelper keyboardHelper)
-    {
-        KeyboardHelper = keyboardHelper;
-    }
-
 }

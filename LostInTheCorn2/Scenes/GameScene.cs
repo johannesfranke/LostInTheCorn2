@@ -1,5 +1,6 @@
 ﻿using LostInTheCorn;
 using LostInTheCorn2.Globals;
+using LostInTheCorn2.Input;
 using LostInTheCorn2.map;
 using LostInTheCorn2.ModelFunction;
 using Microsoft.Xna.Framework;
@@ -25,10 +26,13 @@ namespace LostInTheCorn2.Scenes
         private Vector3 startMapPos;
         private float sizeCube;
 
+        private InputManager InputManager;
 
-        public GameScene()
+
+        public GameScene(InputManager input)
         {
             //graphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
+            InputManager = input;
         }
 
         public void Load()
@@ -60,9 +64,9 @@ namespace LostInTheCorn2.Scenes
         {
 
 
-            if (Functional.KeyboardHelper.IsKeyPressed(Keys.Escape))
+            if (InputManager.IsKeyPressed(Keys.Escape))
             {
-                Visuals.SceneManager.AddScene(new ExitScene());
+                Visuals.SceneManager.AddScene(new ExitScene(InputManager));
             }
             //Kamera und Spieler sollen geupdatet werden
             player.Update(gameTime);

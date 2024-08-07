@@ -1,5 +1,6 @@
 ﻿#region Includes
 using LostInTheCorn2.Globals;
+using LostInTheCorn2.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 #endregion
@@ -14,6 +15,8 @@ namespace LostInTheCorn2
         public Vector2 pos, dims, frameSize;
 
         public Texture2D myModel;
+
+        private InputManager InputManager { get; set; } //noch nicht gesettet
 
         public Objekt2d(string PATH, Vector2 POS, Vector2 DIMS)
         {
@@ -36,7 +39,7 @@ namespace LostInTheCorn2
 
         public virtual bool HoverImg(Vector2 OFFSET)
         {
-            Vector2 mousePos = new Vector2(Functional.mouseHelper.newMousePos.X, Functional.mouseHelper.newMousePos.Y);
+            Vector2 mousePos = new Vector2(InputManager.GetMouseNewPosition().X, InputManager.GetMouseNewPosition().Y);
 
             if (mousePos.X >= (pos.X + OFFSET.X) - dims.X / 2 && mousePos.X <= (pos.X + OFFSET.X) + dims.X / 2 && mousePos.Y >= (pos.Y + OFFSET.Y) - dims.Y / 2 && mousePos.Y <= (pos.Y + OFFSET.Y) + dims.Y / 2)
             {

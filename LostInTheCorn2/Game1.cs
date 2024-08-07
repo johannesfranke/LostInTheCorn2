@@ -1,5 +1,5 @@
-﻿using LostInTheCorn2;
-using LostInTheCorn2.Globals;
+﻿using LostInTheCorn2.Globals;
+using LostInTheCorn2.Input;
 using LostInTheCorn2.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -14,7 +14,7 @@ namespace LostInTheCorn
         private SpriteBatch _spriteBatch;
         private SpriteFont font;
         private SceneManager sceneManager;
-        private KeyboardHelper keyboardHelper;
+        private InputManager InputManager;
 
         public static Game1 Instance { get; private set; }
 
@@ -23,17 +23,17 @@ namespace LostInTheCorn
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
-            //Content.RootDirectory = "Content";
             Content = new ContentManager(this.Services, "Content");
             IsMouseVisible = true;
             _graphics.IsFullScreen = false;
-            keyboardHelper = new KeyboardHelper();
             Instance = this;
+
         }
 
         protected override void Initialize()
         {
-            sceneManager = new(GraphicsDevice, this.Window);
+            InputManager = new InputManager();
+            sceneManager = new(GraphicsDevice, this.Window, InputManager);
             _graphics.PreferredBackBufferHeight = 1080;
             _graphics.PreferredBackBufferWidth = 1920;
             _graphics.ApplyChanges();
@@ -48,13 +48,13 @@ namespace LostInTheCorn
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             Visuals.SetSpriteBatch(this._spriteBatch);
             Functional.SetContentManager(Content);
-            Functional.SetKeyboardHelper(keyboardHelper);
+            //Functional.SetKeyboardHelper(keyboardHelper);
             Visuals.SetSceneManager(sceneManager);
             Visuals.SetGraphicsDevice(GraphicsDevice);
             Visuals.SetGameWindow(Window);
 
 
-            Visuals.SceneManager.AddScene(new StartMenu());
+            Visuals.SceneManager.AddScene(new StartMenu(InputManager));
 
 
         }
@@ -62,8 +62,9 @@ namespace LostInTheCorn
         protected override void Update(GameTime gameTime)
         {
 
-            Functional.KeyboardHelper.Update();
+            //Functional.KeyboardHelper.Update();
             Visuals.SceneManager.GetCurrentScene().Update(gameTime);
+            InputManager.Update();
 
 
             base.Update(gameTime);

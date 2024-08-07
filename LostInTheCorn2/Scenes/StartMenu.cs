@@ -1,5 +1,6 @@
 ﻿using LostInTheCorn;
 using LostInTheCorn2.Globals;
+using LostInTheCorn2.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -15,10 +16,12 @@ namespace LostInTheCorn2.Scenes
 
         public float scale = 0.44444f;
 
+        private InputManager InputManager { get; set; }
 
-        public StartMenu()
+
+        public StartMenu(InputManager input)
         {
-
+            InputManager = input;
         }
 
         public void Load()
@@ -40,9 +43,9 @@ namespace LostInTheCorn2.Scenes
         }
         public void Update(GameTime gameTime)
         {
-            if (Functional.KeyboardHelper.IsKeyPressed(Keys.W))
+            if (InputManager.IsKeyPressed(Keys.W))
             {
-                Visuals.SceneManager.AddScene(new GameScene());
+                Visuals.SceneManager.AddScene(new GameScene(InputManager));
                 // Graphics device aus game1 hinzufügen
             }
         }

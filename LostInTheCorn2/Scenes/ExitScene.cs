@@ -1,5 +1,6 @@
 ﻿using LostInTheCorn;
 using LostInTheCorn2.Globals;
+using LostInTheCorn2.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -7,9 +8,10 @@ namespace LostInTheCorn2.Scenes
 {
     internal class ExitScene : IScene
     {
-        public ExitScene()
+        InputManager InputManager;
+        public ExitScene(InputManager input)
         {
-
+            InputManager = input;
         }
 
         public void Load()
@@ -18,7 +20,7 @@ namespace LostInTheCorn2.Scenes
         }
         public void Update(GameTime gameTime)
         {
-            if (Functional.KeyboardHelper.IsKeyPressed(Keys.Escape))
+            if (InputManager.IsKeyPressed(Keys.Escape))
             {
                 Visuals.SceneManager.RemoveScene();
             }

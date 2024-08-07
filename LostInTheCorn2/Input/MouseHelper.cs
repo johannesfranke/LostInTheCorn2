@@ -7,7 +7,7 @@ using System;
 
 namespace LostInTheCorn2
 {
-    public class MouseHelper
+    internal class MouseHelper
     {
         public bool dragging, rightDrag;
 

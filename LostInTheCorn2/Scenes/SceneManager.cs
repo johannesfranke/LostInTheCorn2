@@ -1,28 +1,25 @@
-﻿  using Microsoft.Xna.Framework.Graphics;
+﻿using LostInTheCorn2.Input;
 using Microsoft.Xna.Framework;
-using System;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LostInTheCorn2.Scenes
 {
     public class SceneManager
     {
-        private Stack<IScene> scenesStack;
-        private SceneManager sceneManager;
+        private Stack<IScene> scenesStack { get; set; }
+        private SceneManager sceneManager { get; set; }
+        private InputManager InputManager { get; set; }
 
-        GraphicsDevice _graphicsDevice;
-        GameWindow _window;
+        GraphicsDevice _graphicsDevice { get; set; }
+        GameWindow _window { get; set; }
 
-
-
-        public SceneManager(GraphicsDevice graphicsDevice, GameWindow window) { 
+        public SceneManager(GraphicsDevice graphicsDevice, GameWindow window, InputManager inputManager)
+        {
             this._graphicsDevice = graphicsDevice;
             this._window = window;
             scenesStack = new();
-        
+            InputManager = inputManager;
         }
         public void AddScene(IScene scene)
         {
@@ -39,6 +36,5 @@ namespace LostInTheCorn2.Scenes
         {
             return scenesStack.Peek();
         }
-
     }
 }

@@ -1,5 +1,6 @@
 ﻿#region Includes
 using LostInTheCorn2.Globals;
+using LostInTheCorn2.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -19,6 +20,7 @@ namespace LostInTheCorn2
         public SpriteFont font;
 
         public Action OnClickAction;
+        private InputManager InputManager { get; set; } //noch nicht gesettet
 
 
         public Button2d(string PATH, Vector2 POS, Vector2 DIMS, Vector2 FRAMES, string FONTPATH, string TEXT, Action onClickAction = null)
@@ -46,12 +48,12 @@ namespace LostInTheCorn2
             {
                 isHovered = true;
 
-                if (Functional.mouseHelper.LeftClick())
+                if (InputManager.LeftClick())
                 {
                     isHovered = false;
                     isPressed = true;
                 }
-                else if (Functional.mouseHelper.LeftClickRelease())
+                else if (InputManager.LeftClickRelease())
                 {
                     RunBtnClick();
                 }
@@ -62,7 +64,7 @@ namespace LostInTheCorn2
                 isHovered = false;
             }
 
-            if (!Functional.mouseHelper.LeftClick() && !Functional.mouseHelper.LeftClickHold())
+            if (InputManager.LeftClick() && !InputManager.LeftClickHold())
             {
                 isPressed = false;
             }
