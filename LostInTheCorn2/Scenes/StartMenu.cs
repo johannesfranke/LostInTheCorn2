@@ -25,7 +25,7 @@ namespace LostInTheCorn2.Scenes
         {
 
             Game1.Instance.IsMouseVisible = true;
-            renderTarget = new RenderTarget2D(Visuals.GraphicsDevice, 1920, 1080);
+            renderTarget = new RenderTarget2D(Visuals.GraphicsDevice, 1366, 768);
             startScreen = Functional.ContentManager.Load<Texture2D>("LostInTheCornScreen");
 
 

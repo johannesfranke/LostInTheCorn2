@@ -64,23 +64,29 @@ namespace LostInTheCorn
         }
 
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime,int colliding)
         {
 
-            Controls(gameTime);
+            Controls(gameTime,colliding);
 
         }
 
-        public void Controls(GameTime gameTime)
+        public void Controls(GameTime gameTime,int colliding)
         {
             KeyboardState keyboardState = Keyboard.GetState();
             MouseState mouseState = Mouse.GetState(Visuals.GameWindow);
-
+            //überprüfe ob collision stattfindet, 0 = keine, 1= vorne, 2 = hinten, 3= beide
             if (keyboardState.IsKeyDown(Keys.W))
             {
-                moveForward(gameTime);
+                if (colliding != 1 && colliding != 3)
+                {
+                    moveForward(gameTime);
+                }
+                //else {
+                //    moveForwardWithCollision(gameTime);
+                //}
             }
-            if (keyboardState.IsKeyDown(Keys.S))
+            if (keyboardState.IsKeyDown(Keys.S) && colliding != 2 && colliding != 3)
             {
                 moveBackward(gameTime);
             }
@@ -101,11 +107,18 @@ namespace LostInTheCorn
         {
             PlayerPosition += (playerWorld.Forward * MovementUnitsPerSecond) * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
+
+        public void moveForwardWithCollision(GameTime gameTime)
+        {
+            PlayerPosition += (playerWorld.Forward * MovementUnitsPerSecond) * (float)gameTime.ElapsedGameTime.TotalSeconds;
+        }
         public void moveBackward(GameTime gameTime)
         {
             PlayerPosition -= (playerWorld.Forward * MovementUnitsPerSecond) * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
-
+        public Vector3 returnForward() {
+            return playerWorld.Forward;
+          }
         public void RotateLeftOrRight(GameTime gameTime, float amount)
         {
             var radians = amount * -RotationRadiansPerSecond * (float)gameTime.ElapsedGameTime.TotalSeconds;

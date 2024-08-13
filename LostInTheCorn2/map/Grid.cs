@@ -64,6 +64,18 @@ internal class Grid
         //Change Grid here!
 
         Grid grid = new Grid();
+
+        var row21 = new List<int> { 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1 };
+        var row20 = new List<int> { 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1 };
+        var row19 = new List<int> { 1, 0, 0, 1, 0, 0, 1, 1, 1, 0, 1 };
+        var row18 = new List<int> { 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1 };
+        var row17 = new List<int> { 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1 };
+        var row16 = new List<int> { 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1 };
+        var row15 = new List<int> { 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1 };
+        var row14 = new List<int> { 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1 };
+        var row13 = new List<int> { 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1 };
+        var row12 = new List<int> { 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1 };
+        var row11 = new List<int> { 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0 };
         var row10 = new List<int> { 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1 };
         var row9 = new List<int> { 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1 };
         var row8 = new List<int> { 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1 };
@@ -87,6 +99,17 @@ internal class Grid
         grid.AddRow(row8);
         grid.AddRow(row9);
         grid.AddRow(row10);
+        grid.AddRow(row11);
+        grid.AddRow(row12);
+        grid.AddRow(row13);
+        grid.AddRow(row14);
+        grid.AddRow(row15);
+        grid.AddRow(row16);
+        grid.AddRow(row17);
+        grid.AddRow(row18);
+        grid.AddRow(row19);
+        grid.AddRow(row20);
+        grid.AddRow(row21);
         return grid;
     }
     public static Matrix rotateRandom(Matrix position)
