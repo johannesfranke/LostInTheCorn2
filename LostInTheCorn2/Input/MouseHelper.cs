@@ -37,9 +37,11 @@ namespace LostInTheCorn2
             oldMousePos = new Vector2(newMouse.Position.X, newMouse.Position.Y);
             firstMousePos = new Vector2(newMouse.Position.X, newMouse.Position.Y);
 
-            GetMouseAndAdjust();
+            
 
-            //screenLoc = new Vector2((int)(systemCursorPos.X/Globals.screenWidth), (int)(systemCursorPos.Y/Globals.screenHeight));
+            screenLoc = new Vector2((int)(systemCursorPos.X / Globals.screenWidth), (int)(systemCursorPos.Y / Globals.screenHeight));
+
+            GetMouseAndAdjust();
 
         }
 
@@ -72,7 +74,7 @@ namespace LostInTheCorn2
                 firstMouse = newMouse;
                 firstMousePos = newMousePos = GetScreenPos(firstMouse);
             }
-
+            UpdateOld();
 
         }
 
@@ -195,5 +197,21 @@ namespace LostInTheCorn2
         {
 
         }
+
+        public bool LeftButtonClickedAndReleased()
+        {
+            // Zuerst prüfen, ob die linke Maustaste aktuell losgelassen wurde,
+            // und ob sie im vorherigen Zustand gedrückt war.
+            if (newMouse.LeftButton == ButtonState.Released && oldMouse.LeftButton == ButtonState.Pressed)
+            {
+                // Maus wurde geklickt und losgelassen.
+                return true;
+            }
+
+            // Falls die Bedingungen nicht erfüllt sind, false zurückgeben.
+            return false;
+        }
+
     }
 }
+

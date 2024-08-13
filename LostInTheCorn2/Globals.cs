@@ -39,9 +39,7 @@ namespace LostInTheCorn2
         public static GameWindow gameWindow;
 
         public static GraphicsDeviceManager graphicsDeviceManager;
-
         public static ButtonActions buttonActions;
-
         public static SpriteFont font;
 
         public static float GetDistance(Vector2 pos, Vector2 target)

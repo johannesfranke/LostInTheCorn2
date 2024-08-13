@@ -85,7 +85,11 @@ namespace LostInTheCorn2.Scenes
 
             if (Globals.keyboardHelper.IsKeyPressed(Keys.Escape))
             {
-                Globals.sceneManager.AddScene(new ExitScene());
+                // Beispiel, wie du die ExitScene aufrufst:
+                var settingsScene = new SettingsScene(Globals.graphicsDevice, Globals.gameWindow);
+                settingsScene.CaptureGameScreen(); // Fange das aktuelle Bild ein
+
+                Globals.sceneManager.AddScene(settingsScene);
             }
             //Kamera und Spieler sollen geupdatet werden
             player.Update(gameTime);
