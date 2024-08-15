@@ -2,6 +2,7 @@
 using LostInTheCorn2.Globals;
 using LostInTheCorn2.map;
 using LostInTheCorn2.ModelFunction;
+using LostInTheCorn2.MovableObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -13,7 +14,7 @@ namespace LostInTheCorn2.Scenes
         private Texture3D texture;
         //übernommen aus game1.cs
         Camera cam;
-        Player player;
+        MovementAroundPlayerManager MovementManager; // Movement around Player alle stellen ersetzen
         private MapDrawer Map;
 
         private Model penguin;
@@ -41,8 +42,7 @@ namespace LostInTheCorn2.Scenes
             initForward = new Vector3(1, 0, 0);
             camInitPosition = new Vector3(10, 1, 0);
 
-            player = new Player("Main", new Vector3(0, 0, 0));
-            player.PlayerForward = initForward;
+            MovementManager = new MovementAroundPlayerManager(new Vector3(0, 0, 0), initForward);
             penguin = Functional.ContentManager.Load<Model>("PenguinTextured");
 
             cam = new Camera();
@@ -69,8 +69,8 @@ namespace LostInTheCorn2.Scenes
                 Visuals.SceneManager.AddScene(new ExitScene());
             }
             //Kamera und Spieler sollen geupdatet werden
-            player.Update(gameTime);
-            cam.Update(gameTime, player);
+            MovementManager.Update(gameTime);
+            cam.Update(gameTime, MovementManager.Player);
         }
         public void Draw()
         {
@@ -100,8 +100,8 @@ namespace LostInTheCorn2.Scenes
             //}
 
             Map.DrawWorld();
-            Drawable.drawWithEffectModel(penguin, player.PlayerWorld, cam);
-            Drawable.drawWithoutModel(SkyBoxModel, player.GlobeWorld, cam);
+            Drawable.drawWithEffectModel(penguin, MovementManager.Player.PlayerWorld, cam);
+            Drawable.drawWithoutModel(SkyBoxModel, MovementManager.SkySphere.GlobeWorld, cam);
         }
     }
 }
