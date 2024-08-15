@@ -132,12 +132,12 @@ namespace LostInTheCorn
         public void moveForward(GameTime gameTime)
         {
             PlayerPosition += (playerWorld.Forward * MovementUnitsPerSecond) * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            GlobePosition += (playerWorld.Forward * MovementUnitsPerSecond) * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            GlobePosition += (playerWorld.Forward * (MovementUnitsPerSecond - 5)) * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
         public void moveBackward(GameTime gameTime)
         {
             PlayerPosition -= (playerWorld.Forward * MovementUnitsPerSecond) * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            GlobePosition -= (playerWorld.Forward * MovementUnitsPerSecond) * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            GlobePosition -= (playerWorld.Forward * (MovementUnitsPerSecond + 5)) * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
         public void RotateLeftOrRight(GameTime gameTime, float amount)
