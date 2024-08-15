@@ -18,11 +18,12 @@ namespace LostInTheCorn
         public float MovementUnitsPerSecond { get; set; } = 30f;
         public float RotationRadiansPerSecond { get; set; } = 45f;
 
-
         public String name;
         private Matrix playerWorld;
+        private Matrix globeWorld;
 
         private Vector3 playerPosition;
+        private Vector3 globePosition;
 
         private Vector3 up = Vector3.Up;
 
@@ -30,6 +31,8 @@ namespace LostInTheCorn
         {
             PlayerPosition = position;
             playerWorld = Matrix.CreateTranslation(playerPosition);
+            globePosition = position;
+            globeWorld = Matrix.CreateTranslation(globePosition);
         }
 
 
@@ -38,6 +41,14 @@ namespace LostInTheCorn
             get
             {
                 return playerWorld;
+            }
+        }
+
+        public Matrix GlobeWorld
+        {
+            get
+            {
+                return globeWorld;
             }
         }
 
@@ -53,6 +64,18 @@ namespace LostInTheCorn
                 return playerPosition;
             }
         }
+        public Vector3 GlobePosition
+        {
+            set
+            {
+                globePosition = value;
+                globeWorld.Translation = globePosition;
+            }
+            get
+            {
+                return globePosition;
+            }
+        }
 
         public Vector3 PlayerForward
         {
@@ -61,6 +84,15 @@ namespace LostInTheCorn
                 playerWorld = Matrix.CreateWorld(playerWorld.Translation, value, up);
             }
             get { return playerWorld.Forward; }
+        }
+
+        public Vector3 GlobeForward
+        {
+            set
+            {
+                globeWorld = Matrix.CreateWorld(globeWorld.Translation, value, up);
+            }
+            get { return globeWorld.Forward; }
         }
 
 
@@ -100,17 +132,21 @@ namespace LostInTheCorn
         public void moveForward(GameTime gameTime)
         {
             PlayerPosition += (playerWorld.Forward * MovementUnitsPerSecond) * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            GlobePosition += (playerWorld.Forward * MovementUnitsPerSecond) * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
         public void moveBackward(GameTime gameTime)
         {
             PlayerPosition -= (playerWorld.Forward * MovementUnitsPerSecond) * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            GlobePosition -= (playerWorld.Forward * MovementUnitsPerSecond) * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
         public void RotateLeftOrRight(GameTime gameTime, float amount)
         {
             var radians = amount * -RotationRadiansPerSecond * (float)gameTime.ElapsedGameTime.TotalSeconds;
             Matrix matrix = Matrix.CreateFromAxisAngle(playerWorld.Up, MathHelper.ToRadians(radians));
+            //Matrix matrixGlobe = Matrix.CreateFromAxisAngle(globeWorld.Up, MathHelper.ToRadians(0));
             PlayerForward = Vector3.TransformNormal(PlayerForward, matrix);
+            //GlobeForward = Vector3.TransformNormal(GlobeForward, matrix);
         }
     }
 }

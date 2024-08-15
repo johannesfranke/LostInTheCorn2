@@ -17,13 +17,15 @@ namespace LostInTheCorn2.Scenes
         private MapDrawer Map;
 
         private Model penguin;
-        public Model WallCube;
 
         public Vector3 camInitPosition;
         public Vector3 initForward;
 
         private Vector3 startMapPos;
         private float sizeCube;
+
+        private Model SkyBoxModel;
+        private Texture2D SkyBoxTexture;
 
 
         public GameScene()
@@ -51,9 +53,11 @@ namespace LostInTheCorn2.Scenes
             startMapPos = new Vector3(4, 0, 0);
             sizeCube = 13.18f; //weiß nicht was die actual größe von dem Cube ist (Größe ist geraten, lol)
             Map = new MapDrawer(cam, startMapPos, sizeCube);
-
             Map.SetModelWithEnum(0, Functional.ContentManager.Load<Model>("PlaneFloor"));
             Map.SetModelWithEnum(1, Functional.ContentManager.Load<Model>("Corn"));
+
+            SkyBoxModel = Functional.ContentManager.Load<Model>(@"C:\Users\diana\source\repos\LostInTheCorn2\LostInTheCorn2\bin\Debug\net6.0\Content\SkySphere");
+            SkyBoxTexture = Functional.ContentManager.Load<Texture2D>("TextureSkySphere");
         }
 
         public void Update(GameTime gameTime)
@@ -71,7 +75,7 @@ namespace LostInTheCorn2.Scenes
         public void Draw()
         {
 
-            Visuals.GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.CornflowerBlue, 1.0f, 0);
+            Visuals.GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.MediumBlue, 1.0f, 0);
 
             //depth buffer configuration
             Visuals.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
@@ -81,8 +85,23 @@ namespace LostInTheCorn2.Scenes
             Visuals.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
 
 
+            //Matrix pos = Matrix.CreateWorld(new Vector3(0, 0, 0), Vector3.Forward, Vector3.Up);
+
+            //foreach (var mesh in SkyBoxModel.Meshes)
+            //{
+            //    foreach (BasicEffect effect in mesh.Effects)
+            //    {
+
+            //        //effect.View = pos;
+            //        //effect.World = player.PlayerWorld;
+            //        //effect.Projection = cam.Projection;
+            //        //mesh.Draw();
+            //    }
+            //}
+
             Map.DrawWorld();
-            Drawable.drawModel(penguin, player.PlayerWorld, cam);
+            Drawable.drawWithEffectModel(penguin, player.PlayerWorld, cam);
+            Drawable.drawWithoutModel(SkyBoxModel, player.GlobeWorld, cam);
         }
     }
 }

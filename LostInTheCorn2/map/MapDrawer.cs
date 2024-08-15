@@ -35,10 +35,10 @@ public class MapDrawer
             switch (pos.Info)
             {
                 case WhatToDraw.PlaneFloor:
-                    Drawable.drawModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
+                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
                     break;
                 case WhatToDraw.Wall:
-                    Drawable.drawModel(ModelsWithEnumInfo.GetValueOrDefault(1), pos.Position, Cam);
+                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(1), pos.Position, Cam);
                     break;
                 default:
                     break;
