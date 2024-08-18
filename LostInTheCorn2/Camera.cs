@@ -1,5 +1,6 @@
 ﻿#region Includes
 using LostInTheCorn2.Globals;
+using LostInTheCorn2.MovableObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
