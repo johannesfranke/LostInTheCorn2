@@ -82,13 +82,14 @@ namespace LostInTheCorn
                 {
                     moveForward(gameTime);
                 }
-                //else {
-                //    moveForwardWithCollision(gameTime);
-                //}
+                
             }
-            if (keyboardState.IsKeyDown(Keys.S) && colliding != 2 && colliding != 3)
+            if (keyboardState.IsKeyDown(Keys.S))
             {
-                moveBackward(gameTime);
+                if (colliding != 2 && colliding != 3)
+                {
+                    moveBackward(gameTime);
+                }
             }
 
             Vector2 diff = mouseState.Position.ToVector2() - mState.Position.ToVector2();

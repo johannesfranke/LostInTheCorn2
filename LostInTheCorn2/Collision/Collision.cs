@@ -17,8 +17,8 @@ namespace LostInTheCorn2.Collision
         Rectangle[] rectangles;
         Rectangle forwardCollision;
         Rectangle backwardCollision;
-        Vector3 forwardVector;
-        SpriteFont font;
+        Rectangle playerBox;
+
         int iterator;
 
         private Texture2D whiteRectangle;
@@ -30,7 +30,6 @@ namespace LostInTheCorn2.Collision
 
             whiteRectangle = new Texture2D(Visuals.GraphicsDevice, 1, 1);
             whiteRectangle.SetData(new[] { Color.White });
-            font = Functional.ContentManager.Load<SpriteFont>("File");
             iterator = 0;
             rectangles = new Rectangle[Grid.Positions.Count];
             //fülle array mit allen Maispflanzen(Rectangles), sizeCube wird ignoriert(13.xx) wir nehmen 12
@@ -49,35 +48,17 @@ namespace LostInTheCorn2.Collision
             }
         }
 
-        //berechne endpunkt des forward- und backwardvektors
-        public Vector2 endPointCalc(float x,float y,float forX, float forY)
-        {
-            int vectorDistance = 4;
-            double direction = Math.Atan2(forY, forX);
-            //x und y Werte des Spielers und des ForwardVektors werden benutzt
-
-            double newX = x+ vectorDistance * Math.Cos(direction);
-            double newY = y + vectorDistance * Math.Sin(direction);
-            //+4 da wir von der Mitte des Cubes(Größe 8) ausgehen wollen
-            //ohne +4 dreht es sich um die obere linke ecke
-            return new Vector2((float)newX, (float)newY);
-
-        }
         public int Update(GameTime gameTime, Matrix PlayerWorld, Vector3 forwardVec) {
-
-            forwardVector = forwardVec;
             //Quadrat bei Koordinaten des Spielers
-            Rectangle playerBox = new Rectangle((int)PlayerWorld.Translation.X, (int)PlayerWorld.Translation.Z, 8, 8);
+            playerBox = new Rectangle((int)PlayerWorld.Translation.X, (int)PlayerWorld.Translation.Z, 8, 8);
 
             //berechne endpunkte der richtungsvektoren des spielers
-            Point center = playerBox.Center;
-            Vector2 vec = endPointCalc(center.X,center.Y,forwardVec.X, forwardVec.Z);
-            Vector2 vec2 = endPointCalc(center.X, center.Y, -forwardVec.X, -forwardVec.Z);
-
-            //rectangles für vordere und hintere collision, -2 für zentrierung?
-            //maispflanzen nicht zentriert?
-            forwardCollision = new Rectangle((int)vec.X-2, (int)vec.Y-2, 4, 4);
-            backwardCollision = new Rectangle((int)vec2.X-2, (int)vec2.Y-2, 4, 4);
+            //normalisiere und dann skalieren
+            Vector3 forwardVecNorm = Vector3.Normalize(new Vector3(forwardVec.X, 0, forwardVec.Z));
+            Vector3 forwardMovement = forwardVecNorm * 4;
+            Vector3 backwardMovement = forwardVecNorm * -4;
+            forwardCollision = new Rectangle(playerBox.X + (int)forwardMovement.X+2, playerBox.Y + (int)forwardMovement.Z+2, 4, 4);
+            backwardCollision = new Rectangle(playerBox.X + (int)backwardMovement.X+2, playerBox.Y + (int)backwardMovement.Z+2, 4, 4);
 
             //überprüfe ob es Kollision gibt, ändere Wert, beide = 3, vorne = 1, hinten = 2, sonst 0
             foreach (Rectangle y in rectangles) {
@@ -96,12 +77,14 @@ namespace LostInTheCorn2.Collision
         public void Draw() {
 
             Visuals.SpriteBatch.Begin();
-            Visuals.SpriteBatch.DrawString(font, "Frontvector" + forwardVector.X +" "+ forwardVector.Z, new Vector2(600, 200), Color.Black);
+            //Draw die Pflanzen auf der Minimap
             foreach (Rectangle x in rectangles) {
                 Visuals.SpriteBatch.Draw(whiteRectangle, new Rectangle(x.X+20,x.Y+20,x.Size.X,x.Size.Y), Color.White);
             }
-            Visuals.SpriteBatch.Draw(whiteRectangle, new Rectangle(forwardCollision.X+20,forwardCollision.Y+20,forwardCollision.Size.X,forwardCollision.Size.Y), Color.Pink);
 
+            Visuals.SpriteBatch.Draw(whiteRectangle, new Rectangle(playerBox.X + 20, playerBox.Y + 20, playerBox.Size.X, playerBox.Size.Y), Color.White);
+            //Collision Boxes für Debugging
+            Visuals.SpriteBatch.Draw(whiteRectangle, new Rectangle(forwardCollision.X+20,forwardCollision.Y+20,forwardCollision.Size.X,forwardCollision.Size.Y), Color.Pink);
             Visuals.SpriteBatch.Draw(whiteRectangle, new Rectangle(backwardCollision.X + 20, backwardCollision.Y + 20, backwardCollision.Size.X, backwardCollision.Size.Y), Color.Pink);
             Visuals.SpriteBatch.End();
         }
