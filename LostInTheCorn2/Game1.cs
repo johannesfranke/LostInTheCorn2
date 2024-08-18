@@ -64,9 +64,9 @@ namespace LostInTheCorn
         {
             sceneManager = new(GraphicsDevice, this.Window);
 
-            //_graphics.PreferredBackBufferHeight = 1080;
-            //_graphics.PreferredBackBufferWidth = 1920;
-            //_graphics.ApplyChanges();
+            _graphics.PreferredBackBufferHeight = 1080;
+            _graphics.PreferredBackBufferWidth = 1920;
+            _graphics.ApplyChanges();
 
 
 
@@ -89,10 +89,12 @@ namespace LostInTheCorn
             Globals.buttonActions = this.buttonActions;
             Globals.basicEffect = new BasicEffect(Globals.graphicsDevice);
             //Globals.font = this.font;
-
-            Globals.sceneManager.AddScene(new StartMenu());
             Globals.screenHeight = GraphicsDevice.Viewport.Height;
             Globals.screenWidth = GraphicsDevice.Viewport.Width;
+            Globals.graphicsDeviceManager = this._graphics;
+
+            Globals.sceneManager.AddScene(new StartMenu());
+            
 
 
 
@@ -102,9 +104,12 @@ namespace LostInTheCorn
         {
 
             Globals.keyboardHelper.Update();
-            Globals.mouseHelper.Update();
             Globals.sceneManager.GetCurrentScene().Update(gameTime);
+            Globals.mouseHelper.Update();
+            Globals.screenHeight = GraphicsDevice.Viewport.Height;
+            Globals.screenWidth = GraphicsDevice.Viewport.Width;
 
+            
 
             base.Update(gameTime);
         }
@@ -113,15 +118,12 @@ namespace LostInTheCorn
         {
            
 
-            sceneManager.GetCurrentScene().Draw(_spriteBatch, GraphicsDevice);
+            sceneManager.GetCurrentScene().Draw(Globals.spriteBatch, Globals.graphicsDevice);
 
 
             base.Draw(gameTime);
         }
 
-        public void SetFullScreen()
-        {
-
-        }
+        
     }
 }
