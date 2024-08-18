@@ -113,25 +113,24 @@ namespace LostInTheCorn
 
 
 
-        public void Update(GameTime gameTime, Player player,int colliding)
+        public void Update(GameTime gameTime, Player player)
         {
 
-            Controls(gameTime, player,colliding);
+            Controls(gameTime, player);
             //ReCreateWorldAndView();
 
         }
 
-        public void Controls(GameTime gameTime, Player player,int colliding)
+        public void Controls(GameTime gameTime, Player player)
         {
             KeyboardState keyboardState = Keyboard.GetState();
             MouseState mouseState = Mouse.GetState(Visuals.GameWindow);
 
-            //überprüfe ob collision stattfindet, 0 = keine, 1= vorne, 2 = hinten, 3= beide
-            if (keyboardState.IsKeyDown(Keys.W)&&colliding != 1 && colliding != 3)
+            if (keyboardState.IsKeyDown(Keys.W))
             {
                 moveForward(gameTime, player);
             }
-            if (keyboardState.IsKeyDown(Keys.S)&&colliding != 2 && colliding != 3)
+            if (keyboardState.IsKeyDown(Keys.S))
             {
                 moveBackward(gameTime, player);
             }
@@ -150,7 +149,7 @@ namespace LostInTheCorn
             mState = mouseState;
             kbState = keyboardState;
 
-            //ReCreateWorldAndView();
+            ReCreateWorldAndView();
         }
 
         //Bewegung in Richtung der Blickrichtung des Spielers

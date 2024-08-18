@@ -34,8 +34,8 @@ namespace LostInTheCorn
         protected override void Initialize()
         {
             sceneManager = new(GraphicsDevice, this.Window);
-            _graphics.PreferredBackBufferHeight = 640;
-            _graphics.PreferredBackBufferWidth = 1024;
+            _graphics.PreferredBackBufferHeight = 1080;
+            _graphics.PreferredBackBufferWidth = 1920;
             _graphics.ApplyChanges();
 
 
