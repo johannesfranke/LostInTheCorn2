@@ -85,7 +85,7 @@ internal class Grid
         var row4 = new List<int> { 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1 };
         var row3 = new List<int> { 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1 };
         var row2 = new List<int> { 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1 };
-        var row1 = new List<int> { 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1 };
+        var row1 = new List<int> { 0, 0, 0, 0,0, 1, 1, 0, 0, 0, 0};
 
         grid.AddRow(row1);
         grid.AddRow(row2);

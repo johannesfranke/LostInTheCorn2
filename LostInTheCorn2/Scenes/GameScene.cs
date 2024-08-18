@@ -21,7 +21,7 @@ namespace LostInTheCorn2.Scenes
         private Model penguin;
         public Model WallCube;
 
-        int colliding;
+        Vector3 colliding;
 
         public Vector3 camInitPosition;
         public Vector3 initForward;
@@ -42,11 +42,11 @@ namespace LostInTheCorn2.Scenes
             Game1.Instance.IsMouseVisible = false;
 
             initForward = new Vector3(1, 0, 0);
-            camInitPosition = new Vector3(10+30, 1, 0);
+            camInitPosition = new Vector3(10, 1, 0);
 
   
 
-            player = new Player("Main", new Vector3(30, 0, 30));
+            player = new Player("Main", new Vector3(0, 0, 0));
             player.PlayerForward = initForward;
             penguin = Functional.ContentManager.Load<Model>("PenguinTextured");
 
@@ -79,7 +79,7 @@ namespace LostInTheCorn2.Scenes
             colliding = collision.Update(gameTime, player.PlayerWorld, player.returnForward());
 
             player.Update(gameTime, colliding);
-            cam.Update(gameTime, player,colliding);
+            cam.Update(gameTime, player);
         }
         public void Draw()
         {
@@ -94,7 +94,7 @@ namespace LostInTheCorn2.Scenes
             Visuals.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
 
             Drawable.drawModel(penguin, player.PlayerWorld, cam);
-            //Map.DrawWorld();
+            Map.DrawWorld();
 
 
             Rectangle playerRec = new Rectangle((int)player.PlayerPosition.X+20, (int)player.PlayerPosition.Z+20, 8, 8);

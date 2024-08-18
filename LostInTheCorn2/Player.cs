@@ -64,29 +64,28 @@ namespace LostInTheCorn
         }
 
 
-        public void Update(GameTime gameTime,int colliding)
+        public void Update(GameTime gameTime,Vector3 slidingVec)
         {
 
-            Controls(gameTime,colliding);
+            Controls(gameTime,slidingVec);
 
         }
 
-        public void Controls(GameTime gameTime,int colliding)
+        public void Controls(GameTime gameTime,Vector3 slidingVec)
         {
             KeyboardState keyboardState = Keyboard.GetState();
             MouseState mouseState = Mouse.GetState(Visuals.GameWindow);
             //überprüfe ob collision stattfindet, 0 = keine, 1= vorne, 2 = hinten, 3= beide
             if (keyboardState.IsKeyDown(Keys.W))
             {
-                if (colliding != 1 && colliding != 3)
-                {
-                    moveForward(gameTime);
-                }
+                
+                    moveForward(gameTime,slidingVec);
+                
                 //else {
                 //    moveForwardWithCollision(gameTime);
                 //}
             }
-            if (keyboardState.IsKeyDown(Keys.S) && colliding != 2 && colliding != 3)
+            if (keyboardState.IsKeyDown(Keys.S))
             {
                 moveBackward(gameTime);
             }
@@ -103,8 +102,12 @@ namespace LostInTheCorn
 
         //Bewegungsrichtungen, abhängig von der Blickrichtung
 
-        public void moveForward(GameTime gameTime)
+        public void moveForward(GameTime gameTime,Vector3 slidingVec)
         {
+            if (playerWorld.Forward != slidingVec)
+            {
+                playerWorld.Forward = slidingVec;
+            }
             PlayerPosition += (playerWorld.Forward * MovementUnitsPerSecond) * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
