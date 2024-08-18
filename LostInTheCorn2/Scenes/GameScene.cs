@@ -56,7 +56,7 @@ namespace LostInTheCorn2.Scenes
             Map.SetModelWithEnum(0, Functional.ContentManager.Load<Model>("PlaneFloor"));
             Map.SetModelWithEnum(1, Functional.ContentManager.Load<Model>("Corn"));
 
-            SkyBoxModel = Functional.ContentManager.Load<Model>(@"C:\Users\diana\source\repos\LostInTheCorn2\LostInTheCorn2\bin\Debug\net6.0\Content\SkySphere");
+            SkyBoxModel = Functional.ContentManager.Load<Model>("SkySphere");
             SkyBoxTexture = Functional.ContentManager.Load<Texture2D>("TextureSkySphere");
         }
 
