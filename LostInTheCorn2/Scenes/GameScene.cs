@@ -102,6 +102,19 @@ namespace LostInTheCorn2.Scenes
             Map.DrawWorld();
             Drawable.drawWithEffectModel(penguin, MovementManager.Player.PlayerWorld, cam);
             Drawable.drawWithoutModel(SkyBoxModel, MovementManager.SkySphere.GlobeWorld, cam);
+            Drawable.drawModel(penguin, player.PlayerWorld, cam);
+            //Map.DrawWorld();
+
+
+            Rectangle playerRec = new Rectangle((int)player.PlayerPosition.X+20, (int)player.PlayerPosition.Z+20, 8, 8);
+            
+            Texture2D whiteRectangle = new Texture2D(Visuals.GraphicsDevice, 1, 1);
+            whiteRectangle.SetData(new[] { Color.White });
+
+            Visuals.SpriteBatch.Begin();
+            Visuals.SpriteBatch.Draw(whiteRectangle, playerRec, Color.AliceBlue);
+            Visuals.SpriteBatch.End();
+            collision.Draw();
         }
     }
 }
