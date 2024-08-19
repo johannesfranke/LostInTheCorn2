@@ -91,21 +91,6 @@ namespace LostInTheCorn2.Scenes
             Visuals.GraphicsDevice.BlendState = BlendState.AlphaBlend;
             Visuals.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
 
-
-            //Matrix pos = Matrix.CreateWorld(new Vector3(0, 0, 0), Vector3.Forward, Vector3.Up);
-
-            //foreach (var mesh in SkyBoxModel.Meshes)
-            //{
-            //    foreach (BasicEffect effect in mesh.Effects)
-            //    {
-
-            //        //effect.View = pos;
-            //        //effect.World = player.PlayerWorld;
-            //        //effect.Projection = cam.Projection;
-            //        //mesh.Draw();
-            //    }
-            //}
-
             Map.DrawWorld();
             Drawable.drawWithEffectModel(penguin, MovementManager.Player.PlayerWorld, cam);
             Drawable.drawWithoutModel(SkyBoxModel, MovementManager.SkySphere.GlobeWorld, cam);

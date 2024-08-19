@@ -1,9 +1,26 @@
-﻿using LostInTheCorn2;
+﻿
+
+#region Includes
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using System.Text;
+using LostInTheCorn2;
 using LostInTheCorn2.Globals;
 using LostInTheCorn2.Scenes;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
+using LostInTheCorn2.UIClasses;
+
+#endregion
 
 namespace LostInTheCorn
 {
@@ -16,6 +33,7 @@ namespace LostInTheCorn
         private SceneManager sceneManager;
         private KeyboardHelper keyboardHelper;
         private MouseHelper mouseHelper;
+        private ButtonActions buttonActions;
 
         public static Game1 Instance { get; private set; }
 
@@ -30,6 +48,7 @@ namespace LostInTheCorn
             _graphics.IsFullScreen = false;
             keyboardHelper = new KeyboardHelper();
             mouseHelper = new MouseHelper();
+            buttonActions = new ButtonActions();
             Instance = this;
         }
 
@@ -56,6 +75,7 @@ namespace LostInTheCorn
             Visuals.SetGraphicsDevice(GraphicsDevice);
             Visuals.SetGraphicsDeviceManager(_graphics);
             Visuals.SetGameWindow(Window);
+            Functional.SetButtonActions(buttonActions);
 
 
             Visuals.SceneManager.AddScene(new StartMenu());

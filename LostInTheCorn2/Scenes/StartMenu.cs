@@ -92,10 +92,10 @@ namespace LostInTheCorn2.Scenes
 
             // Zeichne das RenderTarget auf den Bildschirm skaliert
             Visuals.SpriteBatch.Draw(renderTarget, screenRectangle, Color.White);
-            startGameButton.Draw(new Vector2(0, 0));
-            Visuals.SpriteBatch.DrawString(Functional.Font, "isHovered: " + startGameButton.isHovered.ToString(), new Vector2(10, 10), Color.White);
-            Visuals.SpriteBatch.DrawString(Functional.Font, "isPressed: " + startGameButton.isPressed.ToString(), new Vector2(10, 25), Color.White);
-            Visuals.SpriteBatch.DrawString(Functional.Font, "leftClicked: " + Functional.MouseHelper.leftClicked.ToString(), new Vector2(10, 40), Color.White);
+            //startGameButton.Draw(new Vector2(0, 0));
+            //Visuals.SpriteBatch.DrawString(Functional.Font, "isHovered: " + startGameButton.isHovered.ToString(), new Vector2(10, 10), Color.White);
+            //Visuals.SpriteBatch.DrawString(Functional.Font, "isPressed: " + startGameButton.isPressed.ToString(), new Vector2(10, 25), Color.White);
+            //Visuals.SpriteBatch.DrawString(Functional.Font, "leftClicked: " + Functional.MouseHelper.leftClicked.ToString(), new Vector2(10, 40), Color.White);
 
             // Beende das Zeichnen
             Visuals.SpriteBatch.End();
