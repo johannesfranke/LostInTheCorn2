@@ -42,15 +42,17 @@ namespace LostInTheCorn2
         {
             isHovered = true;
 
-                if (Functional.MouseHelper.LeftClick())
+                if (Functional.MouseHelper.leftClicked)
                 {
                     isHovered = false;
                     isPressed = true;
-                }
-                else if (Functional.MouseHelper.LeftClickRelease())
-                {
                     RunBtnClick();
+                    if (!Functional.MouseHelper.leftClicked)
+                    {
+                        RunBtnClick();
+                    }
                 }
+                
 
             }
             else
@@ -58,7 +60,7 @@ namespace LostInTheCorn2
                 isHovered = false;
             }
 
-            if (!Functional.MouseHelper.LeftClick() && !Functional.MouseHelper.LeftClickHold())
+            if (!Functional.MouseHelper.leftClicked && !Functional.MouseHelper.LeftClickHold())
             {
                 isPressed = false;
             }

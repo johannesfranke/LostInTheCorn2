@@ -67,6 +67,7 @@ namespace LostInTheCorn
         {
 
             Functional.KeyboardHelper.Update();
+            Functional.MouseHelper.Update();
             Visuals.SceneManager.GetCurrentScene().Update(gameTime);
 
 
@@ -75,9 +76,7 @@ namespace LostInTheCorn
 
         protected override void Draw(GameTime gameTime)
         {
-            //GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            //Werte als Sprites zum Testen
+            
             sceneManager.GetCurrentScene().Draw();
 
 
@@ -89,7 +88,6 @@ namespace LostInTheCorn
             //_spriteBatch.DrawString(font, "camForward" + cam.Forward, new Vector2(0, 2*150), Color.Black);
             //_spriteBatch.DrawString(font, "playerForward" + player.PlayerForward, new Vector2(0, 2 * 165), Color.Black);
 
-            //Globals.spriteBatch.End();
 
             base.Draw(gameTime);
         }

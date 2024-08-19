@@ -37,7 +37,7 @@ namespace LostInTheCorn2.Scenes
 
             Game1.Instance.IsMouseVisible = true;
             renderTarget = new RenderTarget2D(Visuals.GraphicsDevice, 1920, 1080);
-            startScreen = Functional.ContentManager.Load<Texture2D>("LostInTheCornScreen");
+            startScreen = Functional.ContentManager.Load<Texture2D>("TitleScreen");
 
             // Setze den screenRectangle auf die gesamte Größe des Viewports
             screenRectangle = new Rectangle(0, 0, Visuals.GraphicsDevice.Viewport.Width, Visuals.GraphicsDevice.Viewport.Height);
@@ -56,6 +56,7 @@ namespace LostInTheCorn2.Scenes
                 // Graphics device aus game1 hinzufügen
             }
             startGameButton.Update(new Vector2(0,0));
+            
 
         }
         public void Draw()
@@ -92,6 +93,10 @@ namespace LostInTheCorn2.Scenes
             // Zeichne das RenderTarget auf den Bildschirm skaliert
             Visuals.SpriteBatch.Draw(renderTarget, screenRectangle, Color.White);
             startGameButton.Draw(new Vector2(0, 0));
+            Visuals.SpriteBatch.DrawString(Functional.Font, "isHovered: " + startGameButton.isHovered.ToString(), new Vector2(10, 10), Color.White);
+            Visuals.SpriteBatch.DrawString(Functional.Font, "isPressed: " + startGameButton.isPressed.ToString(), new Vector2(10, 25), Color.White);
+            Visuals.SpriteBatch.DrawString(Functional.Font, "leftClicked: " + Functional.MouseHelper.leftClicked.ToString(), new Vector2(10, 40), Color.White);
+
             // Beende das Zeichnen
             Visuals.SpriteBatch.End();
         }

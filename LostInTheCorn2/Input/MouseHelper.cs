@@ -14,8 +14,8 @@ namespace LostInTheCorn2
     public class MouseHelper
     {
         public bool dragging, rightDrag;
-        private bool leftClicked;
-        private bool leftReleased;
+        public bool leftClicked;
+        public bool leftReleased;
 
         public Vector2 newMousePos, oldMousePos, firstMousePos, newMouseAdjustedPos, systemCursorPos, screenLoc;
 
@@ -128,7 +128,7 @@ namespace LostInTheCorn2
 
         public virtual bool LeftClick() { 
            
-            if (newMouse.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && oldMouse.LeftButton != Microsoft.Xna.Framework.Input.ButtonState.Pressed && newMouse.Position.X >= 0 && newMouse.Position.X <= Visuals.screenWidth && newMouse.Position.Y >= 0 && newMouse.Position.Y <= Visuals.screenHeight)
+            if (newMouse.LeftButton == ButtonState.Pressed && oldMouse.LeftButton != ButtonState.Pressed && newMouse.Position.X >= 0 && newMouse.Position.X <= Visuals.screenWidth && newMouse.Position.Y >= 0 && newMouse.Position.Y <= Visuals.screenHeight)
             {
                 return true;
             }
