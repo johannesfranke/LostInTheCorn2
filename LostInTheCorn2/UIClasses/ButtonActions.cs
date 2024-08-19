@@ -15,6 +15,7 @@ using Microsoft.Xna.Framework.Media;
 using System.Text;
 using LostInTheCorn2;
 using LostInTheCorn2.Scenes;
+using LostInTheCorn2.Globals;
 #endregion
 
 namespace LostInTheCorn2.UIClasses
@@ -25,7 +26,7 @@ namespace LostInTheCorn2.UIClasses
         
         public void startGame()
         {
-            Globals.sceneManager.AddScene(new GameScene(Globals.contentManager, Globals.graphicsDevice, Globals.gameWindow, Globals.sceneManager, Globals.keyboardHelper));
+            Visuals.SceneManager.AddScene(new GameScene());
 
         }
     }

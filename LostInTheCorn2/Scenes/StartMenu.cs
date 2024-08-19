@@ -1,5 +1,6 @@
 ﻿using LostInTheCorn;
 using LostInTheCorn2.Globals;
+using LostInTheCorn2.UIClasses;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -17,6 +18,9 @@ namespace LostInTheCorn2.Scenes
     {
         Texture2D startScreen;
         RenderTarget2D renderTarget;
+        ButtonActions buttonActions = new ButtonActions();
+
+        Button startGameButton;
 
         Rectangle screenRectangle;
 
@@ -36,13 +40,11 @@ namespace LostInTheCorn2.Scenes
             startScreen = Functional.ContentManager.Load<Texture2D>("LostInTheCornScreen");
 
             // Setze den screenRectangle auf die gesamte Größe des Viewports
-            screenRectangle = new Rectangle(0, 0, Globals.graphicsDevice.Viewport.Width, Globals.graphicsDevice.Viewport.Height);
-            SpriteFont font = Globals.contentManager.Load<SpriteFont>("StandardFont");
-            Globals.font = font;
+            screenRectangle = new Rectangle(0, 0, Visuals.GraphicsDevice.Viewport.Width, Visuals.GraphicsDevice.Viewport.Height);
+            SpriteFont font = Functional.ContentManager.Load<SpriteFont>("StandardFont");
+            Functional.SetFont(font);
 
-            startGameButton = new Button("ButtonHope", new Vector2(400, 350), new Vector2(400, 60), "", "Start", Globals.buttonActions.startGame);
-
-            released = false;
+            startGameButton = new Button("ButtonHope", new Vector2(400, 350), new Vector2(400, 60), "", "Start", buttonActions.startGame);
 
 
         }
@@ -55,55 +57,48 @@ namespace LostInTheCorn2.Scenes
             }
             startGameButton.Update(new Vector2(0,0));
 
-            if (Globals.mouseHelper.LeftClickRelease()) { 
-                released = true; 
-            }
-            if (Globals.keyboardHelper.IsKeyPressed(Keys.R))
-            {
-                ToggleFullScreen();
-            }
         }
         public void Draw()
         {
             // Setze das RenderTarget
-            graphicsDevice.SetRenderTarget(renderTarget);
+            Visuals.GraphicsDevice.SetRenderTarget(renderTarget);
 
             // Kläre das RenderTarget
-            graphicsDevice.Clear(Color.CornflowerBlue);
+            Visuals.GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // Berechne die Skalierung basierend auf der Zielauflösung
-            float scaleX = (float)Globals.graphicsDevice.Viewport.Width / 1792f;
-            float scaleY = (float)Globals.graphicsDevice.Viewport.Height / 1024f;
+            float scaleX = (float)Visuals.GraphicsDevice.Viewport.Width / 1792f;
+            float scaleY = (float)Visuals.GraphicsDevice.Viewport.Height / 1024f;
 
             // Berechne den skalieren Rechteck für den Hintergrund
             Rectangle scaledRectangle = new Rectangle(0, 0, (int)(1792 * scaleX), (int)(1024 * scaleY));
 
             // Beginne das Zeichnen
-            _spriteBatch.Begin();
+            Visuals.SpriteBatch.Begin();
 
             // Zeichne den skalierten Hintergrund (TitleScreen)
-            _spriteBatch.Draw(startScreen, scaledRectangle, Color.White);
+            Visuals.SpriteBatch.Draw(startScreen, scaledRectangle, Color.White);
 
 
             // Beende das Zeichnen
-            _spriteBatch.End();
+            Visuals.SpriteBatch.End();
 
             // Setze das RenderTarget auf null (zurück auf den Bildschirm)
-            graphicsDevice.SetRenderTarget(null);
+            Visuals.GraphicsDevice.SetRenderTarget(null);
 
             // Beginne das Zeichnen des finalen Bildschirms
-            _spriteBatch.Begin();
+            Visuals.SpriteBatch.Begin();
 
             // Zeichne das RenderTarget auf den Bildschirm skaliert
-            _spriteBatch.Draw(renderTarget, screenRectangle, Color.White);
+            Visuals.SpriteBatch.Draw(renderTarget, screenRectangle, Color.White);
             startGameButton.Draw(new Vector2(0, 0));
             // Beende das Zeichnen
-            _spriteBatch.End();
+            Visuals.SpriteBatch.End();
         }
 
         public void ToggleFullScreen()
         {
-            Globals.graphicsDeviceManager.ToggleFullScreen();
+            Visuals.GraphicsDeviceManager.ToggleFullScreen();
         }
 
     }

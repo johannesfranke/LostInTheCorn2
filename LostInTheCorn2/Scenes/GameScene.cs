@@ -73,7 +73,7 @@ namespace LostInTheCorn2.Scenes
 
             if (Functional.KeyboardHelper.IsKeyPressed(Keys.Escape))
             {
-                Visuals.SceneManager.AddScene(new ExitScene());
+                Visuals.SceneManager.AddScene(new SettingsScene());
             }
             //Kamera und Spieler sollen geupdatet werden
             MovementManager.Update(gameTime);

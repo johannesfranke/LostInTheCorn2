@@ -33,7 +33,7 @@ namespace LostInTheCorn2
             oldMousePos = new Vector2(newMouse.Position.X, newMouse.Position.Y);
             firstMousePos = new Vector2(newMouse.Position.X, newMouse.Position.Y);
 
-            screenLoc = new Vector2((int)(systemCursorPos.X / Globals.screenWidth), (int)(systemCursorPos.Y / Globals.screenHeight));
+            screenLoc = new Vector2((int)(systemCursorPos.X / Visuals.screenWidth), (int)(systemCursorPos.Y / Visuals.screenHeight));
             //screenLoc = new Vector2((int)(systemCursorPos.X/Globals.screenWidth), (int)(systemCursorPos.Y/Globals.screenHeight));
 
             GetMouseAndAdjust();
@@ -69,8 +69,7 @@ namespace LostInTheCorn2
                 leftClicked = true;
             }
             // Überprüfen, ob die linke Maustaste losgelassen wurde
-            if (newMouse.LeftButton == ButtonState.Released && leftClicked)
-            if (newMouse.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && oldMouse.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Released)
+            if (newMouse.LeftButton == ButtonState.Released && oldMouse.LeftButton == ButtonState.Released)
             {
                 leftReleased = true;
                 leftClicked = false; // Zurücksetzen für den nächsten Zyklus
@@ -106,7 +105,7 @@ namespace LostInTheCorn2
             oldMousePos = GetScreenPos(oldMouse);
         }
 
-        public virtual float GetDistanceFromClick()
+        public virtual float GetDistanceFromClick() { 
             return MathExtension.GetDistance(newMousePos, firstMousePos);
         }
 
@@ -127,11 +126,9 @@ namespace LostInTheCorn2
             return tempVec;
         }
 
-        public virtual bool LeftClick()
-            if (newMouse.LeftButton == ButtonState.Pressed && oldMouse.LeftButton != ButtonState.Pressed &&
-                newMouse.Position.X >= 0 && newMouse.Position.X <= Globals.screenWidth &&
-                newMouse.Position.Y >= 0 && newMouse.Position.Y <= Globals.screenHeight)
-            if (newMouse.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && oldMouse.LeftButton != Microsoft.Xna.Framework.Input.ButtonState.Pressed && newMouse.Position.X >= 0 && newMouse.Position.X <= Globals.screenWidth && newMouse.Position.Y >= 0 && newMouse.Position.Y <= Globals.screenHeight)
+        public virtual bool LeftClick() { 
+           
+            if (newMouse.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && oldMouse.LeftButton != Microsoft.Xna.Framework.Input.ButtonState.Pressed && newMouse.Position.X >= 0 && newMouse.Position.X <= Visuals.screenWidth && newMouse.Position.Y >= 0 && newMouse.Position.Y <= Visuals.screenHeight)
             {
                 return true;
             }
@@ -142,11 +139,9 @@ namespace LostInTheCorn2
         {
             bool holding = false;
             if (newMouse.LeftButton == ButtonState.Pressed && oldMouse.LeftButton == ButtonState.Pressed && newMouse.Position.X >= 0 && newMouse.Position.X <= Visuals.screenWidth && newMouse.Position.Y >= 0 && newMouse.Position.Y <= Visuals.screenHeight)
-            if (newMouse.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && oldMouse.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && newMouse.Position.X >= 0 && newMouse.Position.X <= Globals.screenWidth && newMouse.Position.Y >= 0 && newMouse.Position.Y <= Globals.screenHeight)
             {
                 holding = true;
                 if (Math.Abs(newMouse.Position.X - firstMouse.Position.X) > 8 || Math.Abs(newMouse.Position.Y - firstMouse.Position.Y) > 8)
-                    Math.Abs(newMouse.Position.Y - firstMouse.Position.Y) > 8)
                 {
                     dragging = true;
                 }
@@ -155,8 +150,9 @@ namespace LostInTheCorn2
         }
 
         public virtual bool LeftClickRelease()
+        {
+
             if (newMouse.LeftButton == ButtonState.Released && oldMouse.LeftButton == ButtonState.Pressed)
-            if (newMouse.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Released && oldMouse.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
             {
                 dragging = false;
                 return true;
@@ -165,8 +161,9 @@ namespace LostInTheCorn2
         }
 
         public virtual bool RightClick()
+        {
+
             if (newMouse.RightButton == ButtonState.Pressed && oldMouse.RightButton != ButtonState.Pressed && newMouse.Position.X >= 0 && newMouse.Position.X <= Visuals.screenWidth && newMouse.Position.Y >= 0 && newMouse.Position.Y <= Visuals.screenHeight)
-            if (newMouse.RightButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && oldMouse.RightButton != Microsoft.Xna.Framework.Input.ButtonState.Pressed && newMouse.Position.X >= 0 && newMouse.Position.X <= Globals.screenWidth && newMouse.Position.Y >= 0 && newMouse.Position.Y <= Globals.screenHeight)
             {
                 return true;
             }
@@ -177,7 +174,6 @@ namespace LostInTheCorn2
         {
             bool holding = false;
             if (newMouse.RightButton == ButtonState.Pressed && oldMouse.RightButton == ButtonState.Pressed && newMouse.Position.X >= 0 && newMouse.Position.X <= Visuals.screenWidth && newMouse.Position.Y >= 0 && newMouse.Position.Y <= Visuals.screenHeight)
-            if (newMouse.RightButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && oldMouse.RightButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && newMouse.Position.X >= 0 && newMouse.Position.X <= Globals.screenWidth && newMouse.Position.Y >= 0 && newMouse.Position.Y <= Globals.screenHeight)
             {
                 holding = true;
 
@@ -199,10 +195,6 @@ namespace LostInTheCorn2
             }
             return false;
         }
-
-        public void SetFirst()
-        }
-            return false;
-        }
+            
     }
 }

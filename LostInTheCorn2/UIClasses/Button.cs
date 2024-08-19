@@ -28,7 +28,7 @@ namespace LostInTheCorn2
 
         if (!string.IsNullOrEmpty(FONTPATH))
         {
-            font = Globals.contentManager.Load<SpriteFont>(FONTPATH);
+            font = Functional.ContentManager.Load<SpriteFont>(FONTPATH);
         }
 
         isPressed = false;
@@ -42,12 +42,12 @@ namespace LostInTheCorn2
         {
             isHovered = true;
 
-                if (Functional.mouseHelper.LeftClick())
+                if (Functional.MouseHelper.LeftClick())
                 {
                     isHovered = false;
                     isPressed = true;
                 }
-                else if (Functional.mouseHelper.LeftClickRelease())
+                else if (Functional.MouseHelper.LeftClickRelease())
                 {
                     RunBtnClick();
                 }
@@ -58,7 +58,7 @@ namespace LostInTheCorn2
                 isHovered = false;
             }
 
-            if (!Functional.mouseHelper.LeftClick() && !Functional.mouseHelper.LeftClickHold())
+            if (!Functional.MouseHelper.LeftClick() && !Functional.MouseHelper.LeftClickHold())
             {
                 isPressed = false;
             }
@@ -79,7 +79,7 @@ namespace LostInTheCorn2
         }
 
         // Hier wird die Textur auf die spezifizierten Dimensionen rescaled
-        Globals.spriteBatch.Draw(
+        Visuals.SpriteBatch.Draw(
             myModel, 
             new Rectangle((int)(pos.X + OFFSET.X), (int)(pos.Y + OFFSET.Y), (int)dims.X, (int)dims.Y),
             null, 
@@ -93,7 +93,7 @@ namespace LostInTheCorn2
         if (font != null)
         {
             Vector2 strDims = font.MeasureString(text);
-            Globals.spriteBatch.DrawString(font, text, pos + OFFSET + new Vector2(-strDims.X / 2, -strDims.Y / 2), Color.Black);
+            Visuals.SpriteBatch.DrawString(font, text, pos + OFFSET + new Vector2(-strDims.X / 2, -strDims.Y / 2), Color.Black);
         }
 
 

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LostInTheCorn2.Globals;
 
 namespace LostInTheCorn2.Scenes
 {
@@ -22,10 +23,9 @@ namespace LostInTheCorn2.Scenes
 
         private List<Button> buttons;
 
-        public SettingsScene(GraphicsDevice graphicsDevice, GameWindow window)
+        public SettingsScene()
         {
-            this.graphicsDevice = graphicsDevice;
-            this.window = window;
+            
         }
 
         public void Load()
@@ -33,9 +33,9 @@ namespace LostInTheCorn2.Scenes
             Game1.Instance.IsMouseVisible = true;
 
             // RenderTarget2D initialisieren
-            gameRenderTarget = new RenderTarget2D(this.graphicsDevice,
-                this.graphicsDevice.PresentationParameters.BackBufferWidth,
-                this.graphicsDevice.PresentationParameters.BackBufferHeight);
+            gameRenderTarget = new RenderTarget2D(Visuals.GraphicsDevice,
+                Visuals.GraphicsDevice.PresentationParameters.BackBufferWidth,
+                Visuals.GraphicsDevice.PresentationParameters.BackBufferHeight);
 
             // Buttons erstellen
             CreateButtons();
@@ -47,7 +47,7 @@ namespace LostInTheCorn2.Scenes
             buttons = new List<Button>();
 
             // Position und Dimensionen für die Buttons
-            Vector2 buttonPosition = new Vector2(graphicsDevice.PresentationParameters.BackBufferWidth / 2, 200);
+            Vector2 buttonPosition = new Vector2(Visuals.GraphicsDevice.PresentationParameters.BackBufferWidth / 2, 200);
             Vector2 buttonSize = new Vector2(300, 75); // Normale Button-Größe
 
             // Offset zwischen den Buttons
@@ -56,7 +56,7 @@ namespace LostInTheCorn2.Scenes
             // Erstellen der Buttons mit der zugehörigen Aktion
             buttons.Add(new Button("ButtonHope", buttonPosition, buttonSize, null, "Resume", () =>
             {
-                Globals.sceneManager.RemoveScene(); // Zurück zum Spiel
+                Visuals.SceneManager.RemoveScene(); // Zurück zum Spiel
             }));
 
             buttons.Add(new Button("ButtonHope", buttonPosition + new Vector2(0, buttonSize.Y + buttonSpacing), buttonSize, null, "Settings", () =>
@@ -79,9 +79,9 @@ namespace LostInTheCorn2.Scenes
 
         public void Update(GameTime gameTime)
         {
-            if (Globals.keyboardHelper.IsKeyPressed(Keys.Escape))
+            if (Functional.KeyboardHelper.IsKeyPressed(Keys.Escape))
             {
-                Globals.sceneManager.RemoveScene();
+                Visuals.SceneManager.RemoveScene();
             }
 
             foreach (var button in buttons)
@@ -90,13 +90,13 @@ namespace LostInTheCorn2.Scenes
             }
         }
 
-        public void Draw(SpriteBatch _spriteBatch, GraphicsDevice graphicsDevice)
+        public void Draw()
         {
             // Zeichne das letzte Standbild als Hintergrund
-            Globals.spriteBatch.Begin();
-            Globals.spriteBatch.Draw(gameRenderTarget, Vector2.Zero, Color.White);
-            DrawPauseMenu(Globals.spriteBatch);
-            Globals.spriteBatch.End();
+            Visuals.SpriteBatch.Begin();
+            Visuals.SpriteBatch.Draw(gameRenderTarget, Vector2.Zero, Color.White);
+            DrawPauseMenu(Visuals.SpriteBatch);
+            Visuals.SpriteBatch.End();
         }
 
         private void DrawPauseMenu(SpriteBatch spriteBatch)
