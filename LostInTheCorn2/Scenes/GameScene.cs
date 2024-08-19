@@ -4,8 +4,15 @@ using LostInTheCorn2.map;
 using LostInTheCorn2.ModelFunction;
 using LostInTheCorn2.MovableObjects;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection.Metadata;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace LostInTheCorn2.Scenes
 {
@@ -32,6 +39,7 @@ namespace LostInTheCorn2.Scenes
         public GameScene()
         {
             //graphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
+
         }
 
         public void Load()
@@ -56,17 +64,16 @@ namespace LostInTheCorn2.Scenes
             Map.SetModelWithEnum(0, Functional.ContentManager.Load<Model>("PlaneFloor"));
             Map.SetModelWithEnum(1, Functional.ContentManager.Load<Model>("Corn"));
 
-            SkyBoxModel = Functional.ContentManager.Load<Model>(@"C:\Users\diana\source\repos\LostInTheCorn2\LostInTheCorn2\bin\Debug\net6.0\Content\SkySphere");
+            SkyBoxModel = Functional.ContentManager.Load<Model>("SkySphere");
             SkyBoxTexture = Functional.ContentManager.Load<Texture2D>("TextureSkySphere");
         }
-
-        public void Update(GameTime gameTime)
-        {
+    
+        public void Update(GameTime gameTime) {
 
 
             if (Functional.KeyboardHelper.IsKeyPressed(Keys.Escape))
             {
-                Visuals.SceneManager.AddScene(new ExitScene());
+                Visuals.SceneManager.AddScene(new SettingsScene());
             }
             //Kamera und Spieler sollen geupdatet werden
             MovementManager.Update(gameTime);

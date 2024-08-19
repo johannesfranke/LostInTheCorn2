@@ -36,7 +36,7 @@ namespace LostInTheCorn2
 
         public virtual bool HoverImg(Vector2 OFFSET)
         {
-            Vector2 mousePos = new Vector2(Functional.mouseHelper.newMousePos.X, Functional.mouseHelper.newMousePos.Y);
+            Vector2 mousePos = new Vector2(Functional.MouseHelper.newMousePos.X, Functional.MouseHelper.newMousePos.Y);
 
             if (mousePos.X >= (pos.X + OFFSET.X) - dims.X / 2 && mousePos.X <= (pos.X + OFFSET.X) + dims.X / 2 && mousePos.Y >= (pos.Y + OFFSET.Y) - dims.Y / 2 && mousePos.Y <= (pos.Y + OFFSET.Y) + dims.Y / 2)
             {

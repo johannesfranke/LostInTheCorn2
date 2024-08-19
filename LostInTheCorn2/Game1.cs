@@ -15,6 +15,7 @@ namespace LostInTheCorn
         private SpriteFont font;
         private SceneManager sceneManager;
         private KeyboardHelper keyboardHelper;
+        private MouseHelper mouseHelper;
 
         public static Game1 Instance { get; private set; }
 
@@ -28,6 +29,7 @@ namespace LostInTheCorn
             IsMouseVisible = true;
             _graphics.IsFullScreen = false;
             keyboardHelper = new KeyboardHelper();
+            mouseHelper = new MouseHelper();
             Instance = this;
         }
 
@@ -49,8 +51,10 @@ namespace LostInTheCorn
             Visuals.SetSpriteBatch(this._spriteBatch);
             Functional.SetContentManager(Content);
             Functional.SetKeyboardHelper(keyboardHelper);
+            Functional.SetMouseHelper(mouseHelper);
             Visuals.SetSceneManager(sceneManager);
             Visuals.SetGraphicsDevice(GraphicsDevice);
+            Visuals.SetGraphicsDeviceManager(_graphics);
             Visuals.SetGameWindow(Window);
 
 
