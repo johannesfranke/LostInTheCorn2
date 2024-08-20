@@ -28,6 +28,8 @@ namespace LostInTheCorn2.Scenes
         private Model SkyBoxModel;
         private Texture2D SkyBoxTexture;
 
+        private Collision.Collision CollisionDetection;
+
 
         public GameScene()
         {
@@ -56,8 +58,10 @@ namespace LostInTheCorn2.Scenes
             Map.SetModelWithEnum(0, Functional.ContentManager.Load<Model>("PlaneFloor"));
             Map.SetModelWithEnum(1, Functional.ContentManager.Load<Model>("Corn"));
 
-            SkyBoxModel = Functional.ContentManager.Load<Model>(@"C:\Users\diana\source\repos\LostInTheCorn2\LostInTheCorn2\bin\Debug\net6.0\Content\SkySphere");
+            SkyBoxModel = Functional.ContentManager.Load<Model>("SkySphere");
             SkyBoxTexture = Functional.ContentManager.Load<Texture2D>("TextureSkySphere");
+
+            CollisionDetection = new Collision.Collision(startMapPos, sizeCube);
         }
 
         public void Update(GameTime gameTime)
@@ -68,9 +72,10 @@ namespace LostInTheCorn2.Scenes
             {
                 Visuals.SceneManager.AddScene(new ExitScene());
             }
+            int colliding = CollisionDetection.Update(gameTime, MovementManager.Player.PlayerWorld, MovementManager.Player.PlayerWorld.Forward);
             //Kamera und Spieler sollen geupdatet werden
-            MovementManager.Update(gameTime);
-            cam.Update(gameTime, MovementManager.Player);
+            MovementManager.Update(gameTime,colliding);
+            cam.Update(gameTime, MovementManager.Player,colliding);
         }
         public void Draw()
         {

@@ -24,24 +24,24 @@ public class MovementAroundPlayerManager
         SkySphere = new SkySphere(position, init);
     }
 
-    public void Update(GameTime gameTime)
+    public void Update(GameTime gameTime, int colliding)
     {
 
-        Controls(gameTime);
+        Controls(gameTime, colliding);
 
     }
 
-    public void Controls(GameTime gameTime)
+    public void Controls(GameTime gameTime, int colliding)
     {
         KeyboardState keyboardState = Keyboard.GetState();
         MouseState mouseState = Mouse.GetState(Visuals.GameWindow);
 
-        if (keyboardState.IsKeyDown(Keys.W))
+        if (keyboardState.IsKeyDown(Keys.W) && colliding != 1 && colliding != 3)
         {
             Player.moveForward(gameTime, MovementUnitsPerSecond);
             SkySphere.moveForward(gameTime, MovementUnitsPerSecond, Player.PlayerWorld);
         }
-        if (keyboardState.IsKeyDown(Keys.S))
+        if (keyboardState.IsKeyDown(Keys.S) && colliding != 2 && colliding != 3)
         {
             Player.moveBackward(gameTime, MovementUnitsPerSecond);
             SkySphere.moveBackward(gameTime, MovementUnitsPerSecond, Player.PlayerWorld);
