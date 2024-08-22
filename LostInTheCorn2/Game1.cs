@@ -18,7 +18,6 @@ using System.Text;
 using LostInTheCorn2;
 using LostInTheCorn2.Globals;
 using LostInTheCorn2.Scenes;
-using LostInTheCorn2.UIClasses;
 
 #endregion
 
@@ -34,6 +33,7 @@ namespace LostInTheCorn
         private KeyboardHelper keyboardHelper;
         private MouseHelper mouseHelper;
         private ButtonActions buttonActions;
+        private GameTime gameTime;
 
         public static Game1 Instance { get; private set; }
 
@@ -45,6 +45,7 @@ namespace LostInTheCorn
             //Content.RootDirectory = "Content";
             Content = new ContentManager(this.Services, "Content");
             IsMouseVisible = true;
+            gameTime = new GameTime();
             _graphics.IsFullScreen = false;
             keyboardHelper = new KeyboardHelper();
             mouseHelper = new MouseHelper();
@@ -55,10 +56,10 @@ namespace LostInTheCorn
         protected override void Initialize()
         {
             sceneManager = new(GraphicsDevice, this.Window);
-            _graphics.PreferredBackBufferHeight = 1080;
-            _graphics.PreferredBackBufferWidth = 1920;
+            _graphics.IsFullScreen = false; // Standardmäßig im Fenstermodus starten
+            _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width /2;
+            _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 2;
             _graphics.ApplyChanges();
-
 
 
             base.Initialize();
@@ -67,15 +68,21 @@ namespace LostInTheCorn
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            Visuals.screenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            Visuals.screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             Visuals.SetSpriteBatch(this._spriteBatch);
             Functional.SetContentManager(Content);
             Functional.SetKeyboardHelper(keyboardHelper);
             Functional.SetMouseHelper(mouseHelper);
+            Functional.SetGameTime(gameTime);
             Visuals.SetSceneManager(sceneManager);
             Visuals.SetGraphicsDevice(GraphicsDevice);
             Visuals.SetGraphicsDeviceManager(_graphics);
+            Visuals.preferredBackBufferHeight = Visuals.GraphicsDeviceManager.PreferredBackBufferHeight;
+            Visuals.preferredBackBufferWidth = Visuals.GraphicsDeviceManager.PreferredBackBufferWidth;
             Visuals.SetGameWindow(Window);
             Functional.SetButtonActions(buttonActions);
+            Functional.SetMcTimer(new McTimer(0));
 
 
             Visuals.SceneManager.AddScene(new StartMenu());
@@ -88,7 +95,10 @@ namespace LostInTheCorn
 
             Functional.KeyboardHelper.Update();
             Functional.MouseHelper.Update();
+            Functional.McTimer.UpdateTimer();
             Visuals.SceneManager.GetCurrentScene().Update(gameTime);
+            Functional.MouseHelper.LockMouseToWindow(Visuals.GraphicsDeviceManager.PreferredBackBufferWidth, Visuals.GraphicsDeviceManager.PreferredBackBufferHeight);
+
 
 
             base.Update(gameTime);
@@ -96,25 +106,11 @@ namespace LostInTheCorn
 
         protected override void Draw(GameTime gameTime)
         {
-            
+
             sceneManager.GetCurrentScene().Draw();
-
-
-            //Globals.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
-
-
-            //_spriteBatch.DrawString(font, "camPos" + cam.camPosition, new Vector2(0, 2*120), Color.Black);
-            //_spriteBatch.DrawString(font, "playerPos" + player.PlayerPosition, new Vector2(0, 2*135), Color.Black);
-            //_spriteBatch.DrawString(font, "camForward" + cam.Forward, new Vector2(0, 2*150), Color.Black);
-            //_spriteBatch.DrawString(font, "playerForward" + player.PlayerForward, new Vector2(0, 2 * 165), Color.Black);
-
 
             base.Draw(gameTime);
         }
 
-        public void SetFullScreen()
-        {
-
-        }
     }
 }

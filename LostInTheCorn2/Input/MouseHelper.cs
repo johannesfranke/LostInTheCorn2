@@ -34,7 +34,6 @@ namespace LostInTheCorn2
             firstMousePos = new Vector2(newMouse.Position.X, newMouse.Position.Y);
 
             screenLoc = new Vector2((int)(systemCursorPos.X / Visuals.screenWidth), (int)(systemCursorPos.Y / Visuals.screenHeight));
-            //screenLoc = new Vector2((int)(systemCursorPos.X/Globals.screenWidth), (int)(systemCursorPos.Y/Globals.screenHeight));
 
             GetMouseAndAdjust();
         }
@@ -195,6 +194,32 @@ namespace LostInTheCorn2
             }
             return false;
         }
-            
+
+        public void LockMouseToWindow(int windowWidth, int windowHeight)
+        {
+            // Check if the mouse is outside the window boundaries
+            if (newMouse.Position.X < 0)
+            {
+                Mouse.SetPosition(0, newMouse.Position.Y);
+                newMousePos.X = 0;
+            }
+            else if (newMouse.Position.X > windowWidth)
+            {
+                Mouse.SetPosition(windowWidth, newMouse.Position.Y);
+                newMousePos.X = windowWidth;
+            }
+
+            if (newMouse.Position.Y < 0)
+            {
+                Mouse.SetPosition(newMouse.Position.X, 0);
+                newMousePos.Y = 0;
+            }
+            else if (newMouse.Position.Y > windowHeight)
+            {
+                Mouse.SetPosition(newMouse.Position.X, windowHeight);
+                newMousePos.Y = windowHeight;
+            }
+        }
+
     }
 }

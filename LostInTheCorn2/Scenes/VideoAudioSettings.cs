@@ -21,9 +21,11 @@ namespace LostInTheCorn2.Scenes
 
         private List<Button> buttons;
 
-        public VideoAudioSettings()
-        {
+        private RenderTarget2D previousRenderTarget;
 
+        public VideoAudioSettings(RenderTarget2D renderTarget)
+        {
+            this.previousRenderTarget = renderTarget;
         }
 
         public void Load()
@@ -40,19 +42,15 @@ namespace LostInTheCorn2.Scenes
         {
             buttons = new List<Button>();
 
-            // Position und Dimensionen für die Buttons
+            // Position und Dimensionen für die Buttons in dieser Szene
             Vector2 buttonPosition = new Vector2(Visuals.GraphicsDevice.PresentationParameters.BackBufferWidth / 2, 200);
-            Vector2 buttonSize = new Vector2(300, 75); // Normale Button-Größe
+            Vector2 buttonSize = new Vector2(300, 75);
 
-            // Offset zwischen den Buttons
-            float buttonSpacing = 20f;
-
-            // Erstellen der Buttons mit der zugehörigen Aktion
-            buttons.Add(new Button("ButtonHope", buttonPosition, buttonSize, "StandardFont", "Resume", Functional.ButtonActions.resumeGame));
-
-            buttons.Add(new Button("ButtonHope", buttonPosition + new Vector2(0, buttonSize.Y + buttonSpacing), buttonSize, "StandardFont", "Settings", () =>
+            // Beispielbutton für die detaillierte Einstellungen
+            buttons.Add(new Button("ButtonHope", buttonPosition, buttonSize, "StandardFont", "Back", () =>
             {
-                // Aktion für Einstellungen
+                // Rückkehr zur vorherigen Szene
+                Visuals.SceneManager.RemoveScene();
             }));
         }
 
@@ -71,12 +69,16 @@ namespace LostInTheCorn2.Scenes
 
         public void Draw()
         {
-            // Zeichne das letzte Standbild als Hintergrund
-            Visuals.GraphicsDevice.SetRenderTarget(null);
+            // Zeichne das übergebene RenderTarget als Hintergrund
             Visuals.SpriteBatch.Begin();
+            Visuals.SpriteBatch.Draw(previousRenderTarget, Vector2.Zero, Color.White);
 
-            Visuals.SpriteBatch.Draw(SettingsScene.gameRenderTarget, Vector2.Zero, Color.White);
-            DrawPauseMenu(Visuals.SpriteBatch);
+            // Zeichne die Buttons und andere Elemente der Szene
+            foreach (var button in buttons)
+            {
+                button.Draw(Vector2.Zero);
+            }
+
             Visuals.SpriteBatch.End();
         }
 
@@ -91,7 +93,5 @@ namespace LostInTheCorn2.Scenes
 
         }
 
-        // Methode zum Erfassen des aktuellen Standbilds
-        
     }
 }

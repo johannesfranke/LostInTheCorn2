@@ -1,16 +1,10 @@
 ﻿using LostInTheCorn;
 using LostInTheCorn2.Globals;
-using LostInTheCorn2.UIClasses;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
+using LostInTheCorn2.MovableObjects;
 
 namespace LostInTheCorn2.Scenes
 {
@@ -26,86 +20,104 @@ namespace LostInTheCorn2.Scenes
 
         public float scale = 0.44444f;
 
+        // Schriftzug und Timer Variablen
+        private float elapsedTime;
+        private float fadeDuration = 6000f; // Dauer eines Fade-Zyklus in Millisekunden
+        private string fadeText = "Leertaste drücken, um das Spiel zu starten";
 
         public StartMenu()
         {
-
+            elapsedTime = 0f;
         }
 
         public void Load()
         {
-
             Game1.Instance.IsMouseVisible = true;
-            renderTarget = new RenderTarget2D(Visuals.GraphicsDevice, 1920, 1080);
+            renderTarget = new RenderTarget2D(Visuals.GraphicsDevice, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height);
+
             startScreen = Functional.ContentManager.Load<Texture2D>("TitleScreen");
 
             // Setze den screenRectangle auf die gesamte Größe des Viewports
             screenRectangle = new Rectangle(0, 0, Visuals.GraphicsDevice.Viewport.Width, Visuals.GraphicsDevice.Viewport.Height);
-            SpriteFont font = Functional.ContentManager.Load<SpriteFont>("StandardFont");
-            Functional.SetFont(font);
-
-            startGameButton = new Button("ButtonHope", new Vector2(400, 350), new Vector2(400, 60), "", "Start", buttonActions.startGame);
-
+            SpriteFont standardFont = Functional.ContentManager.Load<SpriteFont>("StandardFont");
+            SpriteFont boldFont = Functional.ContentManager.Load<SpriteFont>("BoldFont");
+            Functional.SetFont(standardFont);
+            Functional.SetBoldFont(boldFont);
 
         }
+
         public void Update(GameTime gameTime)
         {
-            if (Functional.KeyboardHelper.IsKeyPressed(Keys.W))
+            elapsedTime += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+
+            if (elapsedTime >= fadeDuration)
+            {
+                // Setze die Zeit zurück, um den Zyklus neu zu starten
+                elapsedTime -= fadeDuration;
+            }
+
+            if (Functional.KeyboardHelper.IsKeyPressed(Keys.Space))
             {
                 Visuals.SceneManager.AddScene(new GameScene());
-                // Graphics device aus game1 hinzufügen
             }
-            startGameButton.Update(new Vector2(0,0));
-            
+            if (Functional.KeyboardHelper.IsKeyPressed(Keys.F11))
+            {
+                Visuals.ToggleFullScreen();
+            }
+            screenRectangle.Width = Visuals.GraphicsDevice.Viewport.Width;
+            screenRectangle.Height = Visuals.GraphicsDevice.Viewport.Height;
 
         }
+
         public void Draw()
         {
-            // Setze das RenderTarget
             Visuals.GraphicsDevice.SetRenderTarget(renderTarget);
 
-            // Kläre das RenderTarget
-            Visuals.GraphicsDevice.Clear(Color.CornflowerBlue);
+            Visuals.GraphicsDevice.Clear(new Color(255, 235, 200)); // warmes Gelb
 
-            // Berechne die Skalierung basierend auf der Zielauflösung
-            float scaleX = (float)Visuals.GraphicsDevice.Viewport.Width / 1792f;
-            float scaleY = (float)Visuals.GraphicsDevice.Viewport.Height / 1024f;
+            //Skalierung für das Hintergrundbild
+            float scaleX = (float)Visuals.GraphicsDevice.Viewport.Width / startScreen.Width;
+            float scaleY = (float)Visuals.GraphicsDevice.Viewport.Height / startScreen.Height;
 
-            // Berechne den skalieren Rechteck für den Hintergrund
-            Rectangle scaledRectangle = new Rectangle(0, 0, (int)(1792 * scaleX), (int)(1024 * scaleY));
+            // Max, damit ganzes Fenster ausgefüllt wird (kein weißer Rand)
+            float scale = Math.Max(scaleX, scaleY); ;
 
-            // Beginne das Zeichnen
-            Visuals.SpriteBatch.Begin();
+            // Berechne Position, um Bild zentriert zu zeichnen
+            Vector2 position = new Vector2(
+                (Visuals.GraphicsDevice.Viewport.Width - startScreen.Width * scale) / 2,
+                (Visuals.GraphicsDevice.Viewport.Height - startScreen.Height * scale) / 2
+            );
 
-            // Zeichne den skalierten Hintergrund (TitleScreen)
-            Visuals.SpriteBatch.Draw(startScreen, scaledRectangle, Color.White);
+            Visuals.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
 
+            Visuals.SpriteBatch.Draw(startScreen, position, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
 
-            // Beende das Zeichnen
+            // Berechne den Alpha-Wert für den Schriftzug und seine Farbe
+            float alpha = Math.Abs((float)Math.Sin(Math.PI * elapsedTime / fadeDuration));
+            Color textColor = new Color((byte)0, (byte)0, (byte)0, (byte)(255 * alpha));
+
+            // Berechne Position des Schriftzugs
+            Vector2 textSize = Functional.BoldFont.MeasureString(fadeText);
+            Vector2 textPosition = new Vector2((Visuals.GraphicsDevice.Viewport.Width - textSize.X) / 2,
+                                               Visuals.GraphicsDevice.Viewport.Height - textSize.Y - 60);
+
+            Visuals.SpriteBatch.DrawString(Functional.BoldFont, fadeText, textPosition, textColor);
             Visuals.SpriteBatch.End();
 
-            // Setze das RenderTarget auf null (zurück auf den Bildschirm)
             Visuals.GraphicsDevice.SetRenderTarget(null);
 
-            // Beginne das Zeichnen des finalen Bildschirms
-            Visuals.SpriteBatch.Begin();
+            Visuals.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
 
-            // Zeichne das RenderTarget auf den Bildschirm skaliert
             Visuals.SpriteBatch.Draw(renderTarget, screenRectangle, Color.White);
-            //startGameButton.Draw(new Vector2(0, 0));
-            //Visuals.SpriteBatch.DrawString(Functional.Font, "isHovered: " + startGameButton.isHovered.ToString(), new Vector2(10, 10), Color.White);
-            //Visuals.SpriteBatch.DrawString(Functional.Font, "isPressed: " + startGameButton.isPressed.ToString(), new Vector2(10, 25), Color.White);
-            //Visuals.SpriteBatch.DrawString(Functional.Font, "leftClicked: " + Functional.MouseHelper.leftClicked.ToString(), new Vector2(10, 40), Color.White);
 
-            // Beende das Zeichnen
+            // Debug
+            Visuals.SpriteBatch.DrawString(Functional.StandardFont, "alpha: " + alpha, new Vector2(0, 0), Color.Black);
+            Visuals.SpriteBatch.DrawString(Functional.StandardFont, "width: " + Visuals.GraphicsDevice.Viewport.Width, new Vector2(0, 15), Color.Black);
+            Visuals.SpriteBatch.DrawString(Functional.StandardFont, "height: " + Visuals.GraphicsDevice.Viewport.Height, new Vector2(0, 30), Color.Black);
+
             Visuals.SpriteBatch.End();
         }
 
-        public void ToggleFullScreen()
-        {
-            Visuals.GraphicsDeviceManager.ToggleFullScreen();
-        }
-
+        
     }
 }
-
