@@ -28,17 +28,17 @@ public class MapDrawer
         ModelsWithEnumInfo.TryAdd(key, value);
     }
 
-    public void DrawWorld()
+    public void DrawWorld(Effect shadow)
     {
         foreach (var pos in Grid.Positions)
         {
             switch (pos.Info)
             {
                 case WhatToDraw.PlaneFloor:
-                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
+                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam, shadow);
                     break;
                 case WhatToDraw.Wall:
-                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(1), pos.Position, Cam);
+                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(1), pos.Position, Cam, shadow);
                     break;
                 default:
                     break;
