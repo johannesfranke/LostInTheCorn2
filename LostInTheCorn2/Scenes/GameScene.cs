@@ -74,7 +74,6 @@ namespace LostInTheCorn2.Scenes
         }
         public void Draw()
         {
-            var shadow = Functional.ContentManager.Load<Effect>("Shadow");
 
             Visuals.GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.MediumBlue, 1.0f, 0);
 
@@ -82,14 +81,26 @@ namespace LostInTheCorn2.Scenes
             Visuals.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
 
             // Verändert die Transparenz der 3D Modelle
-
+            Visuals.GraphicsDevice.BlendState = BlendState.AlphaBlend;
+            Visuals.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
 
 
             //Matrix pos = Matrix.CreateWorld(new Vector3(0, 0, 0), Vector3.Forward, Vector3.Up);
 
-            Map.DrawWorld(shadow);
-            Drawable.drawWithEffectModel(penguin, MovementManager.Player.PlayerWorld, cam, shadow);
+            //foreach (var mesh in SkyBoxModel.Meshes)
+            //{
+            //    foreach (BasicEffect effect in mesh.Effects)
+            //    {
 
+            //        //effect.View = pos;
+            //        //effect.World = player.PlayerWorld;
+            //        //effect.Projection = cam.Projection;
+            //        //mesh.Draw();
+            //    }
+            //}
+
+            Map.DrawWorld();
+            Drawable.drawWithEffectModel(penguin, MovementManager.Player.PlayerWorld, cam);
             Drawable.drawWithoutModel(SkyBoxModel, MovementManager.SkySphere.GlobeWorld, cam);
         }
     }
