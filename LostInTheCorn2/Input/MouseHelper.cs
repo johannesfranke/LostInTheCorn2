@@ -16,6 +16,7 @@ namespace LostInTheCorn2
         public bool dragging, rightDrag;
         public bool leftClicked;
         public bool leftReleased;
+        public bool leftClcikReleased;
 
         public Vector2 newMousePos, oldMousePos, firstMousePos, newMouseAdjustedPos, systemCursorPos, screenLoc;
 
@@ -59,43 +60,16 @@ namespace LostInTheCorn2
 
         public void Update()
         {
-            newMouse = Mouse.GetState();
-            newMousePos = GetScreenPos(newMouse);
+            GetMouseAndAdjust();
 
-            // Überprüfen, ob die linke Maustaste gedrückt wurde
-            if (newMouse.LeftButton == ButtonState.Pressed)
-            {
-                leftClicked = true;
-            }
-            // Überprüfen, ob die linke Maustaste losgelassen wurde
-            if (newMouse.LeftButton == ButtonState.Released && oldMouse.LeftButton == ButtonState.Released)
-            {
-                leftReleased = true;
-                leftClicked = false; // Zurücksetzen für den nächsten Zyklus
-            }
-            else
-            {
-                leftReleased = false;
-            }
 
-            // Debug-Ausgaben für Klicks
-            if (newMouse.LeftButton == ButtonState.Pressed && oldMouse.LeftButton == ButtonState.Released)
-            {
-                Console.WriteLine("Mouse pressed");
-            }
-            if (newMouse.LeftButton == ButtonState.Released && oldMouse.LeftButton == ButtonState.Pressed)
-            {
-                Console.WriteLine("Mouse released");
-            }
-
-            // Erneutes Festlegen der ersten Mausposition, wenn ein Klick registriert wird
             if (newMouse.LeftButton == ButtonState.Pressed && oldMouse.LeftButton == ButtonState.Released)
             {
                 firstMouse = newMouse;
                 firstMousePos = newMousePos = GetScreenPos(firstMouse);
             }
 
-            UpdateOld();
+
         }
 
         public void UpdateOld()
@@ -220,6 +194,7 @@ namespace LostInTheCorn2
                 newMousePos.Y = windowHeight;
             }
         }
+
 
     }
 }

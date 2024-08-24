@@ -8,7 +8,7 @@ using LostInTheCorn2.MovableObjects;
 
 namespace LostInTheCorn2.Scenes
 {
-    internal class StartMenu : IScene
+    internal class StartScene : IScene
     {
         Texture2D startScreen;
         RenderTarget2D renderTarget;
@@ -23,9 +23,9 @@ namespace LostInTheCorn2.Scenes
         // Schriftzug und Timer Variablen
         private float elapsedTime;
         private float fadeDuration = 6000f; // Dauer eines Fade-Zyklus in Millisekunden
-        private string fadeText = "Leertaste drücken, um das Spiel zu starten";
+        private string fadeText = "Press Space to continue";
 
-        public StartMenu()
+        public StartScene()
         {
             elapsedTime = 0f;
         }

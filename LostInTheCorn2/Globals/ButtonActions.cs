@@ -37,7 +37,7 @@ namespace LostInTheCorn2.Globals
         }
         public void openSettings(RenderTarget2D renderTarget)
         {
-            Visuals.SceneManager.AddScene(new VideoAudioSettings(renderTarget));
+            Visuals.SceneManager.AddScene(new HelpScene(renderTarget));
             Game1.Instance.IsMouseVisible = true;
         }
     }

@@ -46,10 +46,10 @@ public class SkySphere
 
     public void moveForward(GameTime gameTime, float movementUnitsPerSecond, Matrix playerWorld)
     {
-        GlobePosition += playerWorld.Forward * (movementUnitsPerSecond - 5) * (float)gameTime.ElapsedGameTime.TotalSeconds;
+        GlobePosition += playerWorld.Forward * (movementUnitsPerSecond ) * (float)gameTime.ElapsedGameTime.TotalSeconds;
     }
     public void moveBackward(GameTime gameTime, float movementUnitsPerSecond, Matrix playerWorld)
     {
-        GlobePosition -= playerWorld.Forward * (movementUnitsPerSecond + 5) * (float)gameTime.ElapsedGameTime.TotalSeconds;
+        GlobePosition -= playerWorld.Forward * (movementUnitsPerSecond ) * (float)gameTime.ElapsedGameTime.TotalSeconds;
     }
 }

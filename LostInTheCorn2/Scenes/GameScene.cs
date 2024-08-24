@@ -19,7 +19,7 @@ namespace LostInTheCorn2.Scenes
     public class GameScene : IScene
     {
         private Texture3D texture;
-        //übernommen aus game1.cs
+        
         Camera cam;
         MovementAroundPlayerManager MovementManager; // Movement around Player alle stellen ersetzen
         private MapDrawer Map;

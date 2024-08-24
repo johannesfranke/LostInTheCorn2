@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LostInTheCorn2.Globals;
+using Microsoft.Xna.Framework.Graphics.PackedVector;
 
 namespace LostInTheCorn2.Scenes
 {
@@ -35,7 +36,11 @@ namespace LostInTheCorn2.Scenes
         private void CreateButtons()
         {
             buttons = new List<Button>();
+            RecalculateButtonPositions();
+        }
 
+        private void RecalculateButtonPositions()
+        {
             // Position und Dimensionen für die Buttons
             Vector2 buttonPosition = new Vector2(Visuals.GraphicsDevice.PresentationParameters.BackBufferWidth / 2, 200);
             Vector2 buttonSize = new Vector2(300, 75); // Normale Button-Größe
@@ -43,22 +48,24 @@ namespace LostInTheCorn2.Scenes
             // Offset zwischen den Buttons
             float buttonSpacing = 20f;
 
-            // Erstellen der Buttons mit der zugehörigen Aktion
+            buttons.Clear(); // Vorhandene Buttons entfernen
+
             buttons.Add(new Button("ButtonHope", buttonPosition, buttonSize, "StandardFont", "Resume", () => {
                 Mouse.SetPosition((int)_mousePosition.X, (int)_mousePosition.Y);
                 Visuals.SceneManager.RemoveScene();
+                Mouse.SetPosition((int)_mousePosition.X, (int)_mousePosition.Y);
                 Game1.Instance.IsMouseVisible = false;
             }));
 
-            buttons.Add(new Button("ButtonHope", buttonPosition + new Vector2(0, buttonSize.Y + buttonSpacing), buttonSize, "StandardFont", "Settings", () =>
+            buttons.Add(new Button("ButtonHope", buttonPosition + new Vector2(0, buttonSize.Y + buttonSpacing), buttonSize, "StandardFont", "Fullscreen: " + isFullScreen(), () =>
             {
-                // Neue Szene aufrufen, Standbild wird übergeben
-                Visuals.SceneManager.AddScene(new VideoAudioSettings(gameRenderTarget));
+                Visuals.ToggleFullScreen();
+                RecalculateButtonPositions(); // Positionen neu berechnen
             }));
 
             buttons.Add(new Button("ButtonHope", buttonPosition + new Vector2(0, 2 * (buttonSize.Y + buttonSpacing)), buttonSize, "StandardFont", "Help", () =>
             {
-                // Aktion für Hilfe
+                Visuals.SceneManager.AddScene(new HelpScene(gameRenderTarget));
             }));
 
             Vector2 exitButtonSize = new Vector2(250, 60); // Kleinere Größe für den Exit-Button
@@ -73,19 +80,23 @@ namespace LostInTheCorn2.Scenes
         {
             if (Functional.KeyboardHelper.IsKeyPressed(Keys.Escape))
             {
-
                 Functional.ButtonActions.resumeGame(_mousePosition);
                 Game1.Instance.IsMouseVisible = false;
-
             }
 
-            foreach (var button in buttons)
+            // Create a copy of the buttons collection
+            RecalculateButtonPositions();
+
+            var buttonsCopy = new List<Button>(buttons);
+            foreach (var button in buttonsCopy)
             {
                 button.Update(Vector2.Zero);
             }
+
             if (Functional.KeyboardHelper.IsKeyPressed(Keys.F11))
             {
                 Visuals.ToggleFullScreen();
+                RecalculateButtonPositions();
             }
         }
 
@@ -108,6 +119,22 @@ namespace LostInTheCorn2.Scenes
             {
                 button.Draw(Vector2.Zero);
             }
+            ;
+            Visuals.SpriteBatch.DrawString(Functional.StandardFont, "leftClick" + Functional.MouseHelper.LeftClickRelease(), new Vector2(0, 0), Color.Black);
+
+        }
+
+        private String isFullScreen() 
+        {
+            if (Visuals.GraphicsDeviceManager.IsFullScreen)
+            {
+                return "On";
+            }
+            else
+            {
+                return "Off";
+            }
+        
         }
     }
 }

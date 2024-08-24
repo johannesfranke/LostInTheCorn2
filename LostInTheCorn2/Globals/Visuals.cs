@@ -44,6 +44,7 @@ public class Visuals
         Visuals.GraphicsDeviceManager.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
         Visuals.GraphicsDeviceManager.IsFullScreen = true;
         Visuals.GraphicsDeviceManager.ApplyChanges();
+
     }
     public static void SetWindowed()
     {

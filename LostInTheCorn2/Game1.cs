@@ -85,7 +85,7 @@ namespace LostInTheCorn
             Functional.SetMcTimer(new McTimer(0));
 
 
-            Visuals.SceneManager.AddScene(new StartMenu());
+            Visuals.SceneManager.AddScene(new StartScene());
 
 
         }
@@ -98,6 +98,7 @@ namespace LostInTheCorn
             Functional.McTimer.UpdateTimer();
             Visuals.SceneManager.GetCurrentScene().Update(gameTime);
             Functional.MouseHelper.LockMouseToWindow(Visuals.GraphicsDeviceManager.PreferredBackBufferWidth, Visuals.GraphicsDeviceManager.PreferredBackBufferHeight);
+            Functional.MouseHelper.UpdateOld();
 
 
 

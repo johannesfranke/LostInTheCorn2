@@ -42,15 +42,12 @@ namespace LostInTheCorn2
         {
             isHovered = true;
 
-                if (Functional.MouseHelper.leftClicked)
+                if (Functional.MouseHelper.LeftClickRelease())
                 {
                     isHovered = false;
                     isPressed = true;
                     RunBtnClick();
-                    if (!Functional.MouseHelper.leftClicked)
-                    {
-                        RunBtnClick();
-                    }
+
                 }
                 
 
