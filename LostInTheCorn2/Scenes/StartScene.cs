@@ -111,9 +111,9 @@ namespace LostInTheCorn2.Scenes
             Visuals.SpriteBatch.Draw(renderTarget, screenRectangle, Color.White);
 
             // Debug
-            Visuals.SpriteBatch.DrawString(Functional.StandardFont, "alpha: " + alpha, new Vector2(0, 0), Color.Black);
-            Visuals.SpriteBatch.DrawString(Functional.StandardFont, "width: " + Visuals.GraphicsDevice.Viewport.Width, new Vector2(0, 15), Color.Black);
-            Visuals.SpriteBatch.DrawString(Functional.StandardFont, "height: " + Visuals.GraphicsDevice.Viewport.Height, new Vector2(0, 30), Color.Black);
+            //Visuals.SpriteBatch.DrawString(Functional.StandardFont, "alpha: " + alpha, new Vector2(0, 0), Color.Black);
+            //Visuals.SpriteBatch.DrawString(Functional.StandardFont, "width: " + Visuals.GraphicsDevice.Viewport.Width, new Vector2(0, 15), Color.Black);
+            //Visuals.SpriteBatch.DrawString(Functional.StandardFont, "height: " + Visuals.GraphicsDevice.Viewport.Height, new Vector2(0, 30), Color.Black);
 
             Visuals.SpriteBatch.End();
         }

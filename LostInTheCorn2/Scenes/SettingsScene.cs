@@ -120,7 +120,9 @@ namespace LostInTheCorn2.Scenes
                 button.Draw(Vector2.Zero);
             }
             ;
-            Visuals.SpriteBatch.DrawString(Functional.StandardFont, "leftClick" + Functional.MouseHelper.LeftClickRelease(), new Vector2(0, 0), Color.Black);
+
+            //Debug
+            //Visuals.SpriteBatch.DrawString(Functional.StandardFont, "leftClick" + Functional.MouseHelper.LeftClickRelease(), new Vector2(0, 0), Color.Black);
 
         }
 
