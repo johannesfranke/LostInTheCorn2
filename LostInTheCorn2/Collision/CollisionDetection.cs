@@ -2,6 +2,7 @@
 using LostInTheCorn2.map;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace LostInTheCorn2.Collision
 {
@@ -11,7 +12,7 @@ namespace LostInTheCorn2.Collision
 
         private Texture2D whiteRectangle;
 
-        Rectangle[] rectangles;
+        List<Rectangle> rectangles { get; set; }
         Rectangle noClip;
         Rectangle noClipReset;
         Rectangle Door;
@@ -31,7 +32,6 @@ namespace LostInTheCorn2.Collision
 
             whiteRectangle = new Texture2D(Visuals.GraphicsDevice, 1, 1);
             whiteRectangle.SetData(new[] { Color.White });
-            rectangles = new Rectangle[Grid.Positions.Count];
             //fülle array mit allen Maispflanzen(Rectangles), sizeCube wird ignoriert(13.xx) wir nehmen 12
             foreach (var pos in Grid.Positions)
             {
@@ -40,7 +40,11 @@ namespace LostInTheCorn2.Collision
                 {
                     case WhatToDraw.Wall:
                         Rectangle x = new(Position, RectangleSize);
-                        rectangles[iterator++] = x;
+                        if (rectangles == null)
+                        {
+                            rectangles = new List<Rectangle> { x };
+                        }
+                        else rectangles.Add(x);
                         break;
                     case WhatToDraw.NoClip:
                         noClip = new(Position, RectangleSize);
@@ -77,6 +81,7 @@ namespace LostInTheCorn2.Collision
             Vector3 forwardVecNorm = Vector3.Normalize(new Vector3(forwardVec.X, 0, forwardVec.Z));
             Vector3 forwardMovement = forwardVecNorm * 4;
             Vector3 backwardMovement = forwardVecNorm * -4;
+
             forwardCollision = new Rectangle(playerBox.X + (int)forwardMovement.X + 2, playerBox.Y + (int)forwardMovement.Z + 2, 4, 4);
             backwardCollision = new Rectangle(playerBox.X + (int)backwardMovement.X + 2, playerBox.Y + (int)backwardMovement.Z + 2, 4, 4);
 
@@ -114,8 +119,8 @@ namespace LostInTheCorn2.Collision
             Visuals.SpriteBatch.Draw(whiteRectangle, new Rectangle(DoorClosed.Location + Offset, DoorClosed.Size), Color.Yellow);
             Visuals.SpriteBatch.Draw(whiteRectangle, new Rectangle(playerBox.Location + Offset, playerBoxSize), Color.White);
             //Collision Boxes für Debugging
-            Visuals.SpriteBatch.Draw(whiteRectangle, new Rectangle(forwardCollision.Location + Offset, forwardCollision.Size), Color.Pink);
-            Visuals.SpriteBatch.Draw(whiteRectangle, new Rectangle(backwardCollision.Location + Offset, backwardCollision.Size), Color.Pink);
+            //Visuals.SpriteBatch.Draw(whiteRectangle, new Rectangle(forwardCollision.Location + Offset, forwardCollision.Size), Color.Pink);
+            //Visuals.SpriteBatch.Draw(whiteRectangle, new Rectangle(backwardCollision.Location + Offset, backwardCollision.Size), Color.Pink);
 
             Visuals.SpriteBatch.End();
         }

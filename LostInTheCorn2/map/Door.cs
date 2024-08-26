@@ -6,16 +6,13 @@ using Microsoft.Xna.Framework.Input;
 
 namespace LostInTheCorn2.map
 {
-    public class Key
+    public class Door
     {
         bool pickedUp;
         private Grid Grid;
-        PositionInfo keyPositionInfo;
-        PositionInfo doorPositionInfo;
-        Rectangle keyPosition;
         Rectangle doorPosition;
         bool keyUsed;
-        public Key(Camera cam, Vector3 startMap, float sizeCube)
+        public Door(Vector3 startMap, float sizeCube)
         {
             Grid = Grid.SetGrid();
             Grid.SetPositions(startMap, sizeCube);
@@ -24,18 +21,7 @@ namespace LostInTheCorn2.map
             {
                 switch (pos.Info)
                 {
-
-                    case WhatToDraw.Key:
-
-                        var x = pos.Position.Translation.X;
-                        var y = pos.Position.Translation.Y + 2;
-                        var z = pos.Position.Translation.Z;
-                        var worldOfDrawing = Matrix.CreateWorld(new Vector3(x, y, z), Vector3.Forward, Vector3.Up);
-                        keyPositionInfo = new PositionInfo(worldOfDrawing, 2);
-                        keyPosition = new Rectangle((int)pos.Position.Translation.X, (int)pos.Position.Translation.Z, 4, 4);
-                        break;
                     case WhatToDraw.Door:
-                        doorPositionInfo = pos;
                         doorPosition = new Rectangle((int)pos.Position.Translation.X - 4, (int)pos.Position.Translation.Z - 4, 12, 12);
                         break;
                     default:
@@ -43,7 +29,7 @@ namespace LostInTheCorn2.map
                 }
             }
         }
-        public bool Update(GameTime gameTime, bool collisionWithKey)
+        public bool Update(bool collisionWithKey)
         {
             if (collisionWithKey && Functional.KeyboardHelper.IsKeyPressed(Keys.E))
             {

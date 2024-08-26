@@ -8,7 +8,6 @@ namespace LostInTheCorn2.Collision
     {
         private Grid Grid;
         Rectangle[] items;
-        Rectangle goal;
         Rectangle playerBox;
         public CollisionWithItem(Vector3 startMap, float sizeCube)
         {
@@ -24,9 +23,6 @@ namespace LostInTheCorn2.Collision
                         break;
                     case WhatToDraw.Key:
                         items[1] = new Rectangle((int)pos.Position.Translation.X, (int)pos.Position.Translation.Z, 4, 4);
-                        break;
-                    case WhatToDraw.Goal:
-                        goal = new Rectangle((int)pos.Position.Translation.X, (int)pos.Position.Translation.Z, 4, 4);
                         break;
                     default:
                         break;
@@ -52,9 +48,10 @@ namespace LostInTheCorn2.Collision
             return false;
         }
 
+        //für den key
         public bool Update(int itemIndex)
         {
-            if (playerBox.Intersects(items[itemIndex]) && !Functional.itemPicked)
+            if (playerBox.Intersects(items[itemIndex]))
             {
                 return true;
             }

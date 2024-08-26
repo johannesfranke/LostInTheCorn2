@@ -36,9 +36,7 @@ namespace LostInTheCorn2.Scenes
         private PositionInfo boxPosition;
         private bool keyPicked;
         private bool keyUsed;
-        private Point goalPoint;
-        private Rectangle goalRec;
-        private Key key;
+        private Door door;
 
         private SpriteFont font;
         public GameScene()
@@ -74,7 +72,7 @@ namespace LostInTheCorn2.Scenes
             CollisionDetection = new CollisionDetection(startMapPos, sizeCube);
             CollisionDetectionWithItem = new CollisionWithItem(startMapPos, sizeCube);
             movableBox = new MovableBox(cam,startMapPos, sizeCube);
-            key = new Key(cam, startMapPos, sizeCube);
+            door = new Door(startMapPos, sizeCube);
             font = Functional.ContentManager.Load<SpriteFont>("File");
         }
 
@@ -89,8 +87,8 @@ namespace LostInTheCorn2.Scenes
             //Kollisionsabfragen
             bool collidingWithBox = CollisionDetectionWithItem.Update(gameTime, MovementManager.Player.PlayerWorld,0, boxPosition);
             bool collidingWithKey = CollisionDetectionWithItem.Update(1);
-            keyPicked = key.Update(gameTime, collidingWithKey);
-            keyUsed = key.keyUsedFunction(CollisionDetection.forwardCollision,keyPicked);
+            keyPicked = door.Update(collidingWithKey);
+            keyUsed = door.keyUsedFunction(CollisionDetection.forwardCollision,keyPicked);
             int collidingWithWalls = CollisionDetection.Update(gameTime, MovementManager.Player.PlayerWorld, MovementManager.Player.PlayerWorld.Forward, movableBox.checkIfGoalIsReached(),keyUsed);
 
             //Kamera und Spieler sollen geupdatet werden
@@ -98,12 +96,10 @@ namespace LostInTheCorn2.Scenes
             MovementManager.Update(gameTime,collidingWithWalls);
             //berechne neue boxPosition, TODO -> ein zentrales Grid einführen und in der GameScene behandeln
             //Stand jetzt: in jeder Klasse wird neues seperates Grid aufgesetzt
-            boxPosition = movableBox.Update(gameTime, MovementManager.Player.PlayerWorld, collidingWithBox);
+            boxPosition = movableBox.Update(MovementManager.Player.PlayerWorld, collidingWithBox);
 
             cam.Update(gameTime, MovementManager.Player,collidingWithWalls);
-            /*if (movableBox.checkIfGoalIsReached()) {
-                MovementManager.Player.RotateLeftOrRight(gameTime, 5f, 45f);
-            }*/
+            
         }
         public void Draw()
         {
@@ -136,7 +132,6 @@ namespace LostInTheCorn2.Scenes
             Drawable.drawWithEffectModel(penguin, MovementManager.Player.PlayerWorld, cam);
             Drawable.drawWithoutModel(SkyBoxModel, MovementManager.SkySphere.GlobeWorld, cam);
             Visuals.SpriteBatch.Begin();
-            Visuals.SpriteBatch.Draw(SkyBoxTexture, goalRec, Color.White);
             Visuals.SpriteBatch.DrawString(font, "Ziel:" + movableBox.checkIfGoalIsReached(), new Vector2(300, 300), Color.White);
             Visuals.SpriteBatch.DrawString(font, "key:" + keyPicked, new Vector2(300, 400), Color.White);
             Visuals.SpriteBatch.DrawString(font, "used:" + keyUsed, new Vector2(300, 450), Color.White);
