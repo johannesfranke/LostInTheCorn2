@@ -1,4 +1,5 @@
 ﻿using LostInTheCorn;
+using LostInTheCorn2.Collision;
 using LostInTheCorn2.Globals;
 using LostInTheCorn2.map;
 using LostInTheCorn2.ModelFunction;
@@ -35,9 +36,15 @@ namespace LostInTheCorn2.Scenes
         private Model SkyBoxModel;
         private Texture2D SkyBoxTexture;
 
+        private CollisionDetection CollisionDetection;
+        private CollisionWithItem CollisionDetectionWithItem;
+        private MovableBox movableBox;
+        private PositionInfo boxPosition;
+        private bool keyPicked;
+        private bool keyUsed;
+        private Door door;
         private static RenderTarget2D gameRenderTarget;
         private RenderTarget2D lastFrameRenderTarget;
-
 
         public GameScene()
         {
@@ -67,9 +74,14 @@ namespace LostInTheCorn2.Scenes
             Map = new MapDrawer(cam, startMapPos, sizeCube);
             Map.SetModelWithEnum(0, Functional.ContentManager.Load<Model>("PlaneFloor"));
             Map.SetModelWithEnum(1, Functional.ContentManager.Load<Model>("Corn"));
+            Map.SetModelWithEnum(2, Functional.ContentManager.Load<Model>("greenCube"));
 
             SkyBoxModel = Functional.ContentManager.Load<Model>("SkySphere");
             SkyBoxTexture = Functional.ContentManager.Load<Texture2D>("TextureSkySphere");
+            CollisionDetection = new CollisionDetection(startMapPos, sizeCube);
+            CollisionDetectionWithItem = new CollisionWithItem(startMapPos, sizeCube);
+            movableBox = new MovableBox(cam,startMapPos, sizeCube);
+            door = new Door(startMapPos, sizeCube);
         }
     
         public void Update(GameTime gameTime) {
@@ -89,9 +101,22 @@ namespace LostInTheCorn2.Scenes
             {
                 Visuals.ToggleFullScreen();
             }
+            //Kollisionsabfragen
+            bool collidingWithBox = CollisionDetectionWithItem.Update(gameTime, MovementManager.Player.PlayerWorld,0, boxPosition);
+            bool collidingWithKey = CollisionDetectionWithItem.Update(1);
+            keyPicked = door.Update(collidingWithKey);
+            keyUsed = door.keyUsedFunction(CollisionDetection.forwardCollision,keyPicked);
+            int collidingWithWalls = CollisionDetection.Update(gameTime, MovementManager.Player.PlayerWorld, MovementManager.Player.PlayerWorld.Forward, movableBox.checkIfGoalIsReached(),keyUsed);
+
             //Kamera und Spieler sollen geupdatet werden
-            MovementManager.Update(gameTime);
-            cam.Update(gameTime, MovementManager.Player);
+
+            MovementManager.Update(gameTime,collidingWithWalls);
+            //berechne neue boxPosition, TODO -> ein zentrales Grid einführen und in der GameScene behandeln
+            //Stand jetzt: in jeder Klasse wird neues seperates Grid aufgesetzt
+            boxPosition = movableBox.Update(MovementManager.Player.PlayerWorld, collidingWithBox);
+
+            cam.Update(gameTime, MovementManager.Player,collidingWithWalls);
+            
         }
         public void Draw()
         {
@@ -105,9 +130,15 @@ namespace LostInTheCorn2.Scenes
             Visuals.GraphicsDevice.BlendState = BlendState.AlphaBlend;
             Visuals.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
 
-            Map.DrawWorld();
+            Map.DrawWorld(keyPicked,boxPosition);
             Drawable.drawWithEffectModel(penguin, MovementManager.Player.PlayerWorld, cam);
             Drawable.drawWithoutModel(SkyBoxModel, MovementManager.SkySphere.GlobeWorld, cam);
+            Visuals.SpriteBatch.Begin();
+            Visuals.SpriteBatch.DrawString(Functional.StandardFont, "Ziel:" + movableBox.checkIfGoalIsReached(), new Vector2(300, 300), Color.White);
+            Visuals.SpriteBatch.DrawString(Functional.StandardFont, "key:" + keyPicked, new Vector2(300, 400), Color.White);
+            Visuals.SpriteBatch.DrawString(Functional.StandardFont, "used:" + keyUsed, new Vector2(300, 450), Color.White);
+            Visuals.SpriteBatch.End();
+            CollisionDetection.Draw();
         }
 
         //Methode um das letzte Standbild zu speichern
@@ -134,6 +165,7 @@ namespace LostInTheCorn2.Scenes
             cam.SaveMousePosition(); // Mausposition speichern, bevor zur SettingsScene gewechselt wird
             Visuals.SceneManager.AddScene(new SettingsScene(new Vector2(Mouse.GetState().X, Mouse.GetState().Y), gameRenderTarget));
         }
+
 
         public void ReturnToGame()
         {

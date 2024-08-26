@@ -22,14 +22,15 @@ public class MapDrawer
         this.Cam = cam;
     }
 
-
+    
     public void SetModelWithEnum(int key, Model value)
     {
         ModelsWithEnumInfo.TryAdd(key, value);
     }
 
-    public void DrawWorld()
+    public void DrawWorld(bool keyPicked, PositionInfo boxPosition)
     {
+        
         foreach (var pos in Grid.Positions)
         {
             switch (pos.Info)
@@ -37,8 +38,28 @@ public class MapDrawer
                 case WhatToDraw.PlaneFloor:
                     Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
                     break;
+                case WhatToDraw.NoClip:
+                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(1), pos.Position, Cam);
+                    break;
                 case WhatToDraw.Wall:
                     Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(1), pos.Position, Cam);
+                    break;
+                case WhatToDraw.Box:
+                    if (boxPosition == null) {boxPosition = new PositionInfo(pos.Position, 2); }
+                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(2), boxPosition.Position, Cam);
+                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
+                    break;
+                case WhatToDraw.Goal:
+                    break;
+                case WhatToDraw.Door:
+                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(1), pos.Position, Cam);
+                    break;
+                case WhatToDraw.Key:
+                    if (!keyPicked)
+                    {
+                        Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(2), pos.Position, Cam);
+                    }
+                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
                     break;
                 default:
                     break;
@@ -46,5 +67,6 @@ public class MapDrawer
         }
 
     }
+    
 
 }

@@ -17,6 +17,7 @@ public class Functional
     public static MouseHelper MouseHelper { get; private set; }
     public static KeyboardHelper KeyboardHelper { get; private set; }
 
+    public static bool itemPicked;
     public static McTimer McTimer { get; private set; }
     public static ButtonActions ButtonActions { get; private set; }
 

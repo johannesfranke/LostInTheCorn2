@@ -50,6 +50,7 @@ internal class Grid
                     worldOfDrawing = rotateRandom(worldOfDrawing);
                 }
 
+                
                 var positionInfo = new PositionInfo(worldOfDrawing, field);
                 Positions.Add(positionInfo);
 
@@ -57,6 +58,7 @@ internal class Grid
             }
             z = (z >= 0) ? z + sizeCube : z - sizeCube;
             x = startPositionMap.X;
+
         }
     }
     public static Grid SetGrid()
@@ -64,16 +66,16 @@ internal class Grid
         //Change Grid here!
 
         Grid grid = new Grid();
-        var row10 = new List<int> { 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1 };
-        var row9 = new List<int> { 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1 };
-        var row8 = new List<int> { 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1 };
+        var row10 = new List<int> { 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0 };
+        var row9 = new List<int> { 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1 };
+        var row8 = new List<int> { 1, 1, 0, 0, 2, 0, 0, 1, 0, 1, 1 };
         var row7 = new List<int> { 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1 };
-        var row6 = new List<int> { 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1 };
-        var row5 = new List<int> { 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1 };
-        var row4 = new List<int> { 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1 };
-        var row3 = new List<int> { 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1 };
-        var row2 = new List<int> { 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1 };
-        var row1 = new List<int> { 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1 };
+        var row6 = new List<int> { 1, 1, 0, 0, 0, 1, 4, 1, 1, 1, 1 };
+        var row5 = new List<int> { 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1 };
+        var row4 = new List<int> { 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1 };
+        var row3 = new List<int> { 1, 1, 0, 5, 0, 0, 0, 6, 0, 1, 1 };
+        var row2 = new List<int> { 1, 1, 0, 0, 0, 0, 3, 1, 1, 1, 0 };
+        var row1 = new List<int> { 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0 };
 
         grid.AddRow(row1);
         grid.AddRow(row2);
