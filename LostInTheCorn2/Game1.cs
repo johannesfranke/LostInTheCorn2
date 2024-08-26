@@ -56,14 +56,9 @@ namespace LostInTheCorn
         protected override void Initialize()
         {
             sceneManager = new(GraphicsDevice, this.Window);
-<<<<<<< HEAD
-            _graphics.PreferredBackBufferHeight = 640;
-            _graphics.PreferredBackBufferWidth = 1024;
-=======
             _graphics.IsFullScreen = false; // Standardmäßig im Fenstermodus starten
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width /2;
             _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 2;
->>>>>>> master
             _graphics.ApplyChanges();
 
 

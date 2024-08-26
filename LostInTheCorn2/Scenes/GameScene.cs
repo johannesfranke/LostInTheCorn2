@@ -8,16 +8,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-<<<<<<< HEAD
-using System.Collections.Generic;
-=======
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
->>>>>>> master
 
 namespace LostInTheCorn2.Scenes
 {
@@ -40,7 +36,6 @@ namespace LostInTheCorn2.Scenes
         private Model SkyBoxModel;
         private Texture2D SkyBoxTexture;
 
-<<<<<<< HEAD
         private CollisionDetection CollisionDetection;
         private CollisionWithItem CollisionDetectionWithItem;
         private MovableBox movableBox;
@@ -48,13 +43,9 @@ namespace LostInTheCorn2.Scenes
         private bool keyPicked;
         private bool keyUsed;
         private Door door;
-=======
         private static RenderTarget2D gameRenderTarget;
         private RenderTarget2D lastFrameRenderTarget;
 
->>>>>>> master
-
-        private SpriteFont font;
         public GameScene()
         {
             //graphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
@@ -91,7 +82,6 @@ namespace LostInTheCorn2.Scenes
             CollisionDetectionWithItem = new CollisionWithItem(startMapPos, sizeCube);
             movableBox = new MovableBox(cam,startMapPos, sizeCube);
             door = new Door(startMapPos, sizeCube);
-            font = Functional.ContentManager.Load<SpriteFont>("File");
         }
     
         public void Update(GameTime gameTime) {
@@ -140,32 +130,13 @@ namespace LostInTheCorn2.Scenes
             Visuals.GraphicsDevice.BlendState = BlendState.AlphaBlend;
             Visuals.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
 
-<<<<<<< HEAD
-
-            //Matrix pos = Matrix.CreateWorld(new Vector3(0, 0, 0), Vector3.Forward, Vector3.Up);
-
-            //foreach (var mesh in SkyBoxModel.Meshes)
-            //{
-            //    foreach (BasicEffect effect in mesh.Effects)
-            //    {
-
-            //        //effect.View = pos;
-            //        //effect.World = player.PlayerWorld;
-            //        //effect.Projection = cam.Projection;
-            //        //mesh.Draw();
-            //    }
-            //}
-
-            Map.DrawWorld(keyPicked, boxPosition);
-=======
-            Map.DrawWorld();
->>>>>>> master
+            Map.DrawWorld(keyPicked,boxPosition);
             Drawable.drawWithEffectModel(penguin, MovementManager.Player.PlayerWorld, cam);
             Drawable.drawWithoutModel(SkyBoxModel, MovementManager.SkySphere.GlobeWorld, cam);
             Visuals.SpriteBatch.Begin();
-            Visuals.SpriteBatch.DrawString(font, "Ziel:" + movableBox.checkIfGoalIsReached(), new Vector2(300, 300), Color.White);
-            Visuals.SpriteBatch.DrawString(font, "key:" + keyPicked, new Vector2(300, 400), Color.White);
-            Visuals.SpriteBatch.DrawString(font, "used:" + keyUsed, new Vector2(300, 450), Color.White);
+            Visuals.SpriteBatch.DrawString(Functional.StandardFont, "Ziel:" + movableBox.checkIfGoalIsReached(), new Vector2(300, 300), Color.White);
+            Visuals.SpriteBatch.DrawString(Functional.StandardFont, "key:" + keyPicked, new Vector2(300, 400), Color.White);
+            Visuals.SpriteBatch.DrawString(Functional.StandardFont, "used:" + keyUsed, new Vector2(300, 450), Color.White);
             Visuals.SpriteBatch.End();
             CollisionDetection.Draw();
         }
@@ -194,6 +165,7 @@ namespace LostInTheCorn2.Scenes
             cam.SaveMousePosition(); // Mausposition speichern, bevor zur SettingsScene gewechselt wird
             Visuals.SceneManager.AddScene(new SettingsScene(new Vector2(Mouse.GetState().X, Mouse.GetState().Y), gameRenderTarget));
         }
+
 
         public void ReturnToGame()
         {
