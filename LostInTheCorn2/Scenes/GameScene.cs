@@ -1,4 +1,5 @@
 ﻿using LostInTheCorn;
+using LostInTheCorn2.Collision;
 using LostInTheCorn2.Globals;
 using LostInTheCorn2.map;
 using LostInTheCorn2.ModelFunction;
@@ -6,6 +7,7 @@ using LostInTheCorn2.MovableObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace LostInTheCorn2.Scenes
 {
@@ -28,9 +30,17 @@ namespace LostInTheCorn2.Scenes
         private Model SkyBoxModel;
         private Texture2D SkyBoxTexture;
 
-        private Collision.Collision CollisionDetection;
+        private CollisionDetection CollisionDetection;
+        private CollisionWithItem CollisionDetectionWithItem;
+        private MovableBox movableBox;
+        private PositionInfo boxPosition;
+        private bool keyPicked;
+        private bool keyUsed;
+        private Point goalPoint;
+        private Rectangle goalRec;
+        private Key key;
 
-
+        private SpriteFont font;
         public GameScene()
         {
             //graphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
@@ -57,11 +67,15 @@ namespace LostInTheCorn2.Scenes
             Map = new MapDrawer(cam, startMapPos, sizeCube);
             Map.SetModelWithEnum(0, Functional.ContentManager.Load<Model>("PlaneFloor"));
             Map.SetModelWithEnum(1, Functional.ContentManager.Load<Model>("Corn"));
+            Map.SetModelWithEnum(2, Functional.ContentManager.Load<Model>("greenCube"));
 
             SkyBoxModel = Functional.ContentManager.Load<Model>("SkySphere");
             SkyBoxTexture = Functional.ContentManager.Load<Texture2D>("TextureSkySphere");
-
-            CollisionDetection = new Collision.Collision(startMapPos, sizeCube);
+            CollisionDetection = new CollisionDetection(startMapPos, sizeCube);
+            CollisionDetectionWithItem = new CollisionWithItem(startMapPos, sizeCube);
+            movableBox = new MovableBox(cam,startMapPos, sizeCube);
+            key = new Key(cam, startMapPos, sizeCube);
+            font = Functional.ContentManager.Load<SpriteFont>("File");
         }
 
         public void Update(GameTime gameTime)
@@ -72,10 +86,24 @@ namespace LostInTheCorn2.Scenes
             {
                 Visuals.SceneManager.AddScene(new ExitScene());
             }
-            int colliding = CollisionDetection.Update(gameTime, MovementManager.Player.PlayerWorld, MovementManager.Player.PlayerWorld.Forward);
+            //Kollisionsabfragen
+            bool collidingWithBox = CollisionDetectionWithItem.Update(gameTime, MovementManager.Player.PlayerWorld,0, boxPosition);
+            bool collidingWithKey = CollisionDetectionWithItem.Update(1);
+            keyPicked = key.Update(gameTime, collidingWithKey);
+            keyUsed = key.keyUsedFunction(CollisionDetection.forwardCollision,keyPicked);
+            int collidingWithWalls = CollisionDetection.Update(gameTime, MovementManager.Player.PlayerWorld, MovementManager.Player.PlayerWorld.Forward, movableBox.checkIfGoalIsReached(),keyUsed);
+
             //Kamera und Spieler sollen geupdatet werden
-            MovementManager.Update(gameTime,colliding);
-            cam.Update(gameTime, MovementManager.Player,colliding);
+
+            MovementManager.Update(gameTime,collidingWithWalls);
+            //berechne neue boxPosition, TODO -> ein zentrales Grid einführen und in der GameScene behandeln
+            //Stand jetzt: in jeder Klasse wird neues seperates Grid aufgesetzt
+            boxPosition = movableBox.Update(gameTime, MovementManager.Player.PlayerWorld, collidingWithBox);
+
+            cam.Update(gameTime, MovementManager.Player,collidingWithWalls);
+            /*if (movableBox.checkIfGoalIsReached()) {
+                MovementManager.Player.RotateLeftOrRight(gameTime, 5f, 45f);
+            }*/
         }
         public void Draw()
         {
@@ -104,9 +132,16 @@ namespace LostInTheCorn2.Scenes
             //    }
             //}
 
-            Map.DrawWorld();
+            Map.DrawWorld(keyPicked, boxPosition);
             Drawable.drawWithEffectModel(penguin, MovementManager.Player.PlayerWorld, cam);
             Drawable.drawWithoutModel(SkyBoxModel, MovementManager.SkySphere.GlobeWorld, cam);
+            Visuals.SpriteBatch.Begin();
+            Visuals.SpriteBatch.Draw(SkyBoxTexture, goalRec, Color.White);
+            Visuals.SpriteBatch.DrawString(font, "Ziel:" + movableBox.checkIfGoalIsReached(), new Vector2(300, 300), Color.White);
+            Visuals.SpriteBatch.DrawString(font, "key:" + keyPicked, new Vector2(300, 400), Color.White);
+            Visuals.SpriteBatch.DrawString(font, "used:" + keyUsed, new Vector2(300, 450), Color.White);
+            Visuals.SpriteBatch.End();
+            CollisionDetection.Draw();
         }
     }
 }

@@ -126,7 +126,7 @@ namespace LostInTheCorn
             KeyboardState keyboardState = Keyboard.GetState();
             MouseState mouseState = Mouse.GetState(Visuals.GameWindow);
 
-            if (keyboardState.IsKeyDown(Keys.W) && colliding != 1 && colliding != 3)
+            if (keyboardState.IsKeyDown(Keys.W) && colliding != 1 && colliding != 3 && colliding != 4)
             {
                 moveForward(gameTime, player);
             }

@@ -2,7 +2,7 @@
 
 namespace LostInTheCorn2.map;
 
-class PositionInfo
+public class PositionInfo
 {
     public Matrix Position { get; set; }
     public WhatToDraw Info { get; set; }
@@ -16,5 +16,10 @@ class PositionInfo
 public enum WhatToDraw
 {
     PlaneFloor = 0,
-    Wall = 1
+    Wall = 1,
+    Box = 2,
+    Goal = 3,
+    NoClip = 4,
+    Key = 5,
+    Door = 6
 }

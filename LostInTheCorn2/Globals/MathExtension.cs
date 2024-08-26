@@ -9,5 +9,6 @@ namespace LostInTheCorn2.Globals
         {
             return (float)Math.Sqrt(Math.Pow(pos.X - target.X, 2) + Math.Pow(pos.Y - target.Y, 2));
         }
+        
     }
 }

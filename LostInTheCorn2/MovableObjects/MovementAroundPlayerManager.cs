@@ -35,7 +35,6 @@ public class MovementAroundPlayerManager
     {
         KeyboardState keyboardState = Keyboard.GetState();
         MouseState mouseState = Mouse.GetState(Visuals.GameWindow);
-
         if (keyboardState.IsKeyDown(Keys.W) && colliding != 1 && colliding != 3)
         {
             Player.moveForward(gameTime, MovementUnitsPerSecond);

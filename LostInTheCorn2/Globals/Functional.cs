@@ -13,6 +13,8 @@ public class Functional
     public static MouseHelper mouseHelper { get; private set; } //probably null
     public static KeyboardHelper KeyboardHelper { get; private set; }
 
+    public static bool itemPicked;
+
 
 
 
