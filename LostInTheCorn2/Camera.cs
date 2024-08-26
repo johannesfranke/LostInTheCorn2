@@ -30,6 +30,9 @@ namespace LostInTheCorn
         private Matrix view = Matrix.CreateLookAt(new Vector3(0, 0, 100), new Vector3(0, 0, 0), Vector3.UnitY);
         private Matrix projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), 800 / 480f, 0.1f, 100f);
 
+        private MouseState previousMouseState; 
+        private Vector2 savedMousePosition; 
+
         public Camera()
         {
             var rs = new RasterizerState();
@@ -171,6 +174,15 @@ namespace LostInTheCorn
             Forward = player.PlayerForward + new Vector3(0, -0.5f, 0);
             CamPosition = (player.PlayerPosition - (player.PlayerForward * 7)) + new Vector3(0, 8, 0);
 
+        }
+        public void SaveMousePosition()
+        {
+            savedMousePosition = Mouse.GetState().Position.ToVector2();
+        }
+
+        public void LoadMousePosition()
+        {
+            Mouse.SetPosition((int)savedMousePosition.X, (int)savedMousePosition.Y);
         }
     }
 

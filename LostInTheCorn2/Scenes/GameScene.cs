@@ -5,16 +5,26 @@ using LostInTheCorn2.map;
 using LostInTheCorn2.ModelFunction;
 using LostInTheCorn2.MovableObjects;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+<<<<<<< HEAD
 using System.Collections.Generic;
+=======
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection.Metadata;
+using System.Text;
+using System.Threading.Tasks;
+>>>>>>> master
 
 namespace LostInTheCorn2.Scenes
 {
     public class GameScene : IScene
     {
         private Texture3D texture;
-        //übernommen aus game1.cs
+        
         Camera cam;
         MovementAroundPlayerManager MovementManager; // Movement around Player alle stellen ersetzen
         private MapDrawer Map;
@@ -30,6 +40,7 @@ namespace LostInTheCorn2.Scenes
         private Model SkyBoxModel;
         private Texture2D SkyBoxTexture;
 
+<<<<<<< HEAD
         private CollisionDetection CollisionDetection;
         private CollisionWithItem CollisionDetectionWithItem;
         private MovableBox movableBox;
@@ -37,17 +48,24 @@ namespace LostInTheCorn2.Scenes
         private bool keyPicked;
         private bool keyUsed;
         private Door door;
+=======
+        private static RenderTarget2D gameRenderTarget;
+        private RenderTarget2D lastFrameRenderTarget;
+
+>>>>>>> master
 
         private SpriteFont font;
         public GameScene()
         {
             //graphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
+
         }
 
         public void Load()
         {
 
             Game1.Instance.IsMouseVisible = false;
+            
 
             initForward = new Vector3(1, 0, 0);
             camInitPosition = new Vector3(10, 1, 0);
@@ -75,14 +93,23 @@ namespace LostInTheCorn2.Scenes
             door = new Door(startMapPos, sizeCube);
             font = Functional.ContentManager.Load<SpriteFont>("File");
         }
-
-        public void Update(GameTime gameTime)
-        {
+    
+        public void Update(GameTime gameTime) {
 
 
             if (Functional.KeyboardHelper.IsKeyPressed(Keys.Escape))
             {
-                Visuals.SceneManager.AddScene(new ExitScene());
+                CaptureLastFrame();
+
+                var settingsScene = new SettingsScene(new Vector2(Mouse.GetState().X, Mouse.GetState().Y) ,lastFrameRenderTarget);
+                
+
+                Visuals.SceneManager.AddScene(settingsScene);
+                //this.CaptureGameScreen();
+            }
+            if (Functional.KeyboardHelper.IsKeyPressed(Keys.F11))
+            {
+                Visuals.ToggleFullScreen();
             }
             //Kollisionsabfragen
             bool collidingWithBox = CollisionDetectionWithItem.Update(gameTime, MovementManager.Player.PlayerWorld,0, boxPosition);
@@ -113,6 +140,7 @@ namespace LostInTheCorn2.Scenes
             Visuals.GraphicsDevice.BlendState = BlendState.AlphaBlend;
             Visuals.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
 
+<<<<<<< HEAD
 
             //Matrix pos = Matrix.CreateWorld(new Vector3(0, 0, 0), Vector3.Forward, Vector3.Up);
 
@@ -129,6 +157,9 @@ namespace LostInTheCorn2.Scenes
             //}
 
             Map.DrawWorld(keyPicked, boxPosition);
+=======
+            Map.DrawWorld();
+>>>>>>> master
             Drawable.drawWithEffectModel(penguin, MovementManager.Player.PlayerWorld, cam);
             Drawable.drawWithoutModel(SkyBoxModel, MovementManager.SkySphere.GlobeWorld, cam);
             Visuals.SpriteBatch.Begin();
@@ -137,6 +168,36 @@ namespace LostInTheCorn2.Scenes
             Visuals.SpriteBatch.DrawString(font, "used:" + keyUsed, new Vector2(300, 450), Color.White);
             Visuals.SpriteBatch.End();
             CollisionDetection.Draw();
+        }
+
+        //Methode um das letzte Standbild zu speichern
+        private void CaptureLastFrame()
+        {
+            if (lastFrameRenderTarget == null)
+            {
+                var pp = Visuals.GraphicsDevice.PresentationParameters;
+                lastFrameRenderTarget = new RenderTarget2D(Visuals.GraphicsDevice,
+                    pp.BackBufferWidth, pp.BackBufferHeight, false,
+                    SurfaceFormat.Color, DepthFormat.Depth24);
+            }
+
+            Visuals.GraphicsDevice.SetRenderTarget(lastFrameRenderTarget);
+
+            Visuals.GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.CornflowerBlue, 1.0f, 0);
+
+            Draw();
+
+            Visuals.GraphicsDevice.SetRenderTarget(null);
+        }
+        public void OpenSettings()
+        {
+            cam.SaveMousePosition(); // Mausposition speichern, bevor zur SettingsScene gewechselt wird
+            Visuals.SceneManager.AddScene(new SettingsScene(new Vector2(Mouse.GetState().X, Mouse.GetState().Y), gameRenderTarget));
+        }
+
+        public void ReturnToGame()
+        {
+            cam.LoadMousePosition(); // Mausposition wiederherstellen, wenn zur Spielszene zurückgekehrt wird
         }
     }
 }

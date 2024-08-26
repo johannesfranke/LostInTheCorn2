@@ -25,6 +25,31 @@
 /processorParam:TextureFormat=Color
 /build:backGroundFloor.jpg
 
+#begin blur.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:blur.fx
+
+#begin BoldFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:BoldFont.spritefont
+
+#begin ButtonHope.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ButtonHope.png
+
 #begin Corn.fbx
 /importer:FbxImporter
 /processor:ModelProcessor
@@ -44,12 +69,17 @@
 /processorParam:TextureFormat=Compressed
 /build:Corn.fbx
 
-#begin File.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
+#begin HelpImage.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
 /processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:File.spritefont
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:HelpImage.png
 
 #begin greenCube.fbx
 /importer:FbxImporter
@@ -155,20 +185,15 @@
 /processorParam:RotationZ=0
 /processorParam:Scale=200
 /processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=NoChange
+/processorParam:TextureFormat=Compressed
 /build:SkySphere.fbx
 
-#begin startButton.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
+#begin StandardFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:startButton.png
+/processorParam:TextureFormat=Compressed
+/build:StandardFont.spritefont
 
 #begin TextureSkySphere.png
 /importer:TextureImporter
@@ -181,4 +206,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:TextureSkySphere.png
+
+#begin TitleScreen.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:TitleScreen.png
 

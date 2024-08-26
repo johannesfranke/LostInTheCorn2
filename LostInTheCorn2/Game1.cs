@@ -1,9 +1,25 @@
-﻿using LostInTheCorn2;
+﻿
+
+#region Includes
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using System.Text;
+using LostInTheCorn2;
 using LostInTheCorn2.Globals;
 using LostInTheCorn2.Scenes;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
+
+#endregion
 
 namespace LostInTheCorn
 {
@@ -15,6 +31,9 @@ namespace LostInTheCorn
         private SpriteFont font;
         private SceneManager sceneManager;
         private KeyboardHelper keyboardHelper;
+        private MouseHelper mouseHelper;
+        private ButtonActions buttonActions;
+        private GameTime gameTime;
 
         public static Game1 Instance { get; private set; }
 
@@ -26,18 +45,26 @@ namespace LostInTheCorn
             //Content.RootDirectory = "Content";
             Content = new ContentManager(this.Services, "Content");
             IsMouseVisible = true;
+            gameTime = new GameTime();
             _graphics.IsFullScreen = false;
             keyboardHelper = new KeyboardHelper();
+            mouseHelper = new MouseHelper();
+            buttonActions = new ButtonActions();
             Instance = this;
         }
 
         protected override void Initialize()
         {
             sceneManager = new(GraphicsDevice, this.Window);
+<<<<<<< HEAD
             _graphics.PreferredBackBufferHeight = 640;
             _graphics.PreferredBackBufferWidth = 1024;
+=======
+            _graphics.IsFullScreen = false; // Standardmäßig im Fenstermodus starten
+            _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width /2;
+            _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 2;
+>>>>>>> master
             _graphics.ApplyChanges();
-
 
 
             base.Initialize();
@@ -46,15 +73,24 @@ namespace LostInTheCorn
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            Visuals.screenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            Visuals.screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             Visuals.SetSpriteBatch(this._spriteBatch);
             Functional.SetContentManager(Content);
             Functional.SetKeyboardHelper(keyboardHelper);
+            Functional.SetMouseHelper(mouseHelper);
+            Functional.SetGameTime(gameTime);
             Visuals.SetSceneManager(sceneManager);
             Visuals.SetGraphicsDevice(GraphicsDevice);
+            Visuals.SetGraphicsDeviceManager(_graphics);
+            Visuals.preferredBackBufferHeight = Visuals.GraphicsDeviceManager.PreferredBackBufferHeight;
+            Visuals.preferredBackBufferWidth = Visuals.GraphicsDeviceManager.PreferredBackBufferWidth;
             Visuals.SetGameWindow(Window);
+            Functional.SetButtonActions(buttonActions);
+            Functional.SetMcTimer(new McTimer(0));
 
 
-            Visuals.SceneManager.AddScene(new StartMenu());
+            Visuals.SceneManager.AddScene(new StartScene());
 
 
         }
@@ -63,7 +99,12 @@ namespace LostInTheCorn
         {
 
             Functional.KeyboardHelper.Update();
+            Functional.MouseHelper.Update();
+            Functional.McTimer.UpdateTimer();
             Visuals.SceneManager.GetCurrentScene().Update(gameTime);
+            Functional.MouseHelper.LockMouseToWindow(Visuals.GraphicsDeviceManager.PreferredBackBufferWidth, Visuals.GraphicsDeviceManager.PreferredBackBufferHeight);
+            Functional.MouseHelper.UpdateOld();
+
 
 
             base.Update(gameTime);
@@ -71,28 +112,11 @@ namespace LostInTheCorn
 
         protected override void Draw(GameTime gameTime)
         {
-            //GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            //Werte als Sprites zum Testen
             sceneManager.GetCurrentScene().Draw();
-
-
-            //Globals.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
-
-
-            //_spriteBatch.DrawString(font, "camPos" + cam.camPosition, new Vector2(0, 2*120), Color.Black);
-            //_spriteBatch.DrawString(font, "playerPos" + player.PlayerPosition, new Vector2(0, 2*135), Color.Black);
-            //_spriteBatch.DrawString(font, "camForward" + cam.Forward, new Vector2(0, 2*150), Color.Black);
-            //_spriteBatch.DrawString(font, "playerForward" + player.PlayerForward, new Vector2(0, 2 * 165), Color.Black);
-
-            //Globals.spriteBatch.End();
 
             base.Draw(gameTime);
         }
 
-        public void SetFullScreen()
-        {
-
-        }
     }
 }
