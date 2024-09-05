@@ -31,7 +31,7 @@ namespace LostInTheCorn2.map
         }
         public bool Update(bool collisionWithKey)
         {
-            if (collisionWithKey && Functional.KeyboardHelper.IsKeyPressed(Keys.E))
+            if (collisionWithKey && Functional.KeyboardHelper.IsKeyPressedOnce(Keys.E))
             {
                 pickedUp = true;
             }
@@ -40,7 +40,7 @@ namespace LostInTheCorn2.map
         }
         public bool keyUsedFunction(Rectangle forwardColl,bool keyPicked)
         {
-            if (forwardColl.Intersects(doorPosition) && keyPicked && Functional.KeyboardHelper.IsKeyPressed(Keys.F))
+            if (forwardColl.Intersects(doorPosition) && keyPicked && Functional.KeyboardHelper.IsKeyPressedOnce(Keys.F))
             {
                 keyUsed = true;
             }

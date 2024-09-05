@@ -56,11 +56,11 @@ namespace LostInTheCorn2.Scenes
                 elapsedTime -= fadeDuration;
             }
 
-            if (Functional.KeyboardHelper.IsKeyPressed(Keys.Space))
+            if (Functional.KeyboardHelper.IsKeyPressedOnce(Keys.Space))
             {
                 Visuals.SceneManager.AddScene(new GameScene());
             }
-            if (Functional.KeyboardHelper.IsKeyPressed(Keys.F11))
+            if (Functional.KeyboardHelper.IsKeyPressedOnce(Keys.F11))
             {
                 Visuals.ToggleFullScreen();
             }

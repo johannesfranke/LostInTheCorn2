@@ -65,7 +65,7 @@ namespace LostInTheCorn2.Scenes
 
             buttons.Add(new Button("ButtonHope", buttonPosition + new Vector2(0, 2 * (buttonSize.Y + buttonSpacing)), buttonSize, "StandardFont", "Help", () =>
             {
-                Visuals.SceneManager.AddScene(new HelpScene(gameRenderTarget));
+                Visuals.SceneManager.AddScene(new HelpScene());
             }));
 
             Vector2 exitButtonSize = new Vector2(250, 60); // Kleinere Größe für den Exit-Button
@@ -78,7 +78,7 @@ namespace LostInTheCorn2.Scenes
 
         public void Update(GameTime gameTime)
         {
-            if (Functional.KeyboardHelper.IsKeyPressed(Keys.Escape))
+            if (Functional.KeyboardHelper.IsKeyPressedOnce(Keys.Escape))
             {
                 Functional.ButtonActions.resumeGame(_mousePosition);
                 Game1.Instance.IsMouseVisible = false;
@@ -93,7 +93,7 @@ namespace LostInTheCorn2.Scenes
                 button.Update(Vector2.Zero);
             }
 
-            if (Functional.KeyboardHelper.IsKeyPressed(Keys.F11))
+            if (Functional.KeyboardHelper.IsKeyPressedOnce(Keys.F11))
             {
                 Visuals.ToggleFullScreen();
                 RecalculateButtonPositions();
