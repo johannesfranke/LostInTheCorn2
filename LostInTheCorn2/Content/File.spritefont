@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file contains an xml description of a font, and will be read by the XNA
+Framework Content Pipeline. Follow the comments to customize the appearance
+of the font in your game, and to change the characters which are available to draw
+with.
+-->
+<XnaContent xmlns:Graphics="Microsoft.Xna.Framework.Content.Pipeline.Graphics">
+  <Asset Type="Graphics:FontDescription">
+
+    <!--
+    Set the font to the desired font, such as "Aztec" or any other mystic font you have.
+    Ensure that the font is in the Content directory and is referenced correctly here.
+    -->
+    <FontName>Aztec</FontName>
+
+    <!--
+    Size is a float value, measured in points. Adjust this value to set the font size.
+    36 is a large font size, suitable for a medium-sized display. Change as needed.
+    -->
+    <Size>12</Size>
+
+    <!--
+    Spacing is a float value, measured in pixels. Adjust this value to set the
+    space between characters.
+    -->
+    <Spacing>2</Spacing>
+
+    <!--
+    UseKerning controls whether kerning is applied. Kerning adjusts the space between
+    certain characters to improve readability. Leave this as true for better text quality.
+    -->
+    <UseKerning>true</UseKerning>
+
+    <!--
+    Style controls the style of the font. Valid entries are "Regular", "Bold", "Italic",
+    and "Bold, Italic". This example uses "Bold" for a bold effect.
+    -->
+    <Style>Bold</Style>
+
+    <!--
+    You can uncomment this line if you want to substitute a default character when
+    text contains characters not included in the font.
+    -->
+    <!-- <DefaultCharacter>*</DefaultCharacter> -->
+
+    <!--
+    CharacterRegions control what letters are available in the font. Every
+    character from Start to End will be built and made available for drawing. The
+    default range is from 32, (ASCII space), to 126, ('~'), covering the basic Latin
+    character set. The second range adds extended Latin characters.
+    -->
+    <CharacterRegions>
+      <CharacterRegion>
+        <Start>&#32;</Start>
+        <End>&#126;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#160;</Start>
+        <End>&#255;</End>
+      </CharacterRegion>
+    </CharacterRegions>
+  </Asset>
+</XnaContent>

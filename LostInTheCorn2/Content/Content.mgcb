@@ -21,7 +21,7 @@
 
 #begin Audio/grass1edited.mp3
 /importer:Mp3Importer
-/processor:SongProcessor
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Audio/grass1edited.mp3
 
@@ -117,6 +117,13 @@
 /processorParam:TextureFormat=Compressed
 /build:Corn.fbx
 
+#begin File.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:File.spritefont;MenuFont12.spritefont
+
 #begin greenCube.fbx
 /importer:FbxImporter
 /processor:ModelProcessor
@@ -178,6 +185,13 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:LostInTheCornScreen.jpg
+
+#begin MenuFont26.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:MenuFont26.spritefont
 
 #begin PenguinTextured.fbx
 /importer:FbxImporter
@@ -254,6 +268,18 @@
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:SkySphere.fbx
+
+#begin Slider.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Slider.png
 
 #begin StandardFont.spritefont
 /importer:FontDescriptionImporter

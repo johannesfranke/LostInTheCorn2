@@ -194,5 +194,6 @@ namespace LostInTheCorn2.Scenes
         {
             cam.LoadMousePosition(); // Mausposition wiederherstellen, wenn zur Spielszene zurückgekehrt wird
         }
+
     }
 }

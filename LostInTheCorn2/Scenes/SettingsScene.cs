@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LostInTheCorn2.Globals;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
+using LostInTheCorn2.UIClasses;
 
 namespace LostInTheCorn2.Scenes
 {
@@ -17,7 +17,15 @@ namespace LostInTheCorn2.Scenes
     {
         private RenderTarget2D gameRenderTarget; // RenderTarget für das Standbild
         private List<Button> buttons;
+        private SliderButton audioSliderButton; // SliderButton für die Lautstärke
         Vector2 _mousePosition;
+
+        // Texturen für den Slider
+        private Texture2D sliderBarTexture;
+        private Texture2D sliderHandleTexture;
+
+        //Fontvariable für die Größe
+        String currentFont;
 
         // Konstruktor, um das Standbild aus der vorherigen Szene zu übernehmen
         public SettingsScene(Vector2 mousePosition, RenderTarget2D previousRenderTarget = null)
@@ -30,6 +38,19 @@ namespace LostInTheCorn2.Scenes
         {
             Mouse.SetPosition(Visuals.GraphicsDevice.PresentationParameters.BackBufferWidth / 2, Visuals.GraphicsDevice.PresentationParameters.BackBufferHeight / 2);
             Game1.Instance.IsMouseVisible = true;
+
+            // Lade die Slider-Texturen
+            sliderBarTexture = Functional.ContentManager.Load<Texture2D>("ButtonHope");
+            sliderHandleTexture = Functional.ContentManager.Load<Texture2D>("Slider");
+
+            if (Visuals.GraphicsDeviceManager.IsFullScreen == true)
+            {
+                currentFont = "MenuFont26";
+            }else
+            {
+                currentFont = "MenuFont12";
+            }
+
             CreateButtons();
         }
 
@@ -41,38 +62,56 @@ namespace LostInTheCorn2.Scenes
 
         private void RecalculateButtonPositions()
         {
-            // Position und Dimensionen für die Buttons
-            Vector2 buttonPosition = new Vector2(Visuals.GraphicsDevice.PresentationParameters.BackBufferWidth / 2, 200);
-            Vector2 buttonSize = new Vector2(300, 75); // Normale Button-Größe
+            // Verhältnisgrößen basierend auf der Bildschirmgröße
+            float screenWidth = Visuals.GraphicsDevice.PresentationParameters.BackBufferWidth;
+            float screenHeight = Visuals.GraphicsDevice.PresentationParameters.BackBufferHeight;
 
-            // Offset zwischen den Buttons
-            float buttonSpacing = 20f;
+            Vector2 buttonSize = new Vector2(screenWidth * 0.2f, screenHeight * 0.1f);
+            float buttonSpacing = screenHeight * 0.03f;
 
-            buttons.Clear(); // Vorhandene Buttons entfernen
+            float totalButtonHeight = buttonSize.Y * 5 + buttonSpacing * 4;
 
-            buttons.Add(new Button("ButtonHope", buttonPosition, buttonSize, "StandardFont", "Resume", () => {
+            float verticalOffset = screenHeight * 0.10f;
+            float startYPosition = (screenHeight - totalButtonHeight) / 2 - verticalOffset;
+
+            float startXPosition = screenWidth / 2;
+
+            Vector2 buttonPosition = new Vector2(startXPosition, startYPosition);
+
+            buttons.Clear();
+
+            buttons.Add(new Button("ButtonHope", buttonPosition, buttonSize, currentFont, "Resume", () => {
                 Mouse.SetPosition((int)_mousePosition.X, (int)_mousePosition.Y);
                 Visuals.SceneManager.RemoveScene();
                 Mouse.SetPosition((int)_mousePosition.X, (int)_mousePosition.Y);
                 Game1.Instance.IsMouseVisible = false;
             }));
 
-            buttons.Add(new Button("ButtonHope", buttonPosition + new Vector2(0, buttonSize.Y + buttonSpacing), buttonSize, "StandardFont", "Fullscreen: " + isFullScreen(), () =>
+            // Erstellen des SliderButtons für die Lautstärke
+            audioSliderButton = new SliderButton("ButtonHope",buttonPosition + new Vector2(0, buttonSize.Y + buttonSpacing), new Vector2(screenWidth * 0.3f, screenHeight * 0.05f), 0, 1,
+                Audio.SongManager.Volume, sliderBarTexture, sliderHandleTexture, currentFont, "Volume", (value) =>
+            {
+                // Lautstärke auf den neuen Wert setzen
+                Audio.SongManager.Volume = value;
+            });
+
+            // Fullscreen Button
+            buttons.Add(new Button("ButtonHope", buttonPosition + new Vector2(0, 2 * (buttonSize.Y + buttonSpacing)), buttonSize, currentFont, "Fullscreen: " + isFullScreen(), () =>
             {
                 Visuals.ToggleFullScreen();
-                RecalculateButtonPositions(); // Positionen neu berechnen
+                RecalculateButtonPositions();
             }));
 
-            buttons.Add(new Button("ButtonHope", buttonPosition + new Vector2(0, 2 * (buttonSize.Y + buttonSpacing)), buttonSize, "StandardFont", "Help", () =>
+            buttons.Add(new Button("ButtonHope", buttonPosition + new Vector2(0, 3 * (buttonSize.Y + buttonSpacing)), buttonSize, currentFont, "Help", () =>
             {
                 Visuals.SceneManager.AddScene(new HelpScene());
             }));
 
-            Vector2 exitButtonSize = new Vector2(250, 60); // Kleinere Größe für den Exit-Button
+            Vector2 exitButtonSize = new Vector2(screenWidth * 0.15f, screenHeight * 0.08f); // Exit-Button etwas kleiner
 
-            buttons.Add(new Button("ButtonHope", buttonPosition + new Vector2(0, 3 * (buttonSize.Y + buttonSpacing)), exitButtonSize, "StandardFont", "Exit", () =>
+            buttons.Add(new Button("ButtonHope", buttonPosition + new Vector2(0, 4 * (buttonSize.Y + buttonSpacing)), exitButtonSize, currentFont, "Exit", () =>
             {
-                Game1.Instance.Exit(); // Spiel beenden
+                Game1.Instance.Exit();
             }));
         }
 
@@ -92,6 +131,8 @@ namespace LostInTheCorn2.Scenes
             {
                 button.Update(Vector2.Zero);
             }
+            audioSliderButton.Update(new Vector2(0f,0f));
+
 
             if (Functional.KeyboardHelper.IsKeyPressedOnce(Keys.F11))
             {
@@ -109,24 +150,30 @@ namespace LostInTheCorn2.Scenes
             Visuals.SpriteBatch.Begin();
             Visuals.SpriteBatch.Draw(gameRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, new Vector2(scaleX, scaleY), SpriteEffects.None, 0f);
             DrawPauseMenu(Visuals.SpriteBatch);
+            Visuals.SpriteBatch.DrawString(Functional.BoldFont, "VOLUME: " + Audio.SongManager.Volume, new Vector2(0, 0), Color.Black);
             Visuals.SpriteBatch.End();
         }
 
         private void DrawPauseMenu(SpriteBatch spriteBatch)
         {
-            // Zeichne hier die Pause-Menü-Elemente (Buttons, Text, etc.)
+
+            if(Visuals.GraphicsDeviceManager.IsFullScreen == true)
+            {
+                currentFont = "MenuFont26";
+            }
+            else
+            {
+                currentFont = "MenuFont12";
+            }
+            // Zeichne die Pause-Menü-Elemente (Buttons, Text, etc.)
             foreach (var button in buttons)
             {
                 button.Draw(Vector2.Zero);
             }
-            ;
-
-            //Debug
-            //Visuals.SpriteBatch.DrawString(Functional.StandardFont, "leftClick" + Functional.MouseHelper.LeftClickRelease(), new Vector2(0, 0), Color.Black);
-
+            audioSliderButton.Draw(new Vector2(0f, 0f));
         }
 
-        private String isFullScreen() 
+        private String isFullScreen()
         {
             if (Visuals.GraphicsDeviceManager.IsFullScreen)
             {
@@ -136,9 +183,6 @@ namespace LostInTheCorn2.Scenes
             {
                 return "Off";
             }
-        
         }
     }
 }
-
-
