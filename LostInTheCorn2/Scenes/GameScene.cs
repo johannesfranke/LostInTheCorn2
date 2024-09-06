@@ -104,9 +104,11 @@ namespace LostInTheCorn2.Scenes
                 CaptureLastFrame();
 
                 var settingsScene = new SettingsScene(new Vector2(Mouse.GetState().X, Mouse.GetState().Y) ,lastFrameRenderTarget);
-                
+
 
                 Visuals.SceneManager.AddScene(settingsScene);
+
+
                 //this.CaptureGameScreen();
             }
             if (Functional.KeyboardHelper.IsKeyPressedOnce(Keys.F11))

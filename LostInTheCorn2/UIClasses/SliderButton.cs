@@ -76,8 +76,9 @@ namespace LostInTheCorn2
 
         private void UpdateKnobPosition()
         {
+            // Correct calculation of knob position relative to the slider range
             float ratio = (currentValue - minValue) / (maxValue - minValue);
-            knobPosition = new Vector2(position.X - sliderTexture.Width + ratio * dimensions.X - (dimensions.Y / 4), position.Y);
+            knobPosition = new Vector2(position.X + ratio * (dimensions.X - (dimensions.Y / 2)), position.Y);
         }
 
         public override void Draw(Vector2 OFFSET)
@@ -85,26 +86,26 @@ namespace LostInTheCorn2
             Color currentSliderColor = isHovered ? Color.LightGray : sliderColor;
             Color currentKnobColor = isHovered ? Color.LightGray : knobColor;
 
-            // Draw the slider centered at its position with OFFSET applied
+            // Draw the slider (this is the bar texture)
             Visuals.SpriteBatch.Draw(
                 sliderTexture,
-                new Rectangle((int)(position.X + OFFSET.X), (int)(position.Y + OFFSET.Y), (int)dimensions.X, (int)dimensions.Y),
+                new Rectangle((int)(position.X + OFFSET.X), (int)(position.Y + OFFSET.Y), (int)dimensions.X, (int)dimensions.Y / 2), // Make the slider bar thinner
                 null,
                 currentSliderColor,
                 0.0f,
-                new Vector2(sliderTexture.Width / 2, sliderTexture.Height / 2),
+                Vector2.Zero,
                 SpriteEffects.None,
                 0f
             );
 
-            // Draw the knob at the calculated knobPosition, centered
+            // Draw the knob
             Visuals.SpriteBatch.Draw(
                 knobTexture,
-                new Rectangle((int)(knobPosition.X + OFFSET.X), (int)(position.Y + OFFSET.Y), (int)(dimensions.Y / 2), (int)dimensions.Y),
+                new Rectangle((int)(knobPosition.X + OFFSET.X), (int)(knobPosition.Y + OFFSET.Y), (int)(dimensions.Y / 2), (int)(dimensions.Y / 2)), // Draw the knob as a square
                 null,
                 currentKnobColor,
                 0.0f,
-                new Vector2(knobTexture.Width / 2, knobTexture.Height / 2),
+                Vector2.Zero,
                 SpriteEffects.None,
                 0f
             );
@@ -112,25 +113,20 @@ namespace LostInTheCorn2
             // Draw the label and value
             if (font != null && !string.IsNullOrEmpty(label))
             {
-                string displayText = $"{label}: {Math.Round(currentValue, 1)}";
+                string displayText = $"{label}: {Math.Round(currentValue, 2)}";
                 Vector2 textSize = font.MeasureString(displayText);
-                Visuals.SpriteBatch.DrawString(font, displayText, position + OFFSET + new Vector2(dimensions.X / 2 - textSize.X / 2, -textSize.Y - 10), Color.Black);
+                Visuals.SpriteBatch.DrawString(font, displayText, position + OFFSET + new Vector2(dimensions.X / 2 - textSize.X / 2, -textSize.Y ), Color.Black);
             }
         }
 
         public override bool Hover(Vector2 OFFSET)
         {
-            Vector2 mousePos = new Vector2(Functional.MouseHelper.newMousePos.X, Functional.MouseHelper.newMousePos.Y);
+            Vector2 mousePos = Functional.MouseHelper.newMousePos;
 
-            if (mousePos.X >= (position.X + OFFSET.X) - dimensions.X / 2 &&
-                mousePos.X <= (position.X + OFFSET.X) + dimensions.X / 2 &&
-                mousePos.Y >= (position.Y + OFFSET.Y) - dimensions.Y / 2 &&
-                mousePos.Y <= (position.Y + OFFSET.Y) + dimensions.Y / 2)
-            {
-                return true;
-            }
-
-            return false;
+            return (mousePos.X >= (position.X + OFFSET.X) &&
+                    mousePos.X <= (position.X + OFFSET.X) + dimensions.X &&
+                    mousePos.Y >= (position.Y + OFFSET.Y) &&
+                    mousePos.Y <= (position.Y + OFFSET.Y) + dimensions.Y);
         }
     }
 }
