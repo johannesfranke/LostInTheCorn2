@@ -1,4 +1,5 @@
 ﻿using LostInTheCorn;
+using LostInTheCorn2.Globals;
 using LostInTheCorn2.ModelFunction;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -35,21 +36,28 @@ public class MapDrawer
         {
             switch (pos.Info)
             {
+                case WhatToDraw.CheckpointScarecrow:
+                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
+                    break;
                 case WhatToDraw.PlaneFloor:
                     Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
                     break;
                 case WhatToDraw.NoClip:
-                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(1), pos.Position, Cam);
+                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(6), pos.Position, Cam);
                     break;
                 case WhatToDraw.Wall:
-                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(1), pos.Position, Cam);
+                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(2), pos.Position, Cam);
                     break;
                 case WhatToDraw.Box:
                     if (boxPosition == null) {boxPosition = new PositionInfo(pos.Position, 2); }
-                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(2), boxPosition.Position, Cam);
+                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(7), boxPosition.Position, Cam);
                     Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
                     break;
                 case WhatToDraw.Goal:
+                    if(!Functional.goalReached) {
+                        Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(4), pos.Position, Cam);
+                    }
+                    else Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(3), pos.Position, Cam);
                     break;
                 case WhatToDraw.Door:
                     Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(1), pos.Position, Cam);
@@ -60,6 +68,9 @@ public class MapDrawer
                         Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(2), pos.Position, Cam);
                     }
                     Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
+                    break;
+                case WhatToDraw.Map:
+                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(2), pos.Position, Cam);
                     break;
                 default:
                     break;

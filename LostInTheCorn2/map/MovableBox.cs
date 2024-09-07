@@ -64,15 +64,25 @@ namespace LostInTheCorn2.map
                 boxPosition.Y = (int)boxPositionInfo.Position.Translation.Z;
                  
             }
-            return boxPositionInfo;
+            if (boxPosition.Intersects(goalPosition) && !attached)
+            {
+
+                Functional.goalReached = true;
+            }
+                return boxPositionInfo;
             
         }
 
-        public bool checkIfGoalIsReached() {
-            if (boxPosition.Intersects(goalPosition) && !attached) {
-                return true;
-            }
-            return false;
+        public PositionInfo returnGoalPosition()
+        {
+            return goalPositionInfo;
+        }
+            public void Draw() {
+            Point Offset = new Point(20, 20);
+            Visuals.SpriteBatch.Begin();
+            Visuals.SpriteBatch.Draw(Functional.whiteRectangle, new Rectangle(goalPosition.Location + Offset,goalPosition.Size), Color.Purple);
+            Visuals.SpriteBatch.Draw(Functional.whiteRectangle, new Rectangle(boxPosition.Location + Offset, boxPosition.Size), Color.Red);
+            Visuals.SpriteBatch.End();
         }
        
     }

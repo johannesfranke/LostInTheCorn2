@@ -64,24 +64,50 @@ internal class Grid
     public static Grid SetGrid()
     {
         //Change Grid here!
-
+        /*PlaneFloor = 0,
+        Wall = 1,
+        Box = 2,
+        Goal = 3,
+        NoClip = 4,
+        Key = 5,
+        Door = 6
+         
+         */
         Grid grid = new Grid();
-        var row10 = new List<int> { 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0 };
-        var row9 = new List<int> { 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1 };
-        var row8 = new List<int> { 1, 1, 0, 0, 2, 0, 0, 1, 0, 1, 1 };
-        var row7 = new List<int> { 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1 };
-        var row6 = new List<int> { 1, 1, 0, 0, 0, 1, 4, 1, 1, 1, 1 };
-        var row5 = new List<int> { 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1 };
-        var row4 = new List<int> { 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1 };
-        var row3 = new List<int> { 1, 1, 0, 5, 0, 0, 0, 6, 0, 1, 1 };
-        var row2 = new List<int> { 1, 1, 0, 0, 0, 0, 3, 1, 1, 1, 0 };
-        var row1 = new List<int> { 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0 };
+        var row30 = new List<int>   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        var row29 = new List<int>   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        var row28 = new List<int>   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        var row27 = new List<int>   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        var row26 = new List<int>   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        var row25 = new List<int>   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        var row24 = new List<int>   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 8, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        var row23 = new List<int>   { 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        var row22 = new List<int>   { 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        var row21 = new List<int>   { 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0 };
+        var row20 = new List<int>   { 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0 };
+        var row19 = new List<int>   { 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0 };
+        var row18 = new List<int>   { 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0 };
+        var row17 = new List<int>   { 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0 };
+        var row16 = new List<int>   { 0, 1, 0, 0, 8, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0 };
+        var row15 = new List<int>   { 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0 };
+        var row14 = new List<int>   { 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        var row13 = new List<int>   { 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0 };
+        var row12 = new List<int>   { 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 5, 0, 1, 0, 0 };
+        var row11 = new List<int>   { 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0 };
+        var row10 = new List<int>   { 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0 };
+        var row9 = new List<int>    { 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0 };
+        var row8 = new List<int>    { 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 7, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0 };
+        var row7 = new List<int>    { 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 7, 7, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0 };
+        var row6 = new List<int>    { 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 3, 0, 0, 4, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0 };
+        var row5 = new List<int>    { 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0 };
+        var row4 = new List<int>    { 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0 };
+        var row3 = new List<int>    { 0, 0, 0, 6, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 0, 0 };
+        var row2 = new List<int>    { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0 };
+        var row1 = new List<int>    { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0 };
 
         grid.AddRow(row1);
         grid.AddRow(row2);
         grid.AddRow(row3);
-        grid.AddRow(row4);
-        grid.AddRow(row5);
         grid.AddRow(row4);
         grid.AddRow(row5);
         grid.AddRow(row6);
@@ -89,6 +115,26 @@ internal class Grid
         grid.AddRow(row8);
         grid.AddRow(row9);
         grid.AddRow(row10);
+        grid.AddRow(row11);
+        grid.AddRow(row12);
+        grid.AddRow(row13);
+        grid.AddRow(row14);
+        grid.AddRow(row15);
+        grid.AddRow(row16);
+        grid.AddRow(row17);
+        grid.AddRow(row18);
+        grid.AddRow(row19);
+        grid.AddRow(row20);
+        grid.AddRow(row21);
+        grid.AddRow(row22);
+        grid.AddRow(row23);
+        grid.AddRow(row24);
+        grid.AddRow(row25);
+        grid.AddRow(row26);
+        grid.AddRow(row27);
+        grid.AddRow(row28);
+        grid.AddRow(row29);
+        grid.AddRow(row30);
         return grid;
     }
     public static Matrix rotateRandom(Matrix position)

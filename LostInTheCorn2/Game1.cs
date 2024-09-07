@@ -83,6 +83,7 @@ namespace LostInTheCorn
             Visuals.SetGameWindow(Window);
             Functional.SetButtonActions(buttonActions);
             Functional.SetMcTimer(new McTimer(0));
+            Functional.SetWhiteRectangle();
 
 
             Visuals.SceneManager.AddScene(new StartScene());

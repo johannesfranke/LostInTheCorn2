@@ -8,10 +8,8 @@ namespace LostInTheCorn2.map
 {
     public class Door
     {
-        bool pickedUp;
         private Grid Grid;
         Rectangle doorPosition;
-        bool keyUsed;
         public Door(Vector3 startMap, float sizeCube)
         {
             Grid = Grid.SetGrid();
@@ -22,30 +20,25 @@ namespace LostInTheCorn2.map
                 switch (pos.Info)
                 {
                     case WhatToDraw.Door:
-                        doorPosition = new Rectangle((int)pos.Position.Translation.X - 4, (int)pos.Position.Translation.Z - 4, 12, 12);
+                        doorPosition = new Rectangle((int)pos.Position.Translation.X - 3, (int)pos.Position.Translation.Z - 3, 12, 12);
                         break;
                     default:
                         break;
                 }
             }
         }
-        public bool Update(bool collisionWithKey)
+        public void Update(bool collisionWithKey, Rectangle forwardColl)
         {
             if (collisionWithKey && Functional.KeyboardHelper.IsKeyPressed(Keys.E))
             {
-                pickedUp = true;
+                Functional.keyPicked = true;
             }
-            return pickedUp;
-
-        }
-        public bool keyUsedFunction(Rectangle forwardColl,bool keyPicked)
-        {
-            if (forwardColl.Intersects(doorPosition) && keyPicked && Functional.KeyboardHelper.IsKeyPressed(Keys.F))
+            if (forwardColl.Intersects(doorPosition) && Functional.keyPicked && Functional.KeyboardHelper.IsKeyPressed(Keys.F))
             {
-                keyUsed = true;
+                Functional.keyUsed = true;
+                Functional.keyPicked = false;
             }
-            return keyUsed;
-        }
 
+        }
     }
 }

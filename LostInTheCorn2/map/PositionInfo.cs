@@ -21,5 +21,7 @@ public enum WhatToDraw
     Goal = 3,
     NoClip = 4,
     Key = 5,
-    Door = 6
+    Door = 6,
+    CheckpointScarecrow = 7,
+    Map = 8
 }
