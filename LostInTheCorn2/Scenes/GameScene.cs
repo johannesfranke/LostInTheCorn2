@@ -89,6 +89,7 @@ namespace LostInTheCorn2.Scenes
             //SoundEffects
             Audio.SoundManager.LoadSound("Audio/grass1");
             Audio.SoundManager.LoadSound("Audio/grass1edited");
+            Audio.SoundManager.LoadSound("Audio/ui_click");
 
             //Song
             Audio.SongManager.LoadSong("Audio/lofi_orchestra");

@@ -39,7 +39,7 @@ namespace LostInTheCorn2.Scenes
             Mouse.SetPosition(Visuals.GraphicsDevice.PresentationParameters.BackBufferWidth / 2, Visuals.GraphicsDevice.PresentationParameters.BackBufferHeight / 2);
             Game1.Instance.IsMouseVisible = true;
 
-            sliderBarTexture = Functional.ContentManager.Load<Texture2D>("ButtonHope");
+            sliderBarTexture = Functional.ContentManager.Load<Texture2D>("MaisButton");
             sliderHandleTexture = Functional.ContentManager.Load<Texture2D>("Slider");
 
             if (Visuals.GraphicsDeviceManager.IsFullScreen == true)
@@ -84,36 +84,36 @@ namespace LostInTheCorn2.Scenes
 
             buttons.Clear();
 
-            buttons.Add(new Button("ButtonHope", buttonPosition, buttonSize, currentFont, "Resume", () => {
+            buttons.Add(new Button("MaisButton", buttonPosition, buttonSize, currentFont, "Resume", () => {
                 Mouse.SetPosition((int)_mousePosition.X, (int)_mousePosition.Y);
                 Visuals.SceneManager.RemoveScene();
                 Mouse.SetPosition((int)_mousePosition.X, (int)_mousePosition.Y);
                 Game1.Instance.IsMouseVisible = false;
             }));
 
-            musicSliderButton = new SliderButton("ButtonHope", audioButtonPosition + new Vector2(0, buttonSize.Y + buttonSpacing),
+            musicSliderButton = new SliderButton("MaisButton", audioButtonPosition + new Vector2(0, buttonSize.Y + buttonSpacing),
                                                 buttonSize, 0, 1, Audio.SongManager.Volume, sliderBarTexture, sliderHandleTexture, currentFont,
                                                 "Music", (value) => { Audio.SongManager.Volume = value; });
 
-            audioSliderButton = new SliderButton("ButtonHope", audioButtonPosition + new Vector2(0, 2 * (buttonSize.Y + buttonSpacing)),
+            audioSliderButton = new SliderButton("MaisButton", audioButtonPosition + new Vector2(0, 2 * (buttonSize.Y + buttonSpacing)),
                                                 buttonSize, 0, 1, Audio.SoundManager.Volume, sliderBarTexture, sliderHandleTexture, currentFont,
                                                 "Sounds", (value) => { Audio.SoundManager.Volume = value; });
 
 
-            buttons.Add(new Button("ButtonHope", buttonPosition + new Vector2(0, 3 * (buttonSize.Y + buttonSpacing)), buttonSize, currentFont, "Fullscreen: " + isFullScreen(), () =>
+            buttons.Add(new Button("MaisButton", buttonPosition + new Vector2(0, 3 * (buttonSize.Y + buttonSpacing)), buttonSize, currentFont, "Fullscreen: " + isFullScreen(), () =>
             {
                 Visuals.ToggleFullScreen();
                 RecalculateButtonPositions();
             }));
 
-            buttons.Add(new Button("ButtonHope", buttonPosition + new Vector2(0, 4 * (buttonSize.Y + buttonSpacing)), buttonSize, currentFont, "Help", () =>
+            buttons.Add(new Button("MaisButton", buttonPosition + new Vector2(0, 4 * (buttonSize.Y + buttonSpacing)), buttonSize, currentFont, "Help", () =>
             {
                 Visuals.SceneManager.AddScene(new HelpScene());
             }));
 
             Vector2 exitButtonSize = new Vector2(screenWidth * 0.15f, screenHeight * 0.08f); // Exit-Button etwas kleiner
 
-            buttons.Add(new Button("ButtonHope", buttonPosition + new Vector2(0, 5 * (buttonSize.Y + buttonSpacing)), exitButtonSize, currentFont, "Exit", () =>
+            buttons.Add(new Button("MaisButton", buttonPosition + new Vector2(0, 5 * (buttonSize.Y + buttonSpacing)), exitButtonSize, currentFont, "Exit", () =>
             {
                 Game1.Instance.Exit();
             }));
