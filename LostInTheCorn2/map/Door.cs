@@ -27,26 +27,26 @@ namespace LostInTheCorn2.map
                 }
             }
         }
-        public void Update(bool collisionWithKey, Rectangle forwardColl)
+        public void Update(bool collisionWithKey,Rectangle forwardColl)
         {
             if (collisionWithKey && Functional.KeyboardHelper.IsKeyPressedOnce(Keys.E))
             {
                 Functional.keyPicked = true;
             }
-
-            if (forwardColl.Intersects(doorPosition) && Functional.keyPicked && Functional.KeyboardHelper.IsKeyPressed(Keys.F))
-
-            return pickedUp;
+            keyUsedFunction(forwardColl);
 
         }
-        public bool keyUsedFunction(Rectangle forwardColl,bool keyPicked)
+        public void keyUsedFunction(Rectangle forwardColl)
         {
-            if (forwardColl.Intersects(doorPosition) && keyPicked && Functional.KeyboardHelper.IsKeyPressedOnce(Keys.F))
-
+            if (forwardColl.Intersects(doorPosition))
             {
-                Functional.keyUsed = true;
-                Functional.keyPicked = false;
-            }
+                Functional.doorInteraction = true;
+                if (Functional.keyUsed && Functional.KeyboardHelper.IsKeyPressedOnce(Keys.F))
+                {
+                    Functional.keyUsed = true;
+                    Functional.keyPicked = false;
+                }
+            } else Functional.doorInteraction = false;
 
         }
     }

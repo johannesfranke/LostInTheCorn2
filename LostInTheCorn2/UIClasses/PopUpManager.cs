@@ -52,7 +52,7 @@ namespace LostInTheCorn2.UIClasses
                 PopUpText = "Press E to open the map.";
                 PopUpRequired = true;
                 windowReset(); 
-                if (Functional.KeyboardHelper.IsKeyPressed(Keys.E))
+                if (Functional.KeyboardHelper.IsKeyPressedOnce(Keys.E))
                 {
                     mapRequired = true;
                 }
@@ -90,10 +90,13 @@ namespace LostInTheCorn2.UIClasses
                 PopUpRequired = true;
                 windowReset();
             }
-            else if (Functional.keyPicked)
+            else if (Functional.doorInteraction)
             {
+                if (Functional.keyPicked)
+                {
+                    PopUpText = "Press F to use the key.";
+                } else PopUpText = "This Door is locked. \nTry using a key.";
                 windowType = "PopUpButterfly";
-                PopUpText = "Press F to use the key.";
                 PopUpRequired = true;
                 windowReset();
             }

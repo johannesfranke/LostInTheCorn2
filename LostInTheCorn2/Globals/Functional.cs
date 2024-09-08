@@ -26,6 +26,7 @@ public class Functional
 
     public static bool keyUsed;
     public static bool goalReached;
+    public static bool doorInteraction;
     public static McTimer McTimer { get; private set; }
     public static ButtonActions ButtonActions { get; private set; }
 

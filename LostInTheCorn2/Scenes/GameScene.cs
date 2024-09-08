@@ -87,7 +87,7 @@ namespace LostInTheCorn2.Scenes
             Map.SetModelWithEnum(7, Functional.ContentManager.Load<Model>("Hat"));
 
 
-            Map.SetModelWithEnum(5, Functional.ContentManager.Load<Model>("test2"));
+            Map.SetModelWithEnum(5, Functional.ContentManager.Load<Model>("greenCube"));
             SkyBoxModel = Functional.ContentManager.Load<Model>("SkySphere");
             SkyBoxTexture = Functional.ContentManager.Load<Texture2D>("TextureSkySphere");
             keyTexture = Functional.ContentManager.Load<Texture2D>("key2d");
@@ -132,7 +132,7 @@ namespace LostInTheCorn2.Scenes
             bool collidingWithKey = CollisionDetectionWithItem.Update(1);
             bool collidingWithCrow = CollisionDetectionWithItem.Update(2);
             bool collidingWithMap = CollisionDetectionWithItem.Update();
-            door.Update(collidingWithKey, CollisionDetection.forwardCollision);
+            door.Update(collidingWithKey,CollisionDetection.forwardCollision);
 
             int collidingWithWalls = CollisionDetection.Update(MovementManager.Player.PlayerWorld, Functional.goalReached,Functional.keyUsed);
             PopUpManager.Update(collidingWithKey, collidingWithBox, collidingWithCrow, collidingWithMap);

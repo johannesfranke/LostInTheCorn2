@@ -111,14 +111,12 @@
 /processorParam:TextureFormat=Compressed
 /build:Corn.fbx
 
-
 #begin File.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:File.spritefont;MenuFont12.spritefont
-
 
 #begin greenCube.fbx
 /importer:FbxImporter
@@ -139,44 +137,7 @@
 /processorParam:TextureFormat=Compressed
 /build:greenCube.fbx
 
-
 #begin Hat.fbx
-/importer:FbxImporter
-/processor:ModelProcessor
-/processorParam:ColorKeyColor=0,0,0,0
-/processorParam:ColorKeyEnabled=True
-/processorParam:DefaultEffect=BasicEffect
-/processorParam:GenerateMipmaps=True
-/processorParam:GenerateTangentFrames=False
-/processorParam:PremultiplyTextureAlpha=True
-/processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=270
-/processorParam:RotationY=0
-/processorParam:RotationZ=0
-/processorParam:Scale=1
-/processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=Compressed
-/build:Hat.fbx
-
-
-#begin HelpImage.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:HelpImage.png
-
-
-#begin Holzbalken.fbx
-=======
-#begin key.fbx
-
 /importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
@@ -190,10 +151,40 @@
 /processorParam:RotationX=0
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=10
+/processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
+/build:Hat.fbx
 
+#begin HelpImage.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:HelpImage.png
+
+#begin Holzbalken.fbx
+/importer:FbxImporter
+/processor:ModelProcessor
+/processorParam:ColorKeyColor=0,0,0,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:DefaultEffect=BasicEffect
+/processorParam:GenerateMipmaps=True
+/processorParam:GenerateTangentFrames=False
+/processorParam:PremultiplyTextureAlpha=True
+/processorParam:PremultiplyVertexColors=True
+/processorParam:ResizeTexturesToPowerOfTwo=False
+/processorParam:RotationX=-90
+/processorParam:RotationY=0
+/processorParam:RotationZ=0
+/processorParam:Scale=1
+/processorParam:SwapWindingOrder=False
+/processorParam:TextureFormat=Compressed
 /build:Holzbalken.fbx
 
 #begin key2d.png
@@ -208,8 +199,6 @@
 /processorParam:TextureFormat=Color
 /build:key2d.png
 
-
-
 #begin MaisButton.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -221,13 +210,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:MaisButton.png
-
-#begin MenuFont26.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:MenuFont26.spritefont
 
 #begin map1.png
 /importer:TextureImporter
@@ -252,6 +234,13 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:map2.png
+
+#begin MenuFont26.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:MenuFont26.spritefont
 
 #begin PenguinTextured.fbx
 /importer:FbxImporter
@@ -372,7 +361,6 @@
 /processorParam:TextureFormat=Compressed
 /build:ShrimpleWallOneSquareHole.fbx
 
-
 #begin SkySphere.fbx
 /importer:FbxImporter
 /processor:ModelProcessor
@@ -472,18 +460,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:TexHolz.png
-
-#begin TexKey.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:TexKey.png
 
 #begin TexScare.png
 /importer:TextureImporter
