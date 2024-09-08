@@ -34,9 +34,13 @@ namespace LostInTheCorn2
             currentKeyboardState = Keyboard.GetState();
         }
 
-        public bool IsKeyPressed(Keys key)
+        public bool IsKeyPressedOnce(Keys key)
         {
             return currentKeyboardState.IsKeyDown(key) && previousKeyboardState.IsKeyUp(key);
+        }
+        public bool IsKeyHeld(Keys key)
+        {
+            return currentKeyboardState.IsKeyDown(key) && previousKeyboardState.IsKeyDown(key);
         }
     }
 }

@@ -8,8 +8,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
@@ -75,6 +77,7 @@ namespace LostInTheCorn2.Scenes
             Map.SetModelWithEnum(0, Functional.ContentManager.Load<Model>("PlaneFloor"));
             Map.SetModelWithEnum(1, Functional.ContentManager.Load<Model>("Corn"));
             Map.SetModelWithEnum(2, Functional.ContentManager.Load<Model>("greenCube"));
+            Map.SetModelWithEnum(5, Functional.ContentManager.Load<Model>("key"));
 
             SkyBoxModel = Functional.ContentManager.Load<Model>("SkySphere");
             SkyBoxTexture = Functional.ContentManager.Load<Texture2D>("TextureSkySphere");
@@ -82,22 +85,34 @@ namespace LostInTheCorn2.Scenes
             CollisionDetectionWithItem = new CollisionWithItem(startMapPos, sizeCube);
             movableBox = new MovableBox(cam,startMapPos, sizeCube);
             door = new Door(startMapPos, sizeCube);
+
+            //SoundEffects
+            Audio.SoundManager.LoadSound("Audio/grass1");
+            Audio.SoundManager.LoadSound("Audio/grass1edited");
+            Audio.SoundManager.LoadSound("Audio/ui_click");
+
+            //Song
+            Audio.SongManager.LoadSong("Audio/lofi_orchestra");
+            Audio.SongManager.PlaySong("Audio/lofi_orchestra", true);
+
         }
     
         public void Update(GameTime gameTime) {
 
 
-            if (Functional.KeyboardHelper.IsKeyPressed(Keys.Escape))
+            if (Functional.KeyboardHelper.IsKeyPressedOnce(Keys.Escape))
             {
                 CaptureLastFrame();
 
                 var settingsScene = new SettingsScene(new Vector2(Mouse.GetState().X, Mouse.GetState().Y) ,lastFrameRenderTarget);
-                
+
 
                 Visuals.SceneManager.AddScene(settingsScene);
+
+
                 //this.CaptureGameScreen();
             }
-            if (Functional.KeyboardHelper.IsKeyPressed(Keys.F11))
+            if (Functional.KeyboardHelper.IsKeyPressedOnce(Keys.F11))
             {
                 Visuals.ToggleFullScreen();
             }
@@ -109,8 +124,19 @@ namespace LostInTheCorn2.Scenes
             int collidingWithWalls = CollisionDetection.Update(gameTime, MovementManager.Player.PlayerWorld, MovementManager.Player.PlayerWorld.Forward, movableBox.checkIfGoalIsReached(),keyUsed);
 
             //Kamera und Spieler sollen geupdatet werden
-
             MovementManager.Update(gameTime,collidingWithWalls);
+
+            //Update für den Sound
+            if (Functional.KeyboardHelper.IsKeyHeld(Keys.W))
+            {
+                Audio.SoundManager.PlaySound("Audio/grass1edited", true);
+            }
+            else
+            {
+                Audio.SoundManager.StopSound("Audio/grass1edited");
+            }
+
+
             //berechne neue boxPosition, TODO -> ein zentrales Grid einführen und in der GameScene behandeln
             //Stand jetzt: in jeder Klasse wird neues seperates Grid aufgesetzt
             boxPosition = movableBox.Update(MovementManager.Player.PlayerWorld, collidingWithBox);
@@ -171,5 +197,6 @@ namespace LostInTheCorn2.Scenes
         {
             cam.LoadMousePosition(); // Mausposition wiederherstellen, wenn zur Spielszene zurückgekehrt wird
         }
+
     }
 }

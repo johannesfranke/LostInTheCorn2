@@ -100,6 +100,7 @@ namespace LostInTheCorn2
 
     public virtual void RunBtnClick()
     {
+        Audio.SoundManager.PlaySound("Audio/ui_click");
         OnClickAction.Invoke();        
         Reset();
     }
