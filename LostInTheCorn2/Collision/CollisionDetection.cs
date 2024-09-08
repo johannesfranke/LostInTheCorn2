@@ -2,6 +2,7 @@
 using LostInTheCorn2.map;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace LostInTheCorn2.Collision
@@ -10,11 +11,10 @@ namespace LostInTheCorn2.Collision
     {
         private Grid Grid;
 
-        private Texture2D whiteRectangle;
+        
 
         List<Rectangle> rectangles { get; set; }
         Rectangle noClip;
-        Rectangle noClipReset;
         Rectangle Door;
         Rectangle DoorClosed;
         public Rectangle forwardCollision;
@@ -29,17 +29,21 @@ namespace LostInTheCorn2.Collision
         {
             Grid = Grid.SetGrid();
             Grid.SetPositions(startMap, sizeCube);
-
-            whiteRectangle = new Texture2D(Visuals.GraphicsDevice, 1, 1);
-            whiteRectangle.SetData(new[] { Color.White });
             //fülle array mit allen Maispflanzen(Rectangles), sizeCube wird ignoriert(13.xx) wir nehmen 12
             foreach (var pos in Grid.Positions)
             {
                 Point Position = new((int)pos.Position.Translation.X - 3, (int)pos.Position.Translation.Z - 3);
+                Rectangle x = new(Position, RectangleSize);
                 switch (pos.Info)
                 {
                     case WhatToDraw.Wall:
-                        Rectangle x = new(Position, RectangleSize);
+                        if (rectangles == null)
+                        {
+                            rectangles = new List<Rectangle> { x };
+                        }
+                        else rectangles.Add(x);
+                        break;
+                    case WhatToDraw.Goal:
                         if (rectangles == null)
                         {
                             rectangles = new List<Rectangle> { x };
@@ -47,8 +51,7 @@ namespace LostInTheCorn2.Collision
                         else rectangles.Add(x);
                         break;
                     case WhatToDraw.NoClip:
-                        noClip = new(Position, RectangleSize);
-                        noClipReset = noClip;
+                        noClip = x;
                         break;
                     case WhatToDraw.Door:
                         Door = new(Position, RectangleSize);
@@ -60,14 +63,13 @@ namespace LostInTheCorn2.Collision
             }
         }
 
-        public int Update(GameTime gameTime, Matrix PlayerWorld, Vector3 forwardVec,bool goalAchieved, bool keyUsed)
+        public int Update(Matrix PlayerWorld, bool goalAchieved, bool keyUsed)
         {
-
+            Vector3 forwardVec = PlayerWorld.Forward;
             if (goalAchieved)
             {
                 noClip.Location = new Point(4000, 4000);
             }
-            else { noClip = noClipReset; }
             if (keyUsed)
             {
                 Door.Location = new Point(4000, 4000);
@@ -112,15 +114,15 @@ namespace LostInTheCorn2.Collision
             //Draw die Pflanzen auf der Minimap
             foreach (Rectangle x in rectangles)
             {
-                Visuals.SpriteBatch.Draw(whiteRectangle, new Rectangle(x.Location + Offset, RectangleSize), Color.White);
+                Visuals.SpriteBatch.Draw(Functional.whiteRectangle, new Rectangle(x.Location + Offset, RectangleSize), Color.White);
             }
-            Visuals.SpriteBatch.Draw(whiteRectangle, new Rectangle(noClipReset.Location + Offset, RectangleSize),Color.White);
+            
 
-            Visuals.SpriteBatch.Draw(whiteRectangle, new Rectangle(DoorClosed.Location + Offset, DoorClosed.Size), Color.Yellow);
-            Visuals.SpriteBatch.Draw(whiteRectangle, new Rectangle(playerBox.Location + Offset, playerBoxSize), Color.White);
+            Visuals.SpriteBatch.Draw(Functional.whiteRectangle, new Rectangle(DoorClosed.Location + Offset, DoorClosed.Size), Color.Yellow);
+            Visuals.SpriteBatch.Draw(Functional.whiteRectangle, new Rectangle(playerBox.Location + Offset, playerBoxSize), Color.White);
             //Collision Boxes für Debugging
-            //Visuals.SpriteBatch.Draw(whiteRectangle, new Rectangle(forwardCollision.Location + Offset, forwardCollision.Size), Color.Pink);
-            //Visuals.SpriteBatch.Draw(whiteRectangle, new Rectangle(backwardCollision.Location + Offset, backwardCollision.Size), Color.Pink);
+            Visuals.SpriteBatch.Draw(Functional.whiteRectangle, new Rectangle(forwardCollision.Location + Offset, forwardCollision.Size), Color.Pink);
+            Visuals.SpriteBatch.Draw(Functional.whiteRectangle, new Rectangle(backwardCollision.Location + Offset, backwardCollision.Size), Color.Pink);
 
             Visuals.SpriteBatch.End();
         }

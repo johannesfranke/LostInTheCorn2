@@ -17,13 +17,22 @@ public class Functional
     public static MouseHelper MouseHelper { get; private set; }
     public static KeyboardHelper KeyboardHelper { get; private set; }
 
+    public static Texture2D whiteRectangle;
+
+
     public static bool itemPicked;
+
+    public static bool keyPicked;
+
+    public static bool keyUsed;
+    public static bool goalReached;
     public static McTimer McTimer { get; private set; }
     public static ButtonActions ButtonActions { get; private set; }
 
 
 
 
+    
     public static void SetContentManager(ContentManager contentManager)
     {
         ContentManager = contentManager;
@@ -55,5 +64,10 @@ public class Functional
     public static void SetGameTime(GameTime gameTime)
     {
         Functional.gameTime = gameTime;
+    }
+    public static void SetWhiteRectangle()
+    {
+        whiteRectangle = new Texture2D(Visuals.GraphicsDevice, 1, 1);
+        whiteRectangle.SetData(new[] { Color.White });
     }
 }

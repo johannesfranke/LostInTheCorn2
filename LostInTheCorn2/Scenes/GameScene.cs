@@ -4,6 +4,7 @@ using LostInTheCorn2.Globals;
 using LostInTheCorn2.map;
 using LostInTheCorn2.ModelFunction;
 using LostInTheCorn2.MovableObjects;
+using LostInTheCorn2.UIClasses;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -37,16 +38,18 @@ namespace LostInTheCorn2.Scenes
 
         private Model SkyBoxModel;
         private Texture2D SkyBoxTexture;
+        private Texture2D keyTexture;
+        private Texture2D hatTexture;
 
         private CollisionDetection CollisionDetection;
         private CollisionWithItem CollisionDetectionWithItem;
         private MovableBox movableBox;
         private PositionInfo boxPosition;
-        private bool keyPicked;
-        private bool keyUsed;
         private Door door;
         private static RenderTarget2D gameRenderTarget;
         private RenderTarget2D lastFrameRenderTarget;
+
+        private PopUpManager PopUpManager;
 
         public GameScene()
         {
@@ -63,7 +66,7 @@ namespace LostInTheCorn2.Scenes
             initForward = new Vector3(1, 0, 0);
             camInitPosition = new Vector3(10, 1, 0);
 
-            MovementManager = new MovementAroundPlayerManager(new Vector3(0, 0, 0), initForward);
+            MovementManager = new MovementAroundPlayerManager(new Vector3(180, 0, 200), initForward);
             penguin = Functional.ContentManager.Load<Model>("PenguinTextured");
 
             cam = new Camera();
@@ -77,14 +80,23 @@ namespace LostInTheCorn2.Scenes
             Map.SetModelWithEnum(0, Functional.ContentManager.Load<Model>("PlaneFloor"));
             Map.SetModelWithEnum(1, Functional.ContentManager.Load<Model>("Corn"));
             Map.SetModelWithEnum(2, Functional.ContentManager.Load<Model>("greenCube"));
-            Map.SetModelWithEnum(5, Functional.ContentManager.Load<Model>("key"));
+            Map.SetModelWithEnum(3, Functional.ContentManager.Load<Model>("scarecrowWithHat"));
+            Map.SetModelWithEnum(4, Functional.ContentManager.Load<Model>("scarecrowWithoutHat"));
+            //Map.SetModelWithEnum(5, Functional.ContentManager.Load<Model>("key"));
+            Map.SetModelWithEnum(6, Functional.ContentManager.Load<Model>("Holzbalken"));
+            Map.SetModelWithEnum(7, Functional.ContentManager.Load<Model>("Hat"));
 
+
+            Map.SetModelWithEnum(5, Functional.ContentManager.Load<Model>("test2"));
             SkyBoxModel = Functional.ContentManager.Load<Model>("SkySphere");
             SkyBoxTexture = Functional.ContentManager.Load<Texture2D>("TextureSkySphere");
+            keyTexture = Functional.ContentManager.Load<Texture2D>("key2d");
+            hatTexture = Functional.ContentManager.Load<Texture2D>("strawhat");
             CollisionDetection = new CollisionDetection(startMapPos, sizeCube);
             CollisionDetectionWithItem = new CollisionWithItem(startMapPos, sizeCube);
             movableBox = new MovableBox(cam,startMapPos, sizeCube);
             door = new Door(startMapPos, sizeCube);
+            PopUpManager = new PopUpManager();
 
             //SoundEffects
             Audio.SoundManager.LoadSound("Audio/grass1");
@@ -94,7 +106,6 @@ namespace LostInTheCorn2.Scenes
             //Song
             Audio.SongManager.LoadSong("Audio/lofi_orchestra");
             Audio.SongManager.PlaySong("Audio/lofi_orchestra", true);
-
         }
     
         public void Update(GameTime gameTime) {
@@ -117,12 +128,14 @@ namespace LostInTheCorn2.Scenes
                 Visuals.ToggleFullScreen();
             }
             //Kollisionsabfragen
-            bool collidingWithBox = CollisionDetectionWithItem.Update(gameTime, MovementManager.Player.PlayerWorld,0, boxPosition);
+            bool collidingWithBox = CollisionDetectionWithItem.Update(MovementManager.Player.PlayerWorld,0, boxPosition);
             bool collidingWithKey = CollisionDetectionWithItem.Update(1);
-            keyPicked = door.Update(collidingWithKey);
-            keyUsed = door.keyUsedFunction(CollisionDetection.forwardCollision,keyPicked);
-            int collidingWithWalls = CollisionDetection.Update(gameTime, MovementManager.Player.PlayerWorld, MovementManager.Player.PlayerWorld.Forward, movableBox.checkIfGoalIsReached(),keyUsed);
+            bool collidingWithCrow = CollisionDetectionWithItem.Update(2);
+            bool collidingWithMap = CollisionDetectionWithItem.Update();
+            door.Update(collidingWithKey, CollisionDetection.forwardCollision);
 
+            int collidingWithWalls = CollisionDetection.Update(MovementManager.Player.PlayerWorld, Functional.goalReached,Functional.keyUsed);
+            PopUpManager.Update(collidingWithKey, collidingWithBox, collidingWithCrow, collidingWithMap);
             //Kamera und Spieler sollen geupdatet werden
             MovementManager.Update(gameTime,collidingWithWalls);
 
@@ -156,15 +169,22 @@ namespace LostInTheCorn2.Scenes
             Visuals.GraphicsDevice.BlendState = BlendState.AlphaBlend;
             Visuals.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
 
-            Map.DrawWorld(keyPicked,boxPosition);
+            Map.DrawWorld(Functional.keyPicked,boxPosition);
             Drawable.drawWithEffectModel(penguin, MovementManager.Player.PlayerWorld, cam);
             Drawable.drawWithoutModel(SkyBoxModel, MovementManager.SkySphere.GlobeWorld, cam);
             Visuals.SpriteBatch.Begin();
-            Visuals.SpriteBatch.DrawString(Functional.StandardFont, "Ziel:" + movableBox.checkIfGoalIsReached(), new Vector2(300, 300), Color.White);
-            Visuals.SpriteBatch.DrawString(Functional.StandardFont, "key:" + keyPicked, new Vector2(300, 400), Color.White);
-            Visuals.SpriteBatch.DrawString(Functional.StandardFont, "used:" + keyUsed, new Vector2(300, 450), Color.White);
+            if (Functional.keyPicked) {
+                Visuals.SpriteBatch.Draw(keyTexture, new Rectangle(64, 64, 64, 64), Color.White);
+            }
+
+            if (Functional.itemPicked)
+            {
+                Visuals.SpriteBatch.Draw(hatTexture, new Rectangle(128, 64, 64, 64), Color.White);
+            }
             Visuals.SpriteBatch.End();
             CollisionDetection.Draw();
+            movableBox.Draw();
+            PopUpManager.Draw();
         }
 
         //Methode um das letzte Standbild zu speichern
