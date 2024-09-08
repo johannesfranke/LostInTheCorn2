@@ -19,7 +19,7 @@ namespace LostInTheCorn2.Scenes
         }
         public void Update(GameTime gameTime)
         {
-            if (Functional.KeyboardHelper.IsKeyPressed(Keys.Escape))
+            if (Functional.KeyboardHelper.IsKeyPressedOnce(Keys.Escape))
             {
                 Visuals.SceneManager.RemoveScene();
             }

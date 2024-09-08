@@ -48,12 +48,12 @@ namespace LostInTheCorn2.map
         }
         
         public PositionInfo Update(Matrix playerPosition, bool collisionWithBox) {
-            if (collisionWithBox && Functional.KeyboardHelper.IsKeyPressed(Keys.E)) {
+            if (collisionWithBox && Functional.KeyboardHelper.IsKeyPressedOnce(Keys.E)) {
                 attached = true;
                 Functional.itemPicked = true;
             }
             if (attached) {
-                if (Functional.KeyboardHelper.IsKeyPressed(Keys.P)) {
+                if (Functional.KeyboardHelper.IsKeyPressedOnce(Keys.P)) {
                     attached = false;
                     Functional.itemPicked = false;
                     playerPosition.M42 = playerPosition.M42 - 6;

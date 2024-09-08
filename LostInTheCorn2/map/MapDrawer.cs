@@ -71,7 +71,7 @@ public class MapDrawer
                 case WhatToDraw.Key:
                     if (!keyPicked)
                     {
-                        Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(2), pos.Position, Cam);
+                        Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(5), pos.Position, Cam);
                     }
                     Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
                     break;

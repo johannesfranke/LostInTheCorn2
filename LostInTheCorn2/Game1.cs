@@ -84,6 +84,10 @@ namespace LostInTheCorn
             Functional.SetButtonActions(buttonActions);
             Functional.SetMcTimer(new McTimer(0));
             Functional.SetWhiteRectangle();
+            Audio.SetSoundManager(Functional.ContentManager);
+            Audio.SetSongManager(Functional.ContentManager);
+
+
 
 
             Visuals.SceneManager.AddScene(new StartScene());
