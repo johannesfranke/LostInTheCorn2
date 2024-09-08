@@ -30,7 +30,9 @@ public class Functional
     public static ButtonActions ButtonActions { get; private set; }
 
 
-   
+
+
+    
     public static void SetContentManager(ContentManager contentManager)
     {
         ContentManager = contentManager;

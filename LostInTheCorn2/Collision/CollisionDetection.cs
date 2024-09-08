@@ -2,6 +2,7 @@
 using LostInTheCorn2.map;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace LostInTheCorn2.Collision
@@ -36,6 +37,13 @@ namespace LostInTheCorn2.Collision
                 switch (pos.Info)
                 {
                     case WhatToDraw.Wall:
+                        if (rectangles == null)
+                        {
+                            rectangles = new List<Rectangle> { x };
+                        }
+                        else rectangles.Add(x);
+                        break;
+                    case WhatToDraw.Goal:
                         if (rectangles == null)
                         {
                             rectangles = new List<Rectangle> { x };

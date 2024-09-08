@@ -54,10 +54,16 @@ public class MapDrawer
                     Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
                     break;
                 case WhatToDraw.Goal:
-                    if(!Functional.goalReached) {
+                    if (!Functional.goalReached) {
                         Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(4), pos.Position, Cam);
                     }
-                    else Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(3), pos.Position, Cam);
+                    else {
+                        Matrix position = pos.Position;
+                        Matrix newPos = pos.Position;
+                        newPos.M42 = position.M42 + 7.2f; 
+                        PositionInfo newPosition = new PositionInfo(newPos, 2);
+                        Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(3), newPosition.Position, Cam);
+                    };
                     break;
                 case WhatToDraw.Door:
                     Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(1), pos.Position, Cam);

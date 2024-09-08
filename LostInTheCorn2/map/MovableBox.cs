@@ -35,11 +35,11 @@ namespace LostInTheCorn2.map
                         var z = pos.Position.Translation.Z;
                         var worldOfDrawing = Matrix.CreateWorld(new Vector3(x, y, z), Vector3.Forward, Vector3.Up);
                         boxPositionInfo = new PositionInfo(worldOfDrawing, 2);
-                        boxPosition= new Rectangle((int)pos.Position.Translation.X, (int)pos.Position.Translation.Z, 4, 4);
+                        boxPosition= new Rectangle((int)pos.Position.Translation.X, (int)pos.Position.Translation.Z, 8, 8);
                         break;
                     case WhatToDraw.Goal:
                         goalPositionInfo = pos;
-                        goalPosition = new Rectangle((int)pos.Position.Translation.X-4, (int)pos.Position.Translation.Z-4, 12, 12);
+                        goalPosition = new Rectangle((int)pos.Position.Translation.X-10, (int)pos.Position.Translation.Z-10, 25, 25);
                         break;
                     default:
                         break;
@@ -66,10 +66,9 @@ namespace LostInTheCorn2.map
             }
             if (boxPosition.Intersects(goalPosition) && !attached)
             {
-
                 Functional.goalReached = true;
-            }
-                return boxPositionInfo;
+            } else Functional.goalReached = false;
+            return boxPositionInfo;
             
         }
 

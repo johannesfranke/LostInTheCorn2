@@ -18,7 +18,7 @@ namespace LostInTheCorn2.Collision
         {
             Grid = Grid.SetGrid();
             Grid.SetPositions(startMap, sizeCube);
-            itemSize = new Point(4, 4);
+            itemSize = new Point(6, 6);
             checkPointSize = new Point(16, 16);
             items = new Rectangle[5];
             int i = 2;

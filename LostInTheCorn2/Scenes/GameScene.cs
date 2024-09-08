@@ -158,8 +158,8 @@ namespace LostInTheCorn2.Scenes
                 Visuals.SpriteBatch.Draw(hatTexture, new Rectangle(128, 64, 64, 64), Color.White);
             }
             Visuals.SpriteBatch.End();
-            //CollisionDetection.Draw();
-            //movableBox.Draw();
+            CollisionDetection.Draw();
+            movableBox.Draw();
             PopUpManager.Draw();
         }
 
