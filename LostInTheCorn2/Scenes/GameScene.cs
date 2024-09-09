@@ -17,6 +17,7 @@ using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using Aether.Animation;
 
 namespace LostInTheCorn2.Scenes
 {
@@ -28,7 +29,7 @@ namespace LostInTheCorn2.Scenes
         MovementAroundPlayerManager MovementManager; // Movement around Player alle stellen ersetzen
         private MapDrawer Map;
 
-        private Model penguin;
+        private Model AnimatedMil;
 
         public Vector3 camInitPosition;
         public Vector3 initForward;
@@ -50,6 +51,11 @@ namespace LostInTheCorn2.Scenes
         private RenderTarget2D lastFrameRenderTarget;
 
         private PopUpManager PopUpManager;
+        int collidingWithWalls = 0;
+
+        //Animation stuff
+        private Animations millieAnimation;
+        Matrix milWorld = Matrix.CreateTranslation(new Vector3(0, 0, 0));
 
         public GameScene()
         {
@@ -67,7 +73,13 @@ namespace LostInTheCorn2.Scenes
             camInitPosition = new Vector3(10, 1, 0);
 
             MovementManager = new MovementAroundPlayerManager(new Vector3(180, 0, 200), initForward);
-            penguin = Functional.ContentManager.Load<Model>("PenguinTextured");
+
+
+            AnimatedMil = Functional.ContentManager.Load<Model>("AnimatedMil");
+            millieAnimation = AnimatedMil.GetAnimations();
+            var clip = millieAnimation.Clips["Armature|Armature|Armature|Armature|walking_man|baselayer"];
+            millieAnimation.SetClip(clip);
+
 
             cam = new Camera();
             cam.CamPosition = camInitPosition;
@@ -134,7 +146,7 @@ namespace LostInTheCorn2.Scenes
             bool collidingWithMap = CollisionDetectionWithItem.Update();
             door.Update(collidingWithKey,CollisionDetection.forwardCollision);
 
-            int collidingWithWalls = CollisionDetection.Update(MovementManager.Player.PlayerWorld, Functional.goalReached,Functional.keyUsed);
+            collidingWithWalls = CollisionDetection.Update(MovementManager.Player.PlayerWorld, Functional.goalReached,Functional.keyUsed);
             PopUpManager.Update(collidingWithKey, collidingWithBox, collidingWithCrow, collidingWithMap);
             //Kamera und Spieler sollen geupdatet werden
             MovementManager.Update(gameTime,collidingWithWalls);
@@ -154,6 +166,24 @@ namespace LostInTheCorn2.Scenes
             //Stand jetzt: in jeder Klasse wird neues seperates Grid aufgesetzt
             boxPosition = movableBox.Update(MovementManager.Player.PlayerWorld, collidingWithBox);
 
+            //millieAnimation.WorldTransforms[0] = MovementManager.Player.PlayerWorld;
+
+
+            Vector3 milPosition = (MovementManager.Player.PlayerPosition + (MovementManager.Player.PlayerForward * 7));
+            //- new Vector3(0, 8, 0);
+
+            milWorld.Translation = milPosition;
+
+            //Vector3 forwardVector = MovementManager.Player.PlayerWorld.Forward;
+
+            //// Verschiebe um 5 Einheiten nach vorne (kann angepasst werden)
+            //Vector3 offset = forwardVector * 50.0f;  // Verschiebung in Blickrichtung
+
+            //// Wende die Verschiebung auf den rootTransform an, um das Modell nach vorne zu bewegen
+            //milWorld.Translation += offset;
+
+            millieAnimation.Update(Functional.gameTime.ElapsedGameTime, true, MovementManager.Player.PlayerWorld);
+
             cam.Update(gameTime, MovementManager.Player,collidingWithWalls);
             
         }
@@ -170,7 +200,10 @@ namespace LostInTheCorn2.Scenes
             Visuals.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
 
             Map.DrawWorld(Functional.keyPicked,boxPosition);
-            Drawable.drawWithEffectModel(penguin, MovementManager.Player.PlayerWorld, cam);
+
+
+            Drawable.drawWithAnimation(AnimatedMil, millieAnimation, milWorld, cam, collidingWithWalls);
+
             Drawable.drawWithoutModel(SkyBoxModel, MovementManager.SkySphere.GlobeWorld, cam);
             Visuals.SpriteBatch.Begin();
             if (Functional.keyPicked) {
@@ -181,10 +214,15 @@ namespace LostInTheCorn2.Scenes
             {
                 Visuals.SpriteBatch.Draw(hatTexture, new Rectangle(128, 64, 64, 64), Color.White);
             }
+            Visuals.SpriteBatch.DrawString(Functional.StandardFont, "WorldM " + MovementManager.Player.PlayerWorld, new Vector2(0, 0), Color.Black);
+            Visuals.SpriteBatch.DrawString(Functional.StandardFont, "WorldTransform " + millieAnimation.WorldTransforms[0], new Vector2(0, 25), Color.Black);
+            //Visuals.SpriteBatch.DrawString(Functional.BoldFont, "Player " + MovementManager.Player.PlayerPosition, new Vector2(0, 50), Color.Black);
+
             Visuals.SpriteBatch.End();
-            CollisionDetection.Draw();
+            //CollisionDetection.Draw();
             movableBox.Draw();
             PopUpManager.Draw();
+            
         }
 
         //Methode um das letzte Standbild zu speichern

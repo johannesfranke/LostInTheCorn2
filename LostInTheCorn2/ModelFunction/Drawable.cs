@@ -1,6 +1,9 @@
-﻿using LostInTheCorn;
+﻿using Aether.Animation;
+using LostInTheCorn;
+using LostInTheCorn2.Globals;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace LostInTheCorn2.ModelFunction
 {
@@ -56,5 +59,50 @@ namespace LostInTheCorn2.ModelFunction
                 }
             }
         }
+
+        public static void drawWithAnimation(Model model, Animations animations, Matrix pos, Camera cam, int collidingWithWalls)
+        {
+            Matrix projection = cam.Projection;
+            Matrix view = cam.View;
+
+            Model m = model;
+
+            Matrix[] transforms = new Matrix[m.Bones.Count];
+            m.CopyAbsoluteBoneTransformsTo(transforms);
+            foreach (ModelMesh mesh in m.Meshes)
+            {
+                foreach (var part in mesh.MeshParts)
+                {
+                    ((BasicEffect)part.Effect).SpecularColor = Vector3.Zero;
+
+
+                    ConfigureEffectMatrices((IEffectMatrices)part.Effect, Matrix.Identity, view, projection);
+                    ConfigureEffectLighting((IEffectLights)part.Effect);
+
+                    part.UpdateVertices(animations.AnimationTransforms); 
+
+                }
+                mesh.Draw();
+            }
+
+        }
+
+        private static void ConfigureEffectMatrices(IEffectMatrices effect, Matrix world, Matrix view, Matrix projection)
+        {
+            effect.World = world;
+            effect.View = view;
+            effect.Projection = projection;
+        }
+
+        private static void ConfigureEffectLighting(IEffectLights effect)
+        {
+            //effect.EnableDefaultLighting();
+            effect.DirectionalLight0.Direction = Vector3.Backward;
+            effect.DirectionalLight0.Enabled = true;
+            effect.DirectionalLight1.Enabled = false;
+            effect.DirectionalLight2.Enabled = false;
+            effect.AmbientLightColor = Vector3.One;
+        }
+
     }
 }

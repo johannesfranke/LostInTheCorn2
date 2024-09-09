@@ -10,8 +10,41 @@
 
 #-------------------------------- References --------------------------------#
 
+/reference:..\..\..\..\AetherExtrasforNet6\CustomAetherExtras\ResultingDLLs\Animation.dll
+/reference:..\..\..\..\AetherExtrasforNet6\CustomAetherExtras\ResultingDLLs\AnimationImporters.dll
+/reference:..\..\..\..\AetherExtrasforNet6\CustomAetherExtras\ResultingDLLs\Atlas.dll
+/reference:..\..\..\..\AetherExtrasforNet6\CustomAetherExtras\ResultingDLLs\AtlasImporter.dll
+/reference:..\..\..\..\AetherExtrasforNet6\CustomAetherExtras\ResultingDLLs\DDSImporter.dll
+/reference:..\..\..\..\AetherExtrasforNet6\CustomAetherExtras\ResultingDLLs\Graphics.dll
+/reference:..\..\..\..\AetherExtrasforNet6\CustomAetherExtras\ResultingDLLs\GraphicsImporters.dll
+/reference:..\..\..\..\AetherExtrasforNet6\CustomAetherExtras\ResultingDLLs\RawModelProcessor.dll
+/reference:..\..\..\..\AetherExtrasforNet6\CustomAetherExtras\ResultingDLLs\SLMCImporter.dll
 
 #---------------------------------- Content ---------------------------------#
+
+#begin AnimatedMil.fbx
+/importer:FbxImporter
+/processor:CpuAnimatedModelProcessor
+/processorParam:VertexBufferType=DynamicWriteOnly
+/processorParam:IndexBufferType=Default
+/processorParam:MaxBones=72
+/processorParam:GenerateKeyframesFrequency=0
+/processorParam:FixRealBoneRoot=False
+/processorParam:ColorKeyColor=0,0,0,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:DefaultEffect=BasicEffect
+/processorParam:GenerateMipmaps=True
+/processorParam:GenerateTangentFrames=False
+/processorParam:PremultiplyTextureAlpha=True
+/processorParam:PremultiplyVertexColors=True
+/processorParam:ResizeTexturesToPowerOfTwo=False
+/processorParam:RotationX=0
+/processorParam:RotationY=0
+/processorParam:RotationZ=0
+/processorParam:Scale=0.03
+/processorParam:SwapWindingOrder=False
+/processorParam:TextureFormat=Compressed
+/build:AnimatedMil.fbx
 
 #begin Audio/grass1.mp3
 /importer:Mp3Importer
@@ -411,44 +444,6 @@
 /processorParam:TextureFormat=Color
 /build:strawhat.png
 
-#begin test.obj
-/importer:FbxImporter
-/processor:ModelProcessor
-/processorParam:ColorKeyColor=252,112,24,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:DefaultEffect=BasicEffect
-/processorParam:GenerateMipmaps=True
-/processorParam:GenerateTangentFrames=False
-/processorParam:PremultiplyTextureAlpha=False
-/processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
-/processorParam:RotationY=0
-/processorParam:RotationZ=0
-/processorParam:Scale=1
-/processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=Color
-/build:test.obj
-
-#begin test2.obj
-/importer:FbxImporter
-/processor:ModelProcessor
-/processorParam:ColorKeyColor=0,0,0,0
-/processorParam:ColorKeyEnabled=True
-/processorParam:DefaultEffect=BasicEffect
-/processorParam:GenerateMipmaps=True
-/processorParam:GenerateTangentFrames=False
-/processorParam:PremultiplyTextureAlpha=True
-/processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
-/processorParam:RotationY=0
-/processorParam:RotationZ=0
-/processorParam:Scale=1
-/processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=Compressed
-/build:test2.obj
-
 #begin TexHolz.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -472,6 +467,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:TexScare.png
+
+#begin texture_0.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:texture_0.png
 
 #begin TextureSkySphere.png
 /importer:TextureImporter
