@@ -6,24 +6,15 @@ using LostInTheCorn2.ModelFunction;
 using LostInTheCorn2.MovableObjects;
 using LostInTheCorn2.UIClasses;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LostInTheCorn2.Scenes
 {
     public class GameScene : IScene
     {
         private Texture3D texture;
-        
+
         Camera cam;
         MovementAroundPlayerManager MovementManager; // Movement around Player alle stellen ersetzen
         private MapDrawer Map;
@@ -60,7 +51,7 @@ namespace LostInTheCorn2.Scenes
         {
 
             Game1.Instance.IsMouseVisible = false;
-            
+
 
             initForward = new Vector3(1, 0, 0);
             camInitPosition = new Vector3(10, 1, 0);
@@ -76,8 +67,8 @@ namespace LostInTheCorn2.Scenes
             startMapPos = new Vector3(4, 0, 0);
             sizeCube = 13.18f; //weiß nicht was die actual größe von dem Cube ist (Größe ist geraten, lol)
             Map = new MapDrawer(cam, startMapPos, sizeCube);
-            Map.SetModelWithEnum(0, Functional.ContentManager.Load<Model>("PlaneFloor"));
-            Map.SetModelWithEnum(1, Functional.ContentManager.Load<Model>("Corn"));
+            Map.SetModelWithEnum(0, Functional.ContentManager.Load<Model>("FloorTile"));
+            Map.SetModelWithEnum(1, Functional.ContentManager.Load<Model>("CornTile"));
             Map.SetModelWithEnum(2, Functional.ContentManager.Load<Model>("greenCube"));
             Map.SetModelWithEnum(3, Functional.ContentManager.Load<Model>("scarecrowWithHat"));
             Map.SetModelWithEnum(4, Functional.ContentManager.Load<Model>("scarecrowWithoutHat"));
@@ -89,7 +80,7 @@ namespace LostInTheCorn2.Scenes
             SkyBoxTexture = Functional.ContentManager.Load<Texture2D>("TextureSkySphere");
             CollisionDetection = new CollisionDetection(startMapPos, sizeCube);
             CollisionDetectionWithItem = new CollisionWithItem(startMapPos, sizeCube);
-            movableBox = new MovableBox(cam,startMapPos, sizeCube);
+            movableBox = new MovableBox(cam, startMapPos, sizeCube);
             door = new Door(startMapPos, sizeCube);
             butterfly = new Butterfly(startMapPos, sizeCube);
             PopUpManager = new PopUpManager();
@@ -103,15 +94,16 @@ namespace LostInTheCorn2.Scenes
             Audio.SongManager.LoadSong("Audio/lofi_orchestra");
             Audio.SongManager.PlaySong("Audio/lofi_orchestra", true);
         }
-    
-        public void Update(GameTime gameTime) {
+
+        public void Update(GameTime gameTime)
+        {
 
 
             if (Functional.KeyboardHelper.IsKeyPressedOnce(Keys.Escape))
             {
                 CaptureLastFrame();
 
-                var settingsScene = new SettingsScene(new Vector2(Mouse.GetState().X, Mouse.GetState().Y) ,lastFrameRenderTarget);
+                var settingsScene = new SettingsScene(new Vector2(Mouse.GetState().X, Mouse.GetState().Y), lastFrameRenderTarget);
 
 
                 Visuals.SceneManager.AddScene(settingsScene);
@@ -124,25 +116,25 @@ namespace LostInTheCorn2.Scenes
                 Visuals.ToggleFullScreen();
             }
             //Kollisionsabfragen
-            bool collidingWithBox = CollisionDetectionWithItem.Update(MovementManager.Player.PlayerWorld,0, boxPosition);
+            bool collidingWithBox = CollisionDetectionWithItem.Update(MovementManager.Player.PlayerWorld, 0, boxPosition);
             bool collidingWithKey = CollisionDetectionWithItem.Update(1);
             bool collidingWithCrow = CollisionDetectionWithItem.Update(2);
             bool collidingWithMap = CollisionDetectionWithItem.Update();
-            door.Update(collidingWithKey,CollisionDetection.forwardCollision);
+            door.Update(collidingWithKey, CollisionDetection.forwardCollision);
             butterfly.Update(CollisionDetection.forwardCollision);
-            int collidingWithWalls = CollisionDetection.Update(MovementManager.Player.PlayerWorld, Functional.goalReached,Functional.keyUsed);
+            int collidingWithWalls = CollisionDetection.Update(MovementManager.Player.PlayerWorld, Functional.goalReached, Functional.keyUsed);
             PopUpManager.Update(collidingWithKey, collidingWithBox, collidingWithCrow, collidingWithMap);
             //Kamera und Spieler sollen geupdatet werden
-            MovementManager.Update(gameTime,collidingWithWalls);
+            MovementManager.Update(gameTime, collidingWithWalls);
 
-            
+
 
             //berechne neue boxPosition, TODO -> ein zentrales Grid einführen und in der GameScene behandeln
             //Stand jetzt: in jeder Klasse wird neues seperates Grid aufgesetzt
             boxPosition = movableBox.Update(MovementManager.Player.PlayerWorld, collidingWithBox);
 
-            cam.Update(gameTime, MovementManager.Player,collidingWithWalls);
-            
+            cam.Update(gameTime, MovementManager.Player, collidingWithWalls);
+
         }
         public void Draw()
         {
@@ -155,7 +147,7 @@ namespace LostInTheCorn2.Scenes
             // Verändert die Transparenz der 3D Modelle
             Visuals.GraphicsDevice.BlendState = BlendState.AlphaBlend;
             Visuals.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
-            Map.DrawWorld(Functional.keyPicked,boxPosition);
+            Map.DrawWorld(Functional.keyPicked, boxPosition);
             Drawable.drawWithEffectModel(penguin, MovementManager.Player.PlayerWorld, cam);
             Drawable.drawWithoutModel(SkyBoxModel, MovementManager.SkySphere.GlobeWorld, cam);
             //CollisionDetection.Draw();

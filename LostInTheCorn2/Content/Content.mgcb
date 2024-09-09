@@ -92,7 +92,7 @@
 /processorParam:TextureFormat=Color
 /build:ButtonHope.png
 
-#begin Corn.fbx
+#begin CornTile.fbx
 /importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
@@ -103,13 +103,13 @@
 /processorParam:PremultiplyTextureAlpha=True
 /processorParam:PremultiplyVertexColors=True
 /processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=-90
+/processorParam:RotationX=0
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.17
+/processorParam:Scale=0.02205
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:Corn.fbx
+/build:CornTile.fbx
 
 #begin File.spritefont
 /importer:FontDescriptionImporter
@@ -117,6 +117,25 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:File.spritefont;MenuFont12.spritefont
+
+#begin FloorTile.fbx
+/importer:FbxImporter
+/processor:ModelProcessor
+/processorParam:ColorKeyColor=0,0,0,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:DefaultEffect=BasicEffect
+/processorParam:GenerateMipmaps=True
+/processorParam:GenerateTangentFrames=False
+/processorParam:PremultiplyTextureAlpha=True
+/processorParam:PremultiplyVertexColors=True
+/processorParam:ResizeTexturesToPowerOfTwo=False
+/processorParam:RotationX=0
+/processorParam:RotationY=0
+/processorParam:RotationZ=0
+/processorParam:Scale=0.0222
+/processorParam:SwapWindingOrder=False
+/processorParam:TextureFormat=Compressed
+/build:FloorTile.fbx
 
 #begin greenCube.fbx
 /importer:FbxImporter
@@ -179,10 +198,10 @@
 /processorParam:PremultiplyTextureAlpha=True
 /processorParam:PremultiplyVertexColors=True
 /processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=-90
-/processorParam:RotationY=0
+/processorParam:RotationX=0
+/processorParam:RotationY=90
 /processorParam:RotationZ=0
-/processorParam:Scale=1
+/processorParam:Scale=0.012
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:Holzbalken.fbx
@@ -260,6 +279,18 @@
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:PenguinTextured.fbx
+
+#begin PlainFloorTex.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:PlainFloorTex.png
 
 #begin PlaneFloor.fbx
 /importer:FbxImporter
