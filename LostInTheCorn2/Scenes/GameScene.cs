@@ -38,14 +38,13 @@ namespace LostInTheCorn2.Scenes
 
         private Model SkyBoxModel;
         private Texture2D SkyBoxTexture;
-        private Texture2D keyTexture;
-        private Texture2D hatTexture;
 
         private CollisionDetection CollisionDetection;
         private CollisionWithItem CollisionDetectionWithItem;
         private MovableBox movableBox;
         private PositionInfo boxPosition;
         private Door door;
+        private Butterfly butterfly;
         private static RenderTarget2D gameRenderTarget;
         private RenderTarget2D lastFrameRenderTarget;
 
@@ -85,17 +84,14 @@ namespace LostInTheCorn2.Scenes
             //Map.SetModelWithEnum(5, Functional.ContentManager.Load<Model>("key"));
             Map.SetModelWithEnum(6, Functional.ContentManager.Load<Model>("Holzbalken"));
             Map.SetModelWithEnum(7, Functional.ContentManager.Load<Model>("Hat"));
-
-
             Map.SetModelWithEnum(5, Functional.ContentManager.Load<Model>("greenCube"));
             SkyBoxModel = Functional.ContentManager.Load<Model>("SkySphere");
             SkyBoxTexture = Functional.ContentManager.Load<Texture2D>("TextureSkySphere");
-            keyTexture = Functional.ContentManager.Load<Texture2D>("key2d");
-            hatTexture = Functional.ContentManager.Load<Texture2D>("strawhat");
             CollisionDetection = new CollisionDetection(startMapPos, sizeCube);
             CollisionDetectionWithItem = new CollisionWithItem(startMapPos, sizeCube);
             movableBox = new MovableBox(cam,startMapPos, sizeCube);
             door = new Door(startMapPos, sizeCube);
+            butterfly = new Butterfly(startMapPos, sizeCube);
             PopUpManager = new PopUpManager();
 
             //SoundEffects
@@ -133,22 +129,13 @@ namespace LostInTheCorn2.Scenes
             bool collidingWithCrow = CollisionDetectionWithItem.Update(2);
             bool collidingWithMap = CollisionDetectionWithItem.Update();
             door.Update(collidingWithKey,CollisionDetection.forwardCollision);
-
+            butterfly.Update(CollisionDetection.forwardCollision);
             int collidingWithWalls = CollisionDetection.Update(MovementManager.Player.PlayerWorld, Functional.goalReached,Functional.keyUsed);
             PopUpManager.Update(collidingWithKey, collidingWithBox, collidingWithCrow, collidingWithMap);
             //Kamera und Spieler sollen geupdatet werden
             MovementManager.Update(gameTime,collidingWithWalls);
 
-            //Update für den Sound
-            if (Functional.KeyboardHelper.IsKeyHeld(Keys.W))
-            {
-                Audio.SoundManager.PlaySound("Audio/grass1edited", true);
-            }
-            else
-            {
-                Audio.SoundManager.StopSound("Audio/grass1edited");
-            }
-
+            
 
             //berechne neue boxPosition, TODO -> ein zentrales Grid einführen und in der GameScene behandeln
             //Stand jetzt: in jeder Klasse wird neues seperates Grid aufgesetzt
@@ -168,22 +155,11 @@ namespace LostInTheCorn2.Scenes
             // Verändert die Transparenz der 3D Modelle
             Visuals.GraphicsDevice.BlendState = BlendState.AlphaBlend;
             Visuals.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
-
             Map.DrawWorld(Functional.keyPicked,boxPosition);
             Drawable.drawWithEffectModel(penguin, MovementManager.Player.PlayerWorld, cam);
             Drawable.drawWithoutModel(SkyBoxModel, MovementManager.SkySphere.GlobeWorld, cam);
-            Visuals.SpriteBatch.Begin();
-            if (Functional.keyPicked) {
-                Visuals.SpriteBatch.Draw(keyTexture, new Rectangle(64, 64, 64, 64), Color.White);
-            }
-
-            if (Functional.itemPicked)
-            {
-                Visuals.SpriteBatch.Draw(hatTexture, new Rectangle(128, 64, 64, 64), Color.White);
-            }
-            Visuals.SpriteBatch.End();
-            CollisionDetection.Draw();
-            movableBox.Draw();
+            //CollisionDetection.Draw();
+            //movableBox.Draw();
             PopUpManager.Draw();
         }
 

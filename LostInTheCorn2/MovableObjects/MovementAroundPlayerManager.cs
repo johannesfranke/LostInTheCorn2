@@ -37,8 +37,13 @@ public class MovementAroundPlayerManager
         MouseState mouseState = Mouse.GetState(Visuals.GameWindow);
         if (keyboardState.IsKeyDown(Keys.W) && colliding != 1 && colliding != 3)
         {
+            Audio.SoundManager.PlaySound("Audio/grass1edited", true);
             Player.moveForward(gameTime, MovementUnitsPerSecond);
             SkySphere.moveForward(gameTime, MovementUnitsPerSecond, Player.PlayerWorld);
+        }
+        else
+        {
+            Audio.SoundManager.StopSound("Audio/grass1edited");
         }
         if (keyboardState.IsKeyDown(Keys.S) && colliding != 2 && colliding != 3)
         {

@@ -23,5 +23,6 @@ public enum WhatToDraw
     Key = 5,
     Door = 6,
     CheckpointScarecrow = 7,
-    Map = 8
+    Map = 8,
+    Butterfly = 9
 }
