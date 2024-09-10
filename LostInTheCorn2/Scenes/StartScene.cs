@@ -58,7 +58,7 @@ namespace LostInTheCorn2.Scenes
 
             if (Functional.KeyboardHelper.IsKeyPressedOnce(Keys.Space))
             {
-                Visuals.SceneManager.AddScene(new GameScene());
+                Visuals.SceneManager.AddScene(new TutorialScene());
             }
             if (Functional.KeyboardHelper.IsKeyPressedOnce(Keys.F11))
             {
