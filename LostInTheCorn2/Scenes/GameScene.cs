@@ -76,7 +76,7 @@ namespace LostInTheCorn2.Scenes
             //Map.SetModelWithEnum(5, Functional.ContentManager.Load<Model>("key"));
             Map.SetModelWithEnum(6, Functional.ContentManager.Load<Model>("Holzbalken"));
             Map.SetModelWithEnum(7, Functional.ContentManager.Load<Model>("Hat"));
-            Map.SetModelWithEnum(5, Functional.ContentManager.Load<Model>("greenCube"));
+            Map.SetModelWithEnum(5, Functional.ContentManager.Load<Model>("key"));
             SkyBoxModel = Functional.ContentManager.Load<Model>("SkySphere");
             SkyBoxTexture = Functional.ContentManager.Load<Texture2D>("TextureSkySphere");
             CollisionDetection = new CollisionDetection(startMapPos, sizeCube);
@@ -128,7 +128,7 @@ namespace LostInTheCorn2.Scenes
             PopUpManager.Update(collidingWithKey, collidingWithBox, collidingWithCrow, collidingWithMap);
             //Kamera und Spieler sollen geupdatet werden
             MovementManager.Update(gameTime, collidingWithWalls);
-            
+
 
 
             //berechne neue boxPosition, TODO -> ein zentrales Grid einführen und in der GameScene behandeln
@@ -136,7 +136,8 @@ namespace LostInTheCorn2.Scenes
             boxPosition = movableBox.Update(MovementManager.Player.PlayerWorld, collidingWithBox);
 
             cam.Update(gameTime, MovementManager.Player, collidingWithWalls);
-            if (finish.Update(CollisionDetection.forwardCollision)) {
+            if (finish.Update(CollisionDetection.forwardCollision))
+            {
                 CaptureLastFrame();
 
                 var restart = new StartScene();
