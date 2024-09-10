@@ -43,7 +43,10 @@ public class MapDrawer
                     Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
                     break;
                 case WhatToDraw.NoClip:
-                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(1), pos.Position, Cam);
+                    if (!Functional.goalReached)
+                    {
+                        Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(1), pos.Position, Cam);
+                    }
                     Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
                     break;
                 case WhatToDraw.Wall:
@@ -51,8 +54,11 @@ public class MapDrawer
                     break;
                 case WhatToDraw.Box:
                     if (boxPosition == null) {boxPosition = new PositionInfo(pos.Position, 2); }
-                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(7), boxPosition.Position, Cam);
-                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
+                    if (!Functional.goalReached && !Functional.itemPicked)
+                    {
+                        Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(7), boxPosition.Position, Cam);
+                    }
+                        Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
                     break;
                 case WhatToDraw.Goal:
                     if (!Functional.goalReached) {
@@ -79,6 +85,9 @@ public class MapDrawer
                     break;
                 case WhatToDraw.Map:
                     Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(2), pos.Position, Cam);
+                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
+                    break;
+                case WhatToDraw.Finish:
                     Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
                     break;
                 default:

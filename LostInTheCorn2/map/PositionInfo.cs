@@ -24,5 +24,6 @@ public enum WhatToDraw
     Door = 6,
     CheckpointScarecrow = 7,
     Map = 8,
-    Butterfly = 9
+    Butterfly = 9,
+    Finish = 10
 }

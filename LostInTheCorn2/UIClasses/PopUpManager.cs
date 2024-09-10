@@ -107,7 +107,7 @@ namespace LostInTheCorn2.UIClasses
                 PopUpRequired = true;
                 windowReset();
             }
-            else if (Functional.doorInteraction)
+            else if (Functional.doorInteraction && !Functional.keyUsed)
             {
                 if (Functional.keyPicked)
                 {

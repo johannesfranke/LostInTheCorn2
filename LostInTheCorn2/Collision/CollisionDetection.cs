@@ -15,6 +15,7 @@ namespace LostInTheCorn2.Collision
 
         List<Rectangle> rectangles { get; set; }
         Rectangle noClip;
+        Rectangle noClipReset;
         Rectangle Door;
         Rectangle DoorClosed;
         public Rectangle forwardCollision;
@@ -52,6 +53,7 @@ namespace LostInTheCorn2.Collision
                         break;
                     case WhatToDraw.NoClip:
                         noClip = x;
+                        noClipReset = x;
                         break;
                     case WhatToDraw.Door:
                         Door = new(Position, RectangleSize);
@@ -69,6 +71,9 @@ namespace LostInTheCorn2.Collision
             if (goalAchieved)
             {
                 noClip.Location = new Point(4000, 4000);
+            }
+            else {
+                noClip.Location = noClipReset.Location;
             }
             if (keyUsed)
             {
