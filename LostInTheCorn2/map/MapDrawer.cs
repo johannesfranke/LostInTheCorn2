@@ -23,7 +23,7 @@ public class MapDrawer
         this.Cam = cam;
     }
 
-    
+
     public void SetModelWithEnum(int key, Model value)
     {
         ModelsWithEnumInfo.TryAdd(key, value);
@@ -31,7 +31,7 @@ public class MapDrawer
 
     public void DrawWorld(bool keyPicked, PositionInfo boxPosition)
     {
-        
+
         foreach (var pos in Grid.Positions)
         {
             switch (pos.Info)
@@ -53,21 +53,22 @@ public class MapDrawer
                     Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(1), pos.Position, Cam);
                     break;
                 case WhatToDraw.Box:
-                    if (boxPosition == null) {boxPosition = new PositionInfo(pos.Position, 2); }
+                    if (boxPosition == null) { boxPosition = new PositionInfo(pos.Position, 2); }
                     if (!Functional.goalReached && !Functional.itemPicked)
                     {
                         Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(7), boxPosition.Position, Cam);
                     }
-                        Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
+                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
                     break;
                 case WhatToDraw.Goal:
                     if (!Functional.goalReached) {
                         Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(4), pos.Position, Cam);
                     }
-                    else {
+                    else
+                    {
                         Matrix position = pos.Position;
                         Matrix newPos = pos.Position;
-                        newPos.M42 = position.M42 + 7.2f; 
+                        newPos.M42 = position.M42 + 7.2f;
                         PositionInfo newPosition = new PositionInfo(newPos, 2);
                         Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(3), newPosition.Position, Cam);
                     };
@@ -79,8 +80,13 @@ public class MapDrawer
                 case WhatToDraw.Key:
                     if (!keyPicked)
                     {
-                        Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(5), pos.Position, Cam);
+                        var posKey = pos.PositionVector + new Vector3(0, 3, 0);
+                        var matrixKey = Matrix.CreateWorld(posKey, Vector3.Forward, Vector3.Up);
+                        Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(5), matrixKey, Cam);
                     }
+                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
+                    break;
+                case WhatToDraw.Butterfly:
                     Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
                     break;
                 case WhatToDraw.Map:
@@ -96,6 +102,6 @@ public class MapDrawer
         }
 
     }
-    
+
 
 }

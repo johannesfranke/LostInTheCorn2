@@ -5,6 +5,7 @@ namespace LostInTheCorn2.map;
 public class PositionInfo
 {
     public Matrix Position { get; set; }
+    public Vector3 PositionVector { get; set; }
     public WhatToDraw Info { get; set; }
 
     public PositionInfo(Matrix position, int info)
