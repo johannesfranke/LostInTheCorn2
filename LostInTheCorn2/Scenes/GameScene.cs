@@ -137,13 +137,8 @@ namespace LostInTheCorn2.Scenes
 
             cam.Update(gameTime, MovementManager.Player, collidingWithWalls);
             if (finish.Update(CollisionDetection.forwardCollision)) {
-                CaptureLastFrame();
-
                 var restart = new StartScene();
-
-
                 Visuals.SceneManager.AddScene(restart);
-
             }
 
         }

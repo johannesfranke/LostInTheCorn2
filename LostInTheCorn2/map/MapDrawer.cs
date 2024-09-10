@@ -61,6 +61,7 @@ public class MapDrawer
                         Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
                     break;
                 case WhatToDraw.Goal:
+                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
                     if (!Functional.goalReached) {
                         Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(4), pos.Position, Cam);
                     }
@@ -81,6 +82,9 @@ public class MapDrawer
                     {
                         Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(5), pos.Position, Cam);
                     }
+                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
+                    break;
+                case WhatToDraw.Butterfly:
                     Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
                     break;
                 case WhatToDraw.Map:
