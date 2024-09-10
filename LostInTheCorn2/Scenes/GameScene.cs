@@ -8,6 +8,7 @@ using LostInTheCorn2.UIClasses;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Aether.Animation;
 
 namespace LostInTheCorn2.Scenes
 {
@@ -41,6 +42,16 @@ namespace LostInTheCorn2.Scenes
         private RenderTarget2D lastFrameRenderTarget;
 
         private PopUpManager PopUpManager;
+
+        private float initialWalkingTimer = 0.3f;
+
+        int collidingWithWalls = 0;
+
+        //Animation
+        Model animatedMil;
+        Animations _animations;
+
+        private bool isWalking = false;
 
         public GameScene()
         {
@@ -95,11 +106,30 @@ namespace LostInTheCorn2.Scenes
             //Song
             Audio.SongManager.LoadSong("Audio/lofi_orchestra");
             Audio.SongManager.PlaySong("Audio/lofi_orchestra", true);
+
+            //Animation
+            animatedMil = Functional.ContentManager.Load<Model>("AnimatedMil");
+
+            _animations = animatedMil.GetAnimations(); // Animation Data are the same between the two models
+            var clip = _animations.Clips["Armature|Armature|Armature|Armature|walking_man|baselayer"];
+            _animations.SetClip(clip);
+
+            isWalking = true;
         }
 
         public void Update(GameTime gameTime)
         {
 
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (initialWalkingTimer > 0)
+            {
+                initialWalkingTimer -= deltaTime;
+                if (initialWalkingTimer <= 0)
+                {
+                    isWalking = false;
+                }
+            }
 
             if (Functional.KeyboardHelper.IsKeyPressedOnce(Keys.Escape))
             {
@@ -124,7 +154,7 @@ namespace LostInTheCorn2.Scenes
             bool collidingWithMap = CollisionDetectionWithItem.Update();
             door.Update(collidingWithKey, CollisionDetection.forwardCollision);
             butterfly.Update(CollisionDetection.forwardCollision);
-            int collidingWithWalls = CollisionDetection.Update(MovementManager.Player.PlayerWorld, Functional.goalReached, Functional.keyUsed);
+            collidingWithWalls = CollisionDetection.Update(MovementManager.Player.PlayerWorld, Functional.goalReached, Functional.keyUsed);
             PopUpManager.Update(collidingWithKey, collidingWithBox, collidingWithCrow, collidingWithMap);
             //Kamera und Spieler sollen geupdatet werden
             MovementManager.Update(gameTime, collidingWithWalls);
@@ -143,6 +173,29 @@ namespace LostInTheCorn2.Scenes
 
                 Visuals.SceneManager.AddScene(creditScene);
 
+
+            }
+
+            float animationSpeedFactor = 0.8f;
+
+            if (isWalking)
+            {
+                _animations.Update(gameTime.ElapsedGameTime * animationSpeedFactor, true, Matrix.Identity);
+            }
+
+            if (Functional.KeyboardHelper.IsKeyHeld(Keys.W))
+            {
+                if (!isWalking)
+                {
+                    isWalking = true;  
+                }
+            }
+            else
+            {
+                if (initialWalkingTimer <= 0 && isWalking)  
+                {
+                    isWalking = false;  
+                }
             }
 
         }
@@ -158,7 +211,8 @@ namespace LostInTheCorn2.Scenes
             Visuals.GraphicsDevice.BlendState = BlendState.AlphaBlend;
             Visuals.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
             Map.DrawWorld(Functional.keyPicked, boxPosition);
-            Drawable.drawWithEffectModel(penguin, MovementManager.Player.PlayerWorld, cam);
+            //Drawable.drawWithEffectModel(penguin, MovementManager.Player.PlayerWorld, cam);
+            drawAnimatedModel(animatedMil);
             Drawable.drawWithoutModel(SkyBoxModel, MovementManager.SkySphere.GlobeWorld, cam);
             //CollisionDetection.Draw();
             //movableBox.Draw();
@@ -195,6 +249,33 @@ namespace LostInTheCorn2.Scenes
         {
             cam.LoadMousePosition(); // Mausposition wiederherstellen, wenn zur Spielszene zurückgekehrt wird
         }
+        public void drawAnimatedModel(Model m)
+        {
+            Matrix[] transforms = new Matrix[m.Bones.Count];
+            m.CopyAbsoluteBoneTransformsTo(transforms);
 
+            Matrix world = MovementManager.Player.PlayerWorld;
+
+            foreach (ModelMesh mesh in m.Meshes)
+            {
+                foreach (var part in mesh.MeshParts)
+                {
+                    ((BasicEffect)part.Effect).SpecularColor = Vector3.Zero;
+                    ConfigureEffectMatrices((IEffectMatrices)part.Effect, world, cam.View, cam.Projection);
+
+                    if (isWalking && collidingWithWalls != 1)
+                    {
+                        part.UpdateVertices(_animations.AnimationTransforms); // Apply animation only when walking
+                    }
+                }
+                mesh.Draw();
+            }
+        }
+        private void ConfigureEffectMatrices(IEffectMatrices effect, Matrix world, Matrix view, Matrix projection)
+        {
+            effect.World = world;
+            effect.View = view;
+            effect.Projection = projection;
+        }
     }
 }

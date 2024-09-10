@@ -135,7 +135,7 @@ namespace LostInTheCorn
             }
             if (keyboardState.IsKeyDown(Keys.S) && colliding != 2 && colliding != 3)
             {
-                moveBackward(gameTime, player);
+                //moveBackward(gameTime, player);
             }
 
             //Bewegung der Maus

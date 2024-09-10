@@ -47,8 +47,8 @@ public class MovementAroundPlayerManager
         }
         if (keyboardState.IsKeyDown(Keys.S) && colliding != 2 && colliding != 3)
         {
-            Player.moveBackward(gameTime, MovementUnitsPerSecond);
-            SkySphere.moveBackward(gameTime, MovementUnitsPerSecond, Player.PlayerWorld);
+            //Player.moveBackward(gameTime, MovementUnitsPerSecond);
+            //SkySphere.moveBackward(gameTime, MovementUnitsPerSecond, Player.PlayerWorld);
         }
 
         Vector2 diff = mouseState.Position.ToVector2() - mState.Position.ToVector2();

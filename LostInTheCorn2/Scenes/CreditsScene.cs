@@ -15,9 +15,13 @@ namespace LostInTheCorn2.Scenes
         private List<Button> buttons;
         private Rectangle screenRectangle;
 
+        // Fade-in 
+        private float fadeAlpha;
+        private const float fadeSpeed = 0.01f; 
+
         public CreditScene()
         {
-
+            fadeAlpha = 0f; 
         }
 
         public void Load()
@@ -69,9 +73,19 @@ namespace LostInTheCorn2.Scenes
 
         public void Update(GameTime gameTime)
         {
+            Audio.SoundManager.StopSound("Audio/grass1edited");
+            Audio.SongManager.StopSong();
+
             if (Functional.KeyboardHelper.IsKeyPressedOnce(Keys.Escape))
             {
                 Game1.Instance.Exit();
+            }
+
+            // Update fade-in effect
+            if (fadeAlpha < 1f)
+            {
+                fadeAlpha += (float)gameTime.ElapsedGameTime.TotalSeconds * fadeSpeed;
+                fadeAlpha = Math.Min(fadeAlpha, 1f); 
             }
 
             foreach (var button in buttons)
@@ -93,31 +107,30 @@ namespace LostInTheCorn2.Scenes
         {
             Visuals.SpriteBatch.Begin();
 
-
-            // Skalierung des Hintergrundbildes
             float scaleX = (float)Visuals.GraphicsDevice.Viewport.Width / helpImage.Width;
             float scaleY = (float)Visuals.GraphicsDevice.Viewport.Height / helpImage.Height;
 
             float scale = Math.Max(scaleX, scaleY);
 
-            // Berechne Position, um das Bild zentriert zu zeichnen
             Vector2 position = new Vector2(
                 (Visuals.GraphicsDevice.Viewport.Width - helpImage.Width * scale) / 2,
                 (Visuals.GraphicsDevice.Viewport.Height - helpImage.Height * scale) / 2
             );
 
-            Visuals.SpriteBatch.Draw(helpImage, position, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            Visuals.SpriteBatch.Draw(helpImage, position, null, Color.White * fadeAlpha, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
 
-            DrawButtons(Visuals.SpriteBatch);
+            if(fadeAlpha >= 0.05f) 
+            {
+                DrawButtons(Visuals.SpriteBatch);
+            }
+
+            //Visuals.SpriteBatch.DrawString(Functional.BoldFont, "alpha" + fadeAlpha, new Vector2(10, 10), Color.White);
 
             Visuals.SpriteBatch.End();
         }
 
-
         private void DrawButtons(SpriteBatch spriteBatch)
         {
-
-
             foreach (var button in buttons)
             {
                 button.Draw(Vector2.Zero);

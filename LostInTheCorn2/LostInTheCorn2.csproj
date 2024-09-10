@@ -22,6 +22,35 @@
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303" />
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Animation">
+      <HintPath>..\..\..\AetherExtrasforNet6\CustomAetherExtras\ResultingDLLs\Animation.dll</HintPath>
+    </Reference>
+    <Reference Include="AnimationImporters">
+      <HintPath>..\..\..\AetherExtrasforNet6\CustomAetherExtras\ResultingDLLs\AnimationImporters.dll</HintPath>
+    </Reference>
+    <Reference Include="Atlas">
+      <HintPath>..\..\..\AetherExtrasforNet6\CustomAetherExtras\ResultingDLLs\Atlas.dll</HintPath>
+    </Reference>
+    <Reference Include="AtlasImporter">
+      <HintPath>..\..\..\AetherExtrasforNet6\CustomAetherExtras\ResultingDLLs\AtlasImporter.dll</HintPath>
+    </Reference>
+    <Reference Include="DDSImporter">
+      <HintPath>..\..\..\AetherExtrasforNet6\CustomAetherExtras\ResultingDLLs\DDSImporter.dll</HintPath>
+    </Reference>
+    <Reference Include="Graphics">
+      <HintPath>..\..\..\AetherExtrasforNet6\CustomAetherExtras\ResultingDLLs\Graphics.dll</HintPath>
+    </Reference>
+    <Reference Include="GraphicsImporters">
+      <HintPath>..\..\..\AetherExtrasforNet6\CustomAetherExtras\ResultingDLLs\GraphicsImporters.dll</HintPath>
+    </Reference>
+    <Reference Include="RawModelProcessor">
+      <HintPath>..\..\..\AetherExtrasforNet6\CustomAetherExtras\ResultingDLLs\RawModelProcessor.dll</HintPath>
+    </Reference>
+    <Reference Include="SLMCImporter">
+      <HintPath>..\..\..\AetherExtrasforNet6\CustomAetherExtras\ResultingDLLs\SLMCImporter.dll</HintPath>
+    </Reference>
+  </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />
     <Exec Command="dotnet tool restore" />
