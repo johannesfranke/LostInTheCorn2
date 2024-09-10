@@ -36,6 +36,7 @@ namespace LostInTheCorn2.Scenes
         private PositionInfo boxPosition;
         private Door door;
         private Butterfly butterfly;
+        private Finish finish;
         private static RenderTarget2D gameRenderTarget;
         private RenderTarget2D lastFrameRenderTarget;
 
@@ -82,6 +83,7 @@ namespace LostInTheCorn2.Scenes
             CollisionDetectionWithItem = new CollisionWithItem(startMapPos, sizeCube);
             movableBox = new MovableBox(cam, startMapPos, sizeCube);
             door = new Door(startMapPos, sizeCube);
+            finish = new Finish(startMapPos, sizeCube);
             butterfly = new Butterfly(startMapPos, sizeCube);
             PopUpManager = new PopUpManager();
 
@@ -126,7 +128,7 @@ namespace LostInTheCorn2.Scenes
             PopUpManager.Update(collidingWithKey, collidingWithBox, collidingWithCrow, collidingWithMap);
             //Kamera und Spieler sollen geupdatet werden
             MovementManager.Update(gameTime, collidingWithWalls);
-
+            
 
 
             //berechne neue boxPosition, TODO -> ein zentrales Grid einführen und in der GameScene behandeln
@@ -134,6 +136,15 @@ namespace LostInTheCorn2.Scenes
             boxPosition = movableBox.Update(MovementManager.Player.PlayerWorld, collidingWithBox);
 
             cam.Update(gameTime, MovementManager.Player, collidingWithWalls);
+            if (finish.Update(CollisionDetection.forwardCollision)) {
+                CaptureLastFrame();
+
+                var restart = new StartScene();
+
+
+                Visuals.SceneManager.AddScene(restart);
+
+            }
 
         }
         public void Draw()

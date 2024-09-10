@@ -48,7 +48,8 @@ namespace LostInTheCorn2.map
         }
         
         public PositionInfo Update(Matrix playerPosition, bool collisionWithBox) {
-            if (collisionWithBox && Functional.KeyboardHelper.IsKeyPressedOnce(Keys.E)) {
+            Rectangle playerBox = new(new Point((int)playerPosition.Translation.X, (int)playerPosition.Translation.Z), new Point(8,8));
+            if (!Functional.goalReached && collisionWithBox && Functional.KeyboardHelper.IsKeyPressedOnce(Keys.E)) {
                 attached = true;
                 Functional.itemPicked = true;
             }
@@ -63,6 +64,12 @@ namespace LostInTheCorn2.map
                 boxPosition.X = (int)boxPositionInfo.Position.Translation.X;
                 boxPosition.Y = (int)boxPositionInfo.Position.Translation.Z;
                  
+            }
+            if (Functional.goalReached && playerBox.Intersects(goalPosition)) {
+                if (Functional.KeyboardHelper.IsKeyPressedOnce(Keys.E)) {
+                    attached = true;
+                    Functional.itemPicked = true;
+                }
             }
             if (boxPosition.Intersects(goalPosition) && !attached)
             {
