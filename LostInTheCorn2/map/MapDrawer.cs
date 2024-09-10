@@ -61,8 +61,7 @@ public class MapDrawer
                     Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
                     break;
                 case WhatToDraw.Goal:
-                    if (!Functional.goalReached)
-                    {
+                    if (!Functional.goalReached) {
                         Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(4), pos.Position, Cam);
                     }
                     else
@@ -85,6 +84,9 @@ public class MapDrawer
                         var matrixKey = Matrix.CreateWorld(posKey, Vector3.Forward, Vector3.Up);
                         Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(5), matrixKey, Cam);
                     }
+                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
+                    break;
+                case WhatToDraw.Butterfly:
                     Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
                     break;
                 case WhatToDraw.Map:

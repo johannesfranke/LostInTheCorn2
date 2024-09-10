@@ -136,15 +136,11 @@ namespace LostInTheCorn2.Scenes
             boxPosition = movableBox.Update(MovementManager.Player.PlayerWorld, collidingWithBox);
 
             cam.Update(gameTime, MovementManager.Player, collidingWithWalls);
-            if (finish.Update(CollisionDetection.forwardCollision))
-            {
+            if (finish.Update(CollisionDetection.forwardCollision)) {
                 CaptureLastFrame();
 
                 var restart = new StartScene();
-
-
                 Visuals.SceneManager.AddScene(restart);
-
             }
 
         }
