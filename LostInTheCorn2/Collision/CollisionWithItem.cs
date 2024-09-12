@@ -27,7 +27,7 @@ namespace LostInTheCorn2.Collision
                 Position = new Point((int)pos.Position.Translation.X, (int)pos.Position.Translation.Z);
                 switch (pos.Info)
                 {
-                    case WhatToDraw.Box:
+                    case WhatToDraw.Hat:
                         items[0] = new Rectangle(Position,itemSize);
                         break;
                     case WhatToDraw.Key:

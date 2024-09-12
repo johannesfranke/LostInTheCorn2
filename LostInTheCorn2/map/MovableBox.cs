@@ -28,7 +28,7 @@ namespace LostInTheCorn2.map
                 switch (pos.Info)
                 {
                     
-                    case WhatToDraw.Box:
+                    case WhatToDraw.Hat:
 
                         var x = pos.Position.Translation.X;
                         var y = pos.Position.Translation.Y + 2;
@@ -37,7 +37,7 @@ namespace LostInTheCorn2.map
                         boxPositionInfo = new PositionInfo(worldOfDrawing, 2);
                         boxPosition= new Rectangle((int)pos.Position.Translation.X, (int)pos.Position.Translation.Z, 8, 8);
                         break;
-                    case WhatToDraw.Goal:
+                    case WhatToDraw.ScareCrow:
                         goalPositionInfo = pos;
                         goalPosition = new Rectangle((int)pos.Position.Translation.X-10, (int)pos.Position.Translation.Z-10, 25, 25);
                         break;

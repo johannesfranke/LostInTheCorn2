@@ -29,39 +29,29 @@ public class MapDrawer
         ModelsWithEnumInfo.TryAdd(key, value);
     }
 
-    public void DrawWorld(bool keyPicked, PositionInfo boxPosition)
+    public void DrawWorld(bool keyPicked)
     {
 
         foreach (var pos in Grid.Positions)
         {
             switch (pos.Info)
             {
-                case WhatToDraw.CheckpointScarecrow:
-                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
-                    break;
                 case WhatToDraw.PlaneFloor:
-                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
-                    break;
-                case WhatToDraw.NoClip:
-                    if (!Functional.goalReached)
-                    {
-                        Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(1), pos.Position, Cam);
-                    }
                     Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
                     break;
                 case WhatToDraw.Wall:
                     Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(1), pos.Position, Cam);
                     break;
-                case WhatToDraw.Box:
-                    if (boxPosition == null) { boxPosition = new PositionInfo(pos.Position, 2); }
+                case WhatToDraw.Hat:
                     if (!Functional.goalReached && !Functional.itemPicked)
                     {
-                        Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(7), boxPosition.Position, Cam);
+                        Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(2), pos.Position, Cam);
                     }
                     Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
                     break;
-                case WhatToDraw.Goal:
-                    if (!Functional.goalReached) {
+                case WhatToDraw.ScareCrow:
+                    if (!Functional.goalReached)
+                    {
                         Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(4), pos.Position, Cam);
                     }
                     else
@@ -72,9 +62,6 @@ public class MapDrawer
                         PositionInfo newPosition = new PositionInfo(newPos, 2);
                         Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(3), newPosition.Position, Cam);
                     };
-                    break;
-                case WhatToDraw.Door:
-                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(6), pos.Position, Cam);
                     Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
                     break;
                 case WhatToDraw.Key:
@@ -86,15 +73,32 @@ public class MapDrawer
                     }
                     Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
                     break;
+                case WhatToDraw.Door:
+                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(6), pos.Position, Cam);
+                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
+                    break;
+                case WhatToDraw.CheckpointScarecrow:
+                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
+                    break; //warum gibt es das ?
+                case WhatToDraw.Map:
+                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(8), pos.Position, Cam);
+                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
+                    break;
                 case WhatToDraw.Butterfly:
                     Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
-                    break;
-                case WhatToDraw.Map:
-                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(2), pos.Position, Cam);
-                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
-                    break;
+                    break; //Platzhalter 
                 case WhatToDraw.Finish:
                     Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
+                    break; //Platzhalter
+                case WhatToDraw.DisapearableWall:
+                    if (!Functional.goalReached)
+                    {
+                        Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(1), pos.Position, Cam);
+                    }
+                    else
+                    {
+                        Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
+                    }
                     break;
                 default:
                     break;
