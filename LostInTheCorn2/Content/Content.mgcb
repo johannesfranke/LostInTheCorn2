@@ -22,30 +22,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin AnimatedMil.fbx
-/importer:FbxImporter
-/processor:CpuAnimatedModelProcessor
-/processorParam:VertexBufferType=DynamicWriteOnly
-/processorParam:IndexBufferType=Default
-/processorParam:MaxBones=72
-/processorParam:GenerateKeyframesFrequency=0
-/processorParam:FixRealBoneRoot=False
-/processorParam:ColorKeyColor=0,0,0,0
-/processorParam:ColorKeyEnabled=True
-/processorParam:DefaultEffect=BasicEffect
-/processorParam:GenerateMipmaps=True
-/processorParam:GenerateTangentFrames=False
-/processorParam:PremultiplyTextureAlpha=True
-/processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
-/processorParam:RotationY=0
-/processorParam:RotationZ=0
-/processorParam:Scale=0.03
-/processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=Compressed
-/build:AnimatedMil.fbx
-
 #begin Audio/grass1.mp3
 /importer:Mp3Importer
 /processor:SoundEffectProcessor
@@ -487,6 +463,18 @@
 /processorParam:TextureFormat=Color
 /build:strawhat.png
 
+#begin TafelWood.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:TafelWood.png
+
 #begin TexHolz.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -511,6 +499,18 @@
 /processorParam:TextureFormat=Color
 /build:TexScare.png
 
+#begin TextTafelTex.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:TextTafelTex.png
+
 #begin TextureSkySphere.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -534,4 +534,23 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:TitleScreen.png
+
+#begin Wegbeschreibung.fbx
+/importer:FbxImporter
+/processor:ModelProcessor
+/processorParam:ColorKeyColor=0,0,0,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:DefaultEffect=BasicEffect
+/processorParam:GenerateMipmaps=True
+/processorParam:GenerateTangentFrames=False
+/processorParam:PremultiplyTextureAlpha=True
+/processorParam:PremultiplyVertexColors=True
+/processorParam:ResizeTexturesToPowerOfTwo=False
+/processorParam:RotationX=0
+/processorParam:RotationY=90
+/processorParam:RotationZ=0
+/processorParam:Scale=0.013
+/processorParam:SwapWindingOrder=False
+/processorParam:TextureFormat=Compressed
+/build:Wegbeschreibung.fbx
 

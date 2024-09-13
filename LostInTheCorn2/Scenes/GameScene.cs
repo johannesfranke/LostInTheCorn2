@@ -30,6 +30,7 @@ namespace LostInTheCorn2.Scenes
         private Model SkyBoxModel;
         private Texture2D SkyBoxTexture;
 
+        private PositionInfo boxPosition;
         private CollisionDetection CollisionDetection;
         private CollisionWithItem CollisionDetectionWithItem;
         private MovableBox movableBox;
@@ -84,7 +85,7 @@ namespace LostInTheCorn2.Scenes
             Map.SetModelWithEnum(4, Functional.ContentManager.Load<Model>("scarecrowWithoutHat"));
             Map.SetModelWithEnum(5, Functional.ContentManager.Load<Model>("key"));
             Map.SetModelWithEnum(6, Functional.ContentManager.Load<Model>("Holzbalken"));
-            Map.SetModelWithEnum(8, Functional.ContentManager.Load<Model>("greenCube"));
+            Map.SetModelWithEnum(8, Functional.ContentManager.Load<Model>("Wegbeschreibung"));
 
             SkyBoxModel = Functional.ContentManager.Load<Model>("SkySphere");
             SkyBoxTexture = Functional.ContentManager.Load<Texture2D>("TextureSkySphere");
@@ -167,10 +168,10 @@ namespace LostInTheCorn2.Scenes
             if (finish.Update(CollisionDetection.forwardCollision))
             {
 
-                var creditScene = new CreditScene();
+                //var creditScene = new CreditScene();
 
 
-                Visuals.SceneManager.AddScene(creditScene);
+                //Visuals.SceneManager.AddScene(creditScene);
 
 
             }
