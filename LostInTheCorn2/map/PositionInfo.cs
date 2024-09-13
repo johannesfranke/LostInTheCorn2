@@ -18,13 +18,14 @@ public enum WhatToDraw
 {
     PlaneFloor = 0,
     Wall = 1,
-    Box = 2,
-    Goal = 3,
-    NoClip = 4,
+    Hat = 2,
+    ScareCrow = 3,
+    ScareCrowWithHat = 4,
     Key = 5,
     Door = 6,
     CheckpointScarecrow = 7,
     Map = 8,
     Butterfly = 9,
-    Finish = 10
+    Finish = 10,
+    DisapearableWall = 11,
 }
