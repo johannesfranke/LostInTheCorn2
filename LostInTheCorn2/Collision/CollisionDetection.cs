@@ -1,8 +1,6 @@
 ﻿using LostInTheCorn2.Globals;
 using LostInTheCorn2.map;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace LostInTheCorn2.Collision
@@ -11,7 +9,7 @@ namespace LostInTheCorn2.Collision
     {
         private Grid Grid;
 
-        
+
 
         List<Rectangle> rectangles { get; set; }
         Rectangle noClip;
@@ -44,14 +42,14 @@ namespace LostInTheCorn2.Collision
                         }
                         else rectangles.Add(x);
                         break;
-                    case WhatToDraw.Goal:
+                    case WhatToDraw.ScareCrow:
                         if (rectangles == null)
                         {
                             rectangles = new List<Rectangle> { x };
                         }
                         else rectangles.Add(x);
                         break;
-                    case WhatToDraw.NoClip:
+                    case WhatToDraw.DisapearableWall:
                         noClip = x;
                         noClipReset = x;
                         break;
@@ -72,7 +70,8 @@ namespace LostInTheCorn2.Collision
             {
                 noClip.Location = new Point(4000, 4000);
             }
-            else {
+            else
+            {
                 noClip.Location = noClipReset.Location;
             }
             if (keyUsed)
@@ -81,7 +80,7 @@ namespace LostInTheCorn2.Collision
             }
             else { Door = DoorClosed; }
             //Quadrat bei Koordinaten des Spielers
-            playerBox = new (new Point((int)PlayerWorld.Translation.X, (int)PlayerWorld.Translation.Z), playerBoxSize);
+            playerBox = new(new Point((int)PlayerWorld.Translation.X, (int)PlayerWorld.Translation.Z), playerBoxSize);
 
             //berechne endpunkte der richtungsvektoren des spielers
             //normalisiere und dann skalieren
@@ -103,11 +102,11 @@ namespace LostInTheCorn2.Collision
                 {
                     return 1;
                 }
-                if (backwardCollision.Intersects(y) || backwardCollision.Intersects(noClip)|| backwardCollision.Intersects(Door))
+                if (backwardCollision.Intersects(y) || backwardCollision.Intersects(noClip) || backwardCollision.Intersects(Door))
                 {
                     return 2;
                 }
-                
+
             }
             return 0;
         }
@@ -121,7 +120,7 @@ namespace LostInTheCorn2.Collision
             {
                 Visuals.SpriteBatch.Draw(Functional.whiteRectangle, new Rectangle(x.Location + Offset, RectangleSize), Color.White);
             }
-            
+
 
             Visuals.SpriteBatch.Draw(Functional.whiteRectangle, new Rectangle(DoorClosed.Location + Offset, DoorClosed.Size), Color.Yellow);
             Visuals.SpriteBatch.Draw(Functional.whiteRectangle, new Rectangle(playerBox.Location + Offset, playerBoxSize), Color.White);

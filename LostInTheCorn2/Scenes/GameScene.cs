@@ -8,7 +8,6 @@ using LostInTheCorn2.UIClasses;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Aether.Animation;
 
 namespace LostInTheCorn2.Scenes
 {
@@ -31,10 +30,10 @@ namespace LostInTheCorn2.Scenes
         private Model SkyBoxModel;
         private Texture2D SkyBoxTexture;
 
+        private PositionInfo boxPosition;
         private CollisionDetection CollisionDetection;
         private CollisionWithItem CollisionDetectionWithItem;
         private MovableBox movableBox;
-        private PositionInfo boxPosition;
         private Door door;
         private Butterfly butterfly;
         private Finish finish;
@@ -81,13 +80,13 @@ namespace LostInTheCorn2.Scenes
             Map = new MapDrawer(cam, startMapPos, sizeCube);
             Map.SetModelWithEnum(0, Functional.ContentManager.Load<Model>("FloorTile"));
             Map.SetModelWithEnum(1, Functional.ContentManager.Load<Model>("CornTile"));
-            Map.SetModelWithEnum(2, Functional.ContentManager.Load<Model>("greenCube"));
+            Map.SetModelWithEnum(2, Functional.ContentManager.Load<Model>("Hat"));
             Map.SetModelWithEnum(3, Functional.ContentManager.Load<Model>("scarecrowWithHat"));
             Map.SetModelWithEnum(4, Functional.ContentManager.Load<Model>("scarecrowWithoutHat"));
-            //Map.SetModelWithEnum(5, Functional.ContentManager.Load<Model>("key"));
+            Map.SetModelWithEnum(5, Functional.ContentManager.Load<Model>("key"));
             Map.SetModelWithEnum(6, Functional.ContentManager.Load<Model>("Holzbalken"));
-            Map.SetModelWithEnum(7, Functional.ContentManager.Load<Model>("Hat"));
-            Map.SetModelWithEnum(5, Functional.ContentManager.Load<Model>("greenCube"));
+            Map.SetModelWithEnum(8, Functional.ContentManager.Load<Model>("Wegbeschreibung"));
+
             SkyBoxModel = Functional.ContentManager.Load<Model>("SkySphere");
             SkyBoxTexture = Functional.ContentManager.Load<Texture2D>("TextureSkySphere");
             CollisionDetection = new CollisionDetection(startMapPos, sizeCube);
@@ -158,7 +157,7 @@ namespace LostInTheCorn2.Scenes
             PopUpManager.Update(collidingWithKey, collidingWithBox, collidingWithCrow, collidingWithMap);
             //Kamera und Spieler sollen geupdatet werden
             MovementManager.Update(gameTime, collidingWithWalls);
-            
+
 
 
             //berechne neue boxPosition, TODO -> ein zentrales Grid einführen und in der GameScene behandeln
@@ -166,12 +165,13 @@ namespace LostInTheCorn2.Scenes
             boxPosition = movableBox.Update(MovementManager.Player.PlayerWorld, collidingWithBox);
 
             cam.Update(gameTime, MovementManager.Player, collidingWithWalls);
-            if (finish.Update(CollisionDetection.forwardCollision)) {
+            if (finish.Update(CollisionDetection.forwardCollision))
+            {
 
-                var creditScene = new CreditScene();
+                //var creditScene = new CreditScene();
 
 
-                Visuals.SceneManager.AddScene(creditScene);
+                //Visuals.SceneManager.AddScene(creditScene);
 
 
             }
@@ -187,14 +187,14 @@ namespace LostInTheCorn2.Scenes
             {
                 if (!isWalking)
                 {
-                    isWalking = true;  
+                    isWalking = true;
                 }
             }
             else
             {
-                if (initialWalkingTimer <= 0 && isWalking)  
+                if (initialWalkingTimer <= 0 && isWalking)
                 {
-                    isWalking = false;  
+                    isWalking = false;
                 }
             }
 
@@ -210,7 +210,7 @@ namespace LostInTheCorn2.Scenes
             // Verändert die Transparenz der 3D Modelle
             Visuals.GraphicsDevice.BlendState = BlendState.AlphaBlend;
             Visuals.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
-            Map.DrawWorld(Functional.keyPicked, boxPosition);
+            Map.DrawWorld(Functional.keyPicked);
             //Drawable.drawWithEffectModel(penguin, MovementManager.Player.PlayerWorld, cam);
             drawAnimatedModel(animatedMil);
             Drawable.drawWithoutModel(SkyBoxModel, MovementManager.SkySphere.GlobeWorld, cam);
