@@ -43,7 +43,7 @@ namespace LostInTheCorn2.Scenes
 
         private PopUpManager PopUpManager;
 
-        private float initialWalkingTimer = 0.3f;
+        private float initialWalkingTimer = 1f;
 
         int collidingWithWalls = 0;
 

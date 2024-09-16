@@ -82,7 +82,6 @@ namespace LostInTheCorn
             Visuals.preferredBackBufferWidth = Visuals.GraphicsDeviceManager.PreferredBackBufferWidth;
             Visuals.SetGameWindow(Window);
             Functional.SetButtonActions(buttonActions);
-            Functional.SetMcTimer(new McTimer(0));
             Functional.SetWhiteRectangle();
             Audio.SetSoundManager(Functional.ContentManager);
             Audio.SetSongManager(Functional.ContentManager);
@@ -100,7 +99,6 @@ namespace LostInTheCorn
 
             Functional.KeyboardHelper.Update();
             Functional.MouseHelper.Update();
-            Functional.McTimer.UpdateTimer();
             Visuals.SceneManager.GetCurrentScene().Update(gameTime);
             Functional.MouseHelper.LockMouseToWindow(Visuals.GraphicsDeviceManager.PreferredBackBufferWidth, Visuals.GraphicsDeviceManager.PreferredBackBufferHeight);
             Functional.MouseHelper.UpdateOld();

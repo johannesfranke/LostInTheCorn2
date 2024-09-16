@@ -28,7 +28,6 @@ public class Functional
     public static bool goalReached;
     public static bool doorInteraction;
     public static bool butterflyInteraction;
-    public static McTimer McTimer { get; private set; }
     public static ButtonActions ButtonActions { get; private set; }
 
 
@@ -46,10 +45,6 @@ public class Functional
     public static void SetMouseHelper(MouseHelper mouseHelper)
     {
         MouseHelper = mouseHelper;
-    }
-    public static void SetMcTimer(McTimer mcTimer)
-    {
-        McTimer = mcTimer;
     }
     public static void SetFont(SpriteFont font)
     {

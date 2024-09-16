@@ -108,7 +108,7 @@ namespace LostInTheCorn2.Scenes
 
             buttons.Add(new Button("MaisButton", buttonPosition + new Vector2(0, 4 * (buttonSize.Y + buttonSpacing)), buttonSize, currentFont, "Help", () =>
             {
-                Visuals.SceneManager.AddScene(new CreditScene());
+                Visuals.SceneManager.AddScene(new HelpScene());
             }));
 
             Vector2 exitButtonSize = new Vector2(screenWidth * 0.15f, screenHeight * 0.08f); // Exit-Button etwas kleiner
