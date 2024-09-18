@@ -1,10 +1,6 @@
 ﻿#region Includes
 using LostInTheCorn2.Globals;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 #endregion
@@ -78,7 +74,8 @@ namespace LostInTheCorn2
             oldMousePos = GetScreenPos(oldMouse);
         }
 
-        public virtual float GetDistanceFromClick() { 
+        public virtual float GetDistanceFromClick()
+        {
             return MathExtension.GetDistance(newMousePos, firstMousePos);
         }
 
@@ -99,8 +96,9 @@ namespace LostInTheCorn2
             return tempVec;
         }
 
-        public virtual bool LeftClick() { 
-           
+        public virtual bool LeftClick()
+        {
+
             if (newMouse.LeftButton == ButtonState.Pressed && oldMouse.LeftButton != ButtonState.Pressed && newMouse.Position.X >= 0 && newMouse.Position.X <= Visuals.screenWidth && newMouse.Position.Y >= 0 && newMouse.Position.Y <= Visuals.screenHeight)
             {
                 return true;

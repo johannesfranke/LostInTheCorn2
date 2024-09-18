@@ -48,7 +48,7 @@ namespace LostInTheCorn2.Scenes
 
         //Animation
         Model animatedMil;
-        Animations _animations;
+        //Animations _animations;
 
         private bool isWalking = false;
 
@@ -109,9 +109,9 @@ namespace LostInTheCorn2.Scenes
             //Animation
             animatedMil = Functional.ContentManager.Load<Model>("AnimatedMil");
 
-            _animations = animatedMil.GetAnimations(); // Animation Data are the same between the two models
-            var clip = _animations.Clips["Armature|Armature|Armature|Armature|walking_man|baselayer"];
-            _animations.SetClip(clip);
+            //_animations = animatedMil.GetAnimations(); // Animation Data are the same between the two models
+            //var clip = _animations.Clips["Armature|Armature|Armature|Armature|walking_man|baselayer"];
+            //_animations.SetClip(clip);
 
             isWalking = true;
         }
@@ -176,12 +176,12 @@ namespace LostInTheCorn2.Scenes
 
             }
 
-            float animationSpeedFactor = 0.8f;
+            //float animationSpeedFactor = 0.8f;
 
-            if (isWalking)
-            {
-                _animations.Update(gameTime.ElapsedGameTime * animationSpeedFactor, true, Matrix.Identity);
-            }
+            //if (isWalking)
+            //{
+            //    _animations.Update(gameTime.ElapsedGameTime * animationSpeedFactor, true, Matrix.Identity);
+            //}
 
             if (Functional.KeyboardHelper.IsKeyHeld(Keys.W))
             {
@@ -265,7 +265,7 @@ namespace LostInTheCorn2.Scenes
 
                     if (isWalking && collidingWithWalls != 1)
                     {
-                        part.UpdateVertices(_animations.AnimationTransforms); // Apply animation only when walking
+                        //part.UpdateVertices(_animations.AnimationTransforms); // Apply animation only when walking
                     }
                 }
                 mesh.Draw();
