@@ -1,23 +1,18 @@
 ﻿using LostInTheCorn;
+using LostInTheCorn2.Globals;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LostInTheCorn2.Globals;
-using LostInTheCorn2.UIClasses;
 
 namespace LostInTheCorn2.Scenes
 {
     internal class SettingsScene : IScene
     {
-        private RenderTarget2D gameRenderTarget; 
+        private RenderTarget2D gameRenderTarget;
         private List<Button> buttons;
-        private SliderButton musicSliderButton; 
+        private SliderButton musicSliderButton;
         private SliderButton audioSliderButton;
         Vector2 _mousePosition;
 
@@ -45,7 +40,8 @@ namespace LostInTheCorn2.Scenes
             if (Visuals.GraphicsDeviceManager.IsFullScreen == true)
             {
                 currentFont = "MenuFont26";
-            }else
+            }
+            else
             {
                 currentFont = "MenuFont12";
             }
@@ -80,11 +76,12 @@ namespace LostInTheCorn2.Scenes
 
             Vector2 buttonPosition = new Vector2(startXPosition, startYPosition);
 
-            Vector2 audioButtonPosition = new Vector2(centerX - (buttonSize.X / 2), buttonPosition.Y); 
+            Vector2 audioButtonPosition = new Vector2(centerX - (buttonSize.X / 2), buttonPosition.Y);
 
             buttons.Clear();
 
-            buttons.Add(new Button("MaisButton", buttonPosition, buttonSize, currentFont, "Resume", () => {
+            buttons.Add(new Button("MaisButton", buttonPosition, buttonSize, currentFont, "Resume", () =>
+            {
                 Mouse.SetPosition((int)_mousePosition.X, (int)_mousePosition.Y);
                 Visuals.SceneManager.RemoveScene();
                 Mouse.SetPosition((int)_mousePosition.X, (int)_mousePosition.Y);
@@ -113,7 +110,7 @@ namespace LostInTheCorn2.Scenes
 
             Vector2 exitButtonSize = new Vector2(screenWidth * 0.15f, screenHeight * 0.08f); // Exit-Button etwas kleiner
 
-            buttons.Add(new Button("MaisButton", buttonPosition + new Vector2(0, 5 * (buttonSize.Y + buttonSpacing)), exitButtonSize, currentFont, "Exit", () =>
+            buttons.Add(new Button("MaisButton", buttonPosition + new Vector2(0, 5 * (buttonSize.Y + buttonSpacing)), exitButtonSize, currentFont, "Quit", () =>
             {
                 Game1.Instance.Exit();
             }));
@@ -137,7 +134,7 @@ namespace LostInTheCorn2.Scenes
             {
                 button.Update(Vector2.Zero);
             }
-            musicSliderButton.Update(new Vector2(0f,0f));
+            musicSliderButton.Update(new Vector2(0f, 0f));
             audioSliderButton.Update(new Vector2(0f, 0f));
 
 
@@ -165,7 +162,7 @@ namespace LostInTheCorn2.Scenes
         private void DrawPauseMenu(SpriteBatch spriteBatch)
         {
 
-            if(Visuals.GraphicsDeviceManager.IsFullScreen == true)
+            if (Visuals.GraphicsDeviceManager.IsFullScreen == true)
             {
                 currentFont = "MenuFont26";
             }

@@ -54,7 +54,7 @@ internal class Grid
 
 
                 var positionInfo = new PositionInfo(worldOfDrawing, field);
-                if (field == 5)
+                if (field == 5 || field == 9)
                 {
                     positionInfo.PositionVector = positionVector;
                 }

@@ -85,6 +85,9 @@ public class MapDrawer
                     Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
                     break;
                 case WhatToDraw.Butterfly:
+                    Vector3 newPo = pos.PositionVector + new Vector3(0, 2, 0);
+                    Matrix matrix = Matrix.CreateWorld(newPo, Vector3.Forward, Vector3.Up);
+                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(9), matrix, Cam);
                     Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
                     break; //Platzhalter 
                 case WhatToDraw.Finish:
