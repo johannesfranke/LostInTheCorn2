@@ -48,7 +48,7 @@ namespace LostInTheCorn2.Scenes
 
         //Animation
         Model animatedMil;
-        Animations _animations;
+        //Animations _animations;
 
         private bool isWalking = false;
 
@@ -86,6 +86,7 @@ namespace LostInTheCorn2.Scenes
             Map.SetModelWithEnum(5, Functional.ContentManager.Load<Model>("key"));
             Map.SetModelWithEnum(6, Functional.ContentManager.Load<Model>("Holzbalken"));
             Map.SetModelWithEnum(8, Functional.ContentManager.Load<Model>("Wegbeschreibung"));
+            Map.SetModelWithEnum(9, Functional.ContentManager.Load<Model>("Butterfly"));
 
             SkyBoxModel = Functional.ContentManager.Load<Model>("SkySphere");
             SkyBoxTexture = Functional.ContentManager.Load<Texture2D>("TextureSkySphere");
@@ -107,13 +108,13 @@ namespace LostInTheCorn2.Scenes
             Audio.SongManager.PlaySong("Audio/lofi_orchestra", true);
 
             //Animation
-            animatedMil = Functional.ContentManager.Load<Model>("AnimatedMil");
+            //animatedMil = Functional.ContentManager.Load<Model>("AnimatedMil");
 
-            _animations = animatedMil.GetAnimations(); // Animation Data are the same between the two models
-            var clip = _animations.Clips["Armature|Armature|Armature|Armature|walking_man|baselayer"];
-            _animations.SetClip(clip);
+            //_animations = animatedMil.GetAnimations(); // Animation Data are the same between the two models
+            //var clip = _animations.Clips["Armature|Armature|Armature|Armature|walking_man|baselayer"];
+            //_animations.SetClip(clip);
 
-            isWalking = true;
+            //isWalking = true;
         }
 
         public void Update(GameTime gameTime)
@@ -176,12 +177,12 @@ namespace LostInTheCorn2.Scenes
 
             }
 
-            float animationSpeedFactor = 0.8f;
+            //float animationSpeedFactor = 0.8f;
 
-            if (isWalking)
-            {
-                _animations.Update(gameTime.ElapsedGameTime * animationSpeedFactor, true, Matrix.Identity);
-            }
+            //if (isWalking)
+            //{
+            //    _animations.Update(gameTime.ElapsedGameTime * animationSpeedFactor, true, Matrix.Identity);
+            //}
 
             if (Functional.KeyboardHelper.IsKeyHeld(Keys.W))
             {
@@ -212,7 +213,7 @@ namespace LostInTheCorn2.Scenes
             Visuals.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
             Map.DrawWorld(Functional.keyPicked);
             //Drawable.drawWithEffectModel(penguin, MovementManager.Player.PlayerWorld, cam);
-            drawAnimatedModel(animatedMil);
+            //drawAnimatedModel(animatedMil);
             Drawable.drawWithoutModel(SkyBoxModel, MovementManager.SkySphere.GlobeWorld, cam);
             //CollisionDetection.Draw();
             //movableBox.Draw();
@@ -265,7 +266,7 @@ namespace LostInTheCorn2.Scenes
 
                     if (isWalking && collidingWithWalls != 1)
                     {
-                        part.UpdateVertices(_animations.AnimationTransforms); // Apply animation only when walking
+                        //part.UpdateVertices(_animations.AnimationTransforms); // Apply animation only when walking
                     }
                 }
                 mesh.Draw();
