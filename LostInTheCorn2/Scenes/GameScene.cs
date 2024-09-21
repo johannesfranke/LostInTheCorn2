@@ -221,7 +221,7 @@ namespace LostInTheCorn2.Scenes
 
             if (isWalking)
             {
-                milAnimation.Update(gameTime.ElapsedGameTime * animationSpeedFactor, true, Matrix.Identity);
+                milAnimation.Update(gameTime.ElapsedGameTime, true, Matrix.Identity);
             }
 
             if (Functional.KeyboardHelper.IsKeyHeld(Keys.W))
@@ -261,7 +261,7 @@ namespace LostInTheCorn2.Scenes
             Drawable.drawWithoutModel(MillieHairAndBagfbx, MovementManager.Player.PlayerWorld, cam);
 
             Drawable.drawWithoutModel(SkyBoxModel, MovementManager.SkySphere.GlobeWorld, cam);
-            CollisionDetection.Draw();
+            //CollisionDetection.Draw();
             //movableBox.Draw();
             PopUpManager.Draw();
         }
