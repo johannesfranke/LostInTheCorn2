@@ -8,6 +8,8 @@ using LostInTheCorn2.UIClasses;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Aether.Animation;
+using System;
 
 namespace LostInTheCorn2.Scenes
 {
@@ -48,9 +50,18 @@ namespace LostInTheCorn2.Scenes
 
         //Animation
         Model animatedMil;
+
+        Model MillieCorpus;
+        Model MillieHairAndBagfbx;
+        Model MillieLimbs;
+
         Animations _animations;
+        Animations milAnimation;
 
         private bool isWalking = false;
+
+        private MouseState mState;
+
 
         public GameScene()
         {
@@ -67,7 +78,7 @@ namespace LostInTheCorn2.Scenes
             initForward = new Vector3(1, 0, 0);
             camInitPosition = new Vector3(10, 1, 0);
 
-            MovementManager = new MovementAroundPlayerManager(new Vector3(180, 0, 200), initForward);
+            MovementManager = new MovementAroundPlayerManager(new Vector3(180, 5, 200), initForward);
             penguin = Functional.ContentManager.Load<Model>("PenguinTextured");
 
             cam = new Camera();
@@ -107,11 +118,21 @@ namespace LostInTheCorn2.Scenes
             Audio.SongManager.PlaySong("Audio/lofi_orchestra", true);
 
             //Animation
-            animatedMil = Functional.ContentManager.Load<Model>("AnimatedMil");
+            animatedMil = Functional.ContentManager.Load<Model>("Millie");
 
-            _animations = animatedMil.GetAnimations(); // Animation Data are the same between the two models
-            var clip = _animations.Clips["Armature|Armature|Armature|Armature|walking_man|baselayer"];
-            _animations.SetClip(clip);
+            MillieCorpus = Functional.ContentManager.Load<Model>("MillieCorpus");
+            MillieHairAndBagfbx = Functional.ContentManager.Load<Model>("MillieHairAndBagfbx");
+            MillieLimbs = Functional.ContentManager.Load<Model>("MillieLimbs");
+
+            //_animations = animatedMil.GetAnimations(); // Animation Data are the same between the two models
+            //var clip = _animations.Clips["Armature|Armature|Armature|Armature|walking_man|baselayer"];
+
+            milAnimation = MillieLimbs.GetAnimations();
+            var clipMil = milAnimation.Clips["Armature|ArmatureAction"];
+
+            //_animations.SetClip(clip);
+            
+            milAnimation.SetClip(clipMil);
 
             isWalking = true;
         }
@@ -156,22 +177,41 @@ namespace LostInTheCorn2.Scenes
             collidingWithWalls = CollisionDetection.Update(MovementManager.Player.PlayerWorld, Functional.goalReached, Functional.keyUsed);
             PopUpManager.Update(collidingWithKey, collidingWithBox, collidingWithCrow, collidingWithMap);
             //Kamera und Spieler sollen geupdatet werden
+
+
+            //Player and Cam Rotation
+
+            int windowCenterX = Visuals.GraphicsDevice.Viewport.Width / 2;
+            int windowCenterY = Visuals.GraphicsDevice.Viewport.Height / 2;
+
+            MouseState mouseState = Mouse.GetState(Visuals.GameWindow);
+            Vector2 mouseDelta = new Vector2(mouseState.X - windowCenterX, mouseState.Y - windowCenterY);
+
+            if (mouseDelta.X != 0f)
+            {
+                MovementManager.Player.RotateLeftOrRight(gameTime, mouseDelta.X, 45f);
+                cam.RotateLeftOrRight(gameTime, mouseDelta.Y, MovementManager.Player);
+
+            }
+
+            Mouse.SetPosition(windowCenterX, windowCenterY);
+
+            cam.Update(gameTime, MovementManager.Player, collidingWithWalls);
+
             MovementManager.Update(gameTime, collidingWithWalls);
-
-
 
             //berechne neue boxPosition, TODO -> ein zentrales Grid einführen und in der GameScene behandeln
             //Stand jetzt: in jeder Klasse wird neues seperates Grid aufgesetzt
             boxPosition = movableBox.Update(MovementManager.Player.PlayerWorld, collidingWithBox);
 
-            cam.Update(gameTime, MovementManager.Player, collidingWithWalls);
+
             if (finish.Update(CollisionDetection.forwardCollision))
             {
 
-                //var creditScene = new CreditScene();
+                var creditScene = new CreditScene();
 
 
-                //Visuals.SceneManager.AddScene(creditScene);
+                Visuals.SceneManager.AddScene(creditScene);
 
 
             }
@@ -180,7 +220,7 @@ namespace LostInTheCorn2.Scenes
 
             if (isWalking)
             {
-                _animations.Update(gameTime.ElapsedGameTime * animationSpeedFactor, true, Matrix.Identity);
+                milAnimation.Update(gameTime.ElapsedGameTime * animationSpeedFactor, true, Matrix.Identity);
             }
 
             if (Functional.KeyboardHelper.IsKeyHeld(Keys.W))
@@ -212,9 +252,15 @@ namespace LostInTheCorn2.Scenes
             Visuals.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
             Map.DrawWorld(Functional.keyPicked);
             //Drawable.drawWithEffectModel(penguin, MovementManager.Player.PlayerWorld, cam);
-            drawAnimatedModel(animatedMil);
+            //drawAnimatedModel(animatedMil);
+
+            drawAnimatedModel(MillieLimbs);
+
+            Drawable.drawWithoutModel(MillieCorpus, MovementManager.Player.PlayerWorld, cam);
+            Drawable.drawWithoutModel(MillieHairAndBagfbx, MovementManager.Player.PlayerWorld, cam);
+
             Drawable.drawWithoutModel(SkyBoxModel, MovementManager.SkySphere.GlobeWorld, cam);
-            //CollisionDetection.Draw();
+            CollisionDetection.Draw();
             //movableBox.Draw();
             PopUpManager.Draw();
         }
@@ -255,17 +301,21 @@ namespace LostInTheCorn2.Scenes
             m.CopyAbsoluteBoneTransformsTo(transforms);
 
             Matrix world = MovementManager.Player.PlayerWorld;
+            Matrix translation = Matrix.CreateTranslation(0, 0, 0);
+            Matrix adjustedPos = world * translation;
+
+            //Idee:  * Forward, genau wie die Camera 
 
             foreach (ModelMesh mesh in m.Meshes)
             {
                 foreach (var part in mesh.MeshParts)
                 {
                     ((BasicEffect)part.Effect).SpecularColor = Vector3.Zero;
-                    ConfigureEffectMatrices((IEffectMatrices)part.Effect, world, cam.View, cam.Projection);
+                    ConfigureEffectMatrices((IEffectMatrices)part.Effect, adjustedPos, cam.View, cam.Projection);
 
                     if (isWalking && collidingWithWalls != 1)
                     {
-                        part.UpdateVertices(_animations.AnimationTransforms); // Apply animation only when walking
+                        part.UpdateVertices(milAnimation.AnimationTransforms); 
                     }
                 }
                 mesh.Draw();

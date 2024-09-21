@@ -100,9 +100,16 @@ namespace LostInTheCorn
             Functional.KeyboardHelper.Update();
             Functional.MouseHelper.Update();
             Visuals.SceneManager.GetCurrentScene().Update(gameTime);
-            Functional.MouseHelper.LockMouseToWindow(Visuals.GraphicsDeviceManager.PreferredBackBufferWidth, Visuals.GraphicsDeviceManager.PreferredBackBufferHeight);
+            //Functional.MouseHelper.LockMouseToWindow(Visuals.GraphicsDeviceManager.PreferredBackBufferWidth, Visuals.GraphicsDeviceManager.PreferredBackBufferHeight);
             Functional.MouseHelper.UpdateOld();
 
+            if(Functional.KeyboardHelper.IsKeyPressedOnce(Keys.CapsLock))
+            {
+                Visuals.GraphicsDeviceManager.PreferredBackBufferHeight = Visuals.screenHeight;
+                Visuals.GraphicsDeviceManager.PreferredBackBufferWidth = Visuals.screenWidth;
+                Visuals.GraphicsDeviceManager.IsFullScreen = false;
+                Visuals.GraphicsDeviceManager.ApplyChanges();
+            }
 
 
             base.Update(gameTime);
