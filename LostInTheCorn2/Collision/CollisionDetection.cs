@@ -49,6 +49,21 @@ namespace LostInTheCorn2.Collision
                         }
                         else rectangles.Add(x);
                         break;
+                    case WhatToDraw.Map:
+                        if (rectangles == null)
+                        {
+                            rectangles = new List<Rectangle> { x };
+                        }
+                        else rectangles.Add(x);
+                        break;
+                    case WhatToDraw.Butterfly:
+                        if (rectangles == null)
+                        {
+                            x = new Rectangle(x.Location, x.Size- new Point(4,4));
+                            rectangles = new List<Rectangle> {x  };
+                        }
+                        else rectangles.Add(x);
+                        break;
                     case WhatToDraw.DisapearableWall:
                         noClip = x;
                         noClipReset = x;

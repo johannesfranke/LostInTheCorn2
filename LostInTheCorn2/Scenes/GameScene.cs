@@ -97,6 +97,7 @@ namespace LostInTheCorn2.Scenes
             Map.SetModelWithEnum(5, Functional.ContentManager.Load<Model>("key"));
             Map.SetModelWithEnum(6, Functional.ContentManager.Load<Model>("Holzbalken"));
             Map.SetModelWithEnum(8, Functional.ContentManager.Load<Model>("Wegbeschreibung"));
+            Map.SetModelWithEnum(9, Functional.ContentManager.Load<Model>("Butterfly"));
 
             SkyBoxModel = Functional.ContentManager.Load<Model>("SkySphere");
             SkyBoxTexture = Functional.ContentManager.Load<Texture2D>("TextureSkySphere");
@@ -216,7 +217,7 @@ namespace LostInTheCorn2.Scenes
 
             }
 
-            float animationSpeedFactor = 0.8f;
+            //float animationSpeedFactor = 0.8f;
 
             if (isWalking)
             {
