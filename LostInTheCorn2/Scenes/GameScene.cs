@@ -62,6 +62,8 @@ namespace LostInTheCorn2.Scenes
 
         private MouseState mState;
 
+        private int previousCollidingWithWalls = 0;
+
 
         public GameScene()
         {
@@ -113,6 +115,7 @@ namespace LostInTheCorn2.Scenes
             Audio.SoundManager.LoadSound("Audio/grass1");
             Audio.SoundManager.LoadSound("Audio/grass1edited");
             Audio.SoundManager.LoadSound("Audio/ui_click");
+            Audio.SoundManager.LoadSound("Audio/bushRustle");
 
             //Song
             Audio.SongManager.LoadSong("Audio/lofi_orchestra");
@@ -151,6 +154,8 @@ namespace LostInTheCorn2.Scenes
                     isWalking = false;
                 }
             }
+
+           
 
             if (Functional.KeyboardHelper.IsKeyPressedOnce(Keys.Escape))
             {
@@ -216,6 +221,14 @@ namespace LostInTheCorn2.Scenes
 
 
             }
+
+            if (previousCollidingWithWalls == 0 && collidingWithWalls == 1)
+            {
+                // Play the bushRastel sound
+                Audio.SoundManager.PlaySound("Audio/bushRustle");
+            }
+
+            previousCollidingWithWalls = collidingWithWalls;
 
             //float animationSpeedFactor = 0.8f;
 
