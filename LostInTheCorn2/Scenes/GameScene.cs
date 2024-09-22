@@ -267,12 +267,12 @@ namespace LostInTheCorn2.Scenes
 
             drawAnimatedModel(MillieLimbs);
 
-            Matrix yOffset = Matrix.CreateTranslation(0, 1.5f, 0); 
+            Matrix yOffset = Matrix.CreateTranslation(0, -2.45f, 0); 
 
             Matrix corpusWorld = MovementManager.Player.PlayerWorld * yOffset;
             Drawable.drawWithoutModel(MillieCorpus, corpusWorld, cam);
 
-            Matrix hairAndBagWorld = MovementManager.Player.PlayerWorld * Matrix.CreateTranslation(0, 1.25f, 0);
+            Matrix hairAndBagWorld = MovementManager.Player.PlayerWorld * Matrix.CreateTranslation(0, -2.7f, 0);
             Drawable.drawWithoutModel(MillieHairAndBagfbx, hairAndBagWorld, cam);
 
             Drawable.drawWithoutModel(SkyBoxModel, MovementManager.SkySphere.GlobeWorld, cam);
@@ -323,7 +323,7 @@ namespace LostInTheCorn2.Scenes
 
             Vector3 translationOffset = orthogonalForward * 0.4f;
 
-            Matrix translation = Matrix.CreateTranslation(translationOffset);
+            Matrix translation = Matrix.CreateTranslation(translationOffset - new Vector3(0, 4f, 0));
 
             Matrix adjustedPos = world * translation;
 
