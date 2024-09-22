@@ -17,7 +17,7 @@ namespace LostInTheCorn2.Scenes
 
         // Fade-in 
         private float fadeAlpha;
-        private const float fadeSpeed = 0.01f; 
+        private const float fadeSpeed = 0.1f; 
 
         public CreditScene()
         {
@@ -105,6 +105,9 @@ namespace LostInTheCorn2.Scenes
 
         public void Draw()
         {
+
+            Visuals.GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.LightGray, 1.0f, 0);
+
             Visuals.SpriteBatch.Begin();
 
             float scaleX = (float)Visuals.GraphicsDevice.Viewport.Width / helpImage.Width;
