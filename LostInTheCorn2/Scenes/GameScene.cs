@@ -258,20 +258,22 @@ namespace LostInTheCorn2.Scenes
 
             Visuals.GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.MediumBlue, 1.0f, 0);
 
-            //depth buffer configuration
             Visuals.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
 
-            // Verändert die Transparenz der 3D Modelle
             Visuals.GraphicsDevice.BlendState = BlendState.AlphaBlend;
             Visuals.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
             Map.DrawWorld(Functional.keyPicked);
-            //Drawable.drawWithEffectModel(penguin, MovementManager.Player.PlayerWorld, cam);
             //drawAnimatedModel(animatedMil);
 
             drawAnimatedModel(MillieLimbs);
 
-            Drawable.drawWithoutModel(MillieCorpus, MovementManager.Player.PlayerWorld, cam);
-            Drawable.drawWithoutModel(MillieHairAndBagfbx, MovementManager.Player.PlayerWorld, cam);
+            Matrix yOffset = Matrix.CreateTranslation(0, 1.5f, 0); 
+
+            Matrix corpusWorld = MovementManager.Player.PlayerWorld * yOffset;
+            Drawable.drawWithoutModel(MillieCorpus, corpusWorld, cam);
+
+            Matrix hairAndBagWorld = MovementManager.Player.PlayerWorld * Matrix.CreateTranslation(0, 1.25f, 0);
+            Drawable.drawWithoutModel(MillieHairAndBagfbx, hairAndBagWorld, cam);
 
             Drawable.drawWithoutModel(SkyBoxModel, MovementManager.SkySphere.GlobeWorld, cam);
             //CollisionDetection.Draw();
@@ -314,11 +316,16 @@ namespace LostInTheCorn2.Scenes
             Matrix[] transforms = new Matrix[m.Bones.Count];
             m.CopyAbsoluteBoneTransformsTo(transforms);
 
+            Vector3 playerForward = MovementManager.Player.PlayerForward;
             Matrix world = MovementManager.Player.PlayerWorld;
-            Matrix translation = Matrix.CreateTranslation(0, 0, 0);
-            Matrix adjustedPos = world * translation;
 
-            //Idee:  * Forward, genau wie die Camera 
+            Vector3 orthogonalForward = new Vector3(playerForward.Z, 0, -playerForward.X);
+
+            Vector3 translationOffset = orthogonalForward * 0.4f;
+
+            Matrix translation = Matrix.CreateTranslation(translationOffset);
+
+            Matrix adjustedPos = world * translation;
 
             foreach (ModelMesh mesh in m.Meshes)
             {

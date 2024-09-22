@@ -382,7 +382,7 @@
 /processorParam:RotationX=0
 /processorParam:RotationY=180
 /processorParam:RotationZ=0
-/processorParam:Scale=0.008
+/processorParam:Scale=0.007
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:MillieCorpus.fbx
@@ -401,7 +401,7 @@
 /processorParam:RotationX=0
 /processorParam:RotationY=180
 /processorParam:RotationZ=0
-/processorParam:Scale=0.008
+/processorParam:Scale=0.007
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:MillieHairAndBagfbx.fbx
@@ -425,7 +425,7 @@
 /processorParam:RotationX=0
 /processorParam:RotationY=180
 /processorParam:RotationZ=0
-/processorParam:Scale=0.016
+/processorParam:Scale=0.008
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:MillieLimbs.fbx

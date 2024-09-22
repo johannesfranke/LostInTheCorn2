@@ -141,13 +141,6 @@ namespace LostInTheCorn
             //Bewegung der Maus
             Vector2 diff = mouseState.Position.ToVector2() - mState.Position.ToVector2();
 
-            // if(mouse bewegt sich)
-            // drehe in die Richtung der Maus...
-            //if (diff.X != 0f)
-            //{
-            //    //&& mouseState.LeftButton == ButtonState.Pressed, falls sich die Kamera nicht ständig bewegen soll
-            //    RotateLeftOrRight(gameTime, diff.X, player);
-            //}
 
             mState = mouseState;
             kbState = keyboardState;
@@ -172,7 +165,7 @@ namespace LostInTheCorn
 
             //Rotation um den Spieler
             Forward = player.PlayerForward + new Vector3(0, -0.5f, 0);
-            CamPosition = (player.PlayerPosition - (player.PlayerForward * 7)) + new Vector3(0, 4, 0);
+            CamPosition = (player.PlayerPosition - (player.PlayerForward * 7)) + new Vector3(0, 5, 0);
 
         }
         public void SaveMousePosition()
