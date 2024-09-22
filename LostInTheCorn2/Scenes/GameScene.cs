@@ -90,7 +90,7 @@ namespace LostInTheCorn2.Scenes
 
             startMapPos = new Vector3(4, 0, 0);
             sizeCube = 13.18f; //weiß nicht was die actual größe von dem Cube ist (Größe ist geraten, lol)
-            Map = new MapDrawer(cam, startMapPos, sizeCube);
+            Map = new MapDrawer(cam, startMapPos, sizeCube, MovementManager);
             Map.SetModelWithEnum(0, Functional.ContentManager.Load<Model>("FloorTile"));
             Map.SetModelWithEnum(1, Functional.ContentManager.Load<Model>("CornTile"));
             Map.SetModelWithEnum(2, Functional.ContentManager.Load<Model>("Hat"));
@@ -283,7 +283,7 @@ namespace LostInTheCorn2.Scenes
 
         //Methode um das letzte Standbild zu speichern
         private void CaptureLastFrame()
-        {
+        {  
             if (lastFrameRenderTarget == null)
             {
                 var pp = Visuals.GraphicsDevice.PresentationParameters;

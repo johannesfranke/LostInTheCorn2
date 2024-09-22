@@ -1,6 +1,8 @@
 ﻿using LostInTheCorn;
 using LostInTheCorn2.Globals;
 using LostInTheCorn2.ModelFunction;
+using LostInTheCorn2.MovableObjects;
+using LostInTheCorn2.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -14,11 +16,17 @@ public class MapDrawer
     private Grid Grid;
     private Dictionary<int, Model> ModelsWithEnumInfo { get; set; } = new Dictionary<int, Model> { };
 
-    public MapDrawer(Camera cam, Vector3 startMap, float sizeCube)
+    //wegen des Hut bugs
+    private Matrix? alternateHatPosition = null;  
+    private bool itemPickedOnce = false;
+    private MovementAroundPlayerManager _movementManager;
+
+    public MapDrawer(Camera cam, Vector3 startMap, float sizeCube, MovementAroundPlayerManager movementManager)
     {
         //Setzen des Grids und der Position in Grid-Klasse
         Grid = Grid.SetGrid();
         Grid.SetPositions(startMap, sizeCube);
+        _movementManager = movementManager;
 
         this.Cam = cam;
     }
@@ -43,11 +51,28 @@ public class MapDrawer
                     Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(1), pos.Position, Cam);
                     break;
                 case WhatToDraw.Hat:
-                    if (!Functional.goalReached && !Functional.itemPicked)
+                    if (!Functional.goalReached)
                     {
-                        Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(2), pos.Position, Cam);
+                        if (Functional.itemPicked == true)
+                        {
+                            itemPickedOnce = true; 
+                            alternateHatPosition = null; 
+                        }
+                        else if (itemPickedOnce && Functional.itemPicked == false && alternateHatPosition == null)
+                        {
+                            // Change the hat's position when itemPicked goes from 1 back to 0
+                            Vector3 newHatPositionVector = _movementManager.Player.PlayerWorld.Translation - new Vector3(0,2,0);
+                            alternateHatPosition = Matrix.CreateWorld(newHatPositionVector, Vector3.Forward, Vector3.Up);
+                        }
+
+                        if(Functional.itemPicked == false)
+                        {
+                            Matrix drawPosition = alternateHatPosition ?? pos.Position;
+                            Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(2), drawPosition, Cam);
+                        }
+                        Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
+
                     }
-                    Drawable.drawWithEffectModel(ModelsWithEnumInfo.GetValueOrDefault(0), pos.Position, Cam);
                     break;
                 case WhatToDraw.ScareCrow:
                     if (!Functional.goalReached)
