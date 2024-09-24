@@ -15,6 +15,7 @@ public class MovementAroundPlayerManager
     public float RotationRadiansPerSecond { get; set; } = 45f;
 
     public SkySphere SkySphere { get; set; }
+    public SkySphere FloorSphere { get; set; }
 
     public Player Player { get; set; }
 
@@ -22,6 +23,8 @@ public class MovementAroundPlayerManager
     {
         Player = new Player(position, init);
         SkySphere = new SkySphere(position, init);
+        var posFloor = position + new Vector3(0, 490, 0);
+        FloorSphere = new SkySphere(posFloor, init);
     }
 
     public void Update(GameTime gameTime, int colliding)
@@ -40,16 +43,17 @@ public class MovementAroundPlayerManager
             Audio.SoundManager.PlaySound("Audio/grass1edited", true);
             Player.moveForward(gameTime, MovementUnitsPerSecond);
             SkySphere.moveForward(gameTime, MovementUnitsPerSecond, Player.PlayerWorld);
+            FloorSphere.moveForward(gameTime, MovementUnitsPerSecond, Player.PlayerWorld);
         }
         else
         {
             Audio.SoundManager.StopSound("Audio/grass1edited");
         }
-        if (keyboardState.IsKeyDown(Keys.S) && colliding != 2 && colliding != 3)
-        {
-            //Player.moveBackward(gameTime, MovementUnitsPerSecond);
-            //SkySphere.moveBackward(gameTime, MovementUnitsPerSecond, Player.PlayerWorld);
-        }
+        //if (keyboardState.IsKeyDown(Keys.S) && colliding != 2 && colliding != 3)
+        //{
+        //    Player.moveBackward(gameTime, MovementUnitsPerSecond);
+        //    SkySphere.moveBackward(gameTime, MovementUnitsPerSecond, Player.PlayerWorld);
+        //}
 
         Vector2 diff = mouseState.Position.ToVector2() - mState.Position.ToVector2();
         if (diff.X != 0f)

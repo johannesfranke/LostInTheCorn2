@@ -30,6 +30,8 @@ namespace LostInTheCorn2.Scenes
         private Model SkyBoxModel;
         private Texture2D SkyBoxTexture;
 
+        private Model FloorBoxModel;
+
         private PositionInfo boxPosition;
         private CollisionDetection CollisionDetection;
         private CollisionWithItem CollisionDetectionWithItem;
@@ -68,7 +70,6 @@ namespace LostInTheCorn2.Scenes
             camInitPosition = new Vector3(10, 1, 0);
 
             MovementManager = new MovementAroundPlayerManager(new Vector3(180, 0, 200), initForward);
-            penguin = Functional.ContentManager.Load<Model>("PenguinTextured");
 
             cam = new Camera();
             cam.CamPosition = camInitPosition;
@@ -90,6 +91,7 @@ namespace LostInTheCorn2.Scenes
 
             SkyBoxModel = Functional.ContentManager.Load<Model>("SkySphere");
             SkyBoxTexture = Functional.ContentManager.Load<Texture2D>("TextureSkySphere");
+            FloorBoxModel = Functional.ContentManager.Load<Model>("Floorsphere");
             CollisionDetection = new CollisionDetection(startMapPos, sizeCube);
             CollisionDetectionWithItem = new CollisionWithItem(startMapPos, sizeCube);
             movableBox = new MovableBox(cam, startMapPos, sizeCube);
@@ -215,6 +217,7 @@ namespace LostInTheCorn2.Scenes
             //Drawable.drawWithEffectModel(penguin, MovementManager.Player.PlayerWorld, cam);
             //drawAnimatedModel(animatedMil);
             Drawable.drawWithoutModel(SkyBoxModel, MovementManager.SkySphere.GlobeWorld, cam);
+            Drawable.drawWithoutModel(FloorBoxModel, MovementManager.FloorSphere.GlobeWorld, cam);
             //CollisionDetection.Draw();
             //movableBox.Draw();
             PopUpManager.Draw();
