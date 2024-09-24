@@ -134,20 +134,13 @@ namespace LostInTheCorn
                 moveForward(gameTime, player);
             }
             if (keyboardState.IsKeyDown(Keys.S) && colliding != 2 && colliding != 3)
-            {
+            { 
                 //moveBackward(gameTime, player);
             }
 
             //Bewegung der Maus
             Vector2 diff = mouseState.Position.ToVector2() - mState.Position.ToVector2();
 
-            // if(mouse bewegt sich)
-            // drehe in die Richtung der Maus...
-            if (diff.X != 0f)
-            {
-                //&& mouseState.LeftButton == ButtonState.Pressed, falls sich die Kamera nicht ständig bewegen soll
-                RotateLeftOrRight(gameTime, diff.X, player);
-            }
 
             mState = mouseState;
             kbState = keyboardState;
@@ -172,7 +165,7 @@ namespace LostInTheCorn
 
             //Rotation um den Spieler
             Forward = player.PlayerForward + new Vector3(0, -0.5f, 0);
-            CamPosition = (player.PlayerPosition - (player.PlayerForward * 7)) + new Vector3(0, 8, 0);
+            CamPosition = (player.PlayerPosition - (player.PlayerForward * 7)) + new Vector3(0, 3, 0);
 
         }
         public void SaveMousePosition()
@@ -184,6 +177,8 @@ namespace LostInTheCorn
         {
             Mouse.SetPosition((int)savedMousePosition.X, (int)savedMousePosition.Y);
         }
+
+        
     }
 
 }

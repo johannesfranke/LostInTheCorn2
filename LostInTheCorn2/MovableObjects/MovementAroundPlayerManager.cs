@@ -55,10 +55,10 @@ public class MovementAroundPlayerManager
         //    SkySphere.moveBackward(gameTime, MovementUnitsPerSecond, Player.PlayerWorld);
         //}
 
-        Vector2 diff = mouseState.Position.ToVector2() - mState.Position.ToVector2();
-        if (diff.X != 0f)
-            //&& mouseState.LeftButton == ButtonState.Pressed, falls Spieler sich nicht ständig drehen soll
-            Player.RotateLeftOrRight(gameTime, diff.X, RotationRadiansPerSecond);
+        //Vector2 diff = mouseState.Position.ToVector2() - mState.Position.ToVector2();
+        //if (diff.X != 0f)
+        //    //&& mouseState.LeftButton == ButtonState.Pressed, falls Spieler sich nicht ständig drehen soll
+        //    Player.RotateLeftOrRight(gameTime, diff.X, RotationRadiansPerSecond);
 
         mState = mouseState;
         kbState = keyboardState;
