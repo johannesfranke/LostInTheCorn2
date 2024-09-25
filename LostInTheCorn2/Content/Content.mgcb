@@ -10,15 +10,15 @@
 
 #-------------------------------- References --------------------------------#
 
-/reference:..\..\..\..\AetherExtrasforNet6\CustomAetherExtras\ResultingDLLs\Animation.dll
-/reference:..\..\..\..\AetherExtrasforNet6\CustomAetherExtras\ResultingDLLs\AnimationImporters.dll
-/reference:..\..\..\..\AetherExtrasforNet6\CustomAetherExtras\ResultingDLLs\Atlas.dll
-/reference:..\..\..\..\AetherExtrasforNet6\CustomAetherExtras\ResultingDLLs\AtlasImporter.dll
-/reference:..\..\..\..\AetherExtrasforNet6\CustomAetherExtras\ResultingDLLs\DDSImporter.dll
-/reference:..\..\..\..\AetherExtrasforNet6\CustomAetherExtras\ResultingDLLs\Graphics.dll
-/reference:..\..\..\..\AetherExtrasforNet6\CustomAetherExtras\ResultingDLLs\GraphicsImporters.dll
-/reference:..\..\..\..\AetherExtrasforNet6\CustomAetherExtras\ResultingDLLs\RawModelProcessor.dll
-/reference:..\..\..\..\AetherExtrasforNet6\CustomAetherExtras\ResultingDLLs\SLMCImporter.dll
+/reference:..\Animation.dll
+/reference:..\AnimationImporters.dll
+/reference:..\Atlas.dll
+/reference:..\AtlasImporter.dll
+/reference:..\DDSImporter.dll
+/reference:..\Graphics.dll
+/reference:..\GraphicsImporters.dll
+/reference:..\RawModelProcessor.dll
+/reference:..\SLMCImporter.dll
 
 #---------------------------------- Content ---------------------------------#
 
@@ -599,6 +599,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:PopUpButterfly.png
+
+#begin PopUpButterfly.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:PopUpButterfly.png
+
+#begin PopUpScare.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:PopUpScare.png
 
 #begin PopUpWindow.png
 /importer:TextureImporter

@@ -12,10 +12,6 @@ namespace LostInTheCorn2.Scenes
     internal class Comic : IScene
     {
         private Texture2D currentImage;
-        private Texture2D Image1;
-        private Texture2D Image2;
-        private Texture2D Image3;
-        private Texture2D Image4;
         private List<Texture2D> images;
         private Rectangle screenRectangle;
         private float displayDuration = 15000f;

@@ -28,28 +28,31 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Animation">
-      <HintPath>..\..\..\..\Downloads\ddls\ddls\Animation.dll</HintPath>
+      <HintPath>Animation.dll</HintPath>
     </Reference>
     <Reference Include="AnimationImporters">
-      <HintPath>..\..\..\..\Downloads\ddls\ddls\AnimationImporters.dll</HintPath>
+      <HintPath>AnimationImporters.dll</HintPath>
     </Reference>
     <Reference Include="Atlas">
-      <HintPath>..\..\..\..\Downloads\ddls\ddls\Atlas.dll</HintPath>
+      <HintPath>Atlas.dll</HintPath>
+    </Reference>
+    <Reference Include="AtlasImporter">
+      <HintPath>AtlasImporter.dll</HintPath>
     </Reference>
     <Reference Include="DDSImporter">
-      <HintPath>..\..\..\..\Downloads\ddls\ddls\DDSImporter.dll</HintPath>
+      <HintPath>DDSImporter.dll</HintPath>
     </Reference>
     <Reference Include="Graphics">
-      <HintPath>..\..\..\..\Downloads\ddls\ddls\Graphics.dll</HintPath>
+      <HintPath>Graphics.dll</HintPath>
     </Reference>
     <Reference Include="GraphicsImporters">
-      <HintPath>..\..\..\..\Downloads\ddls\ddls\GraphicsImporters.dll</HintPath>
+      <HintPath>GraphicsImporters.dll</HintPath>
     </Reference>
     <Reference Include="RawModelProcessor">
-      <HintPath>..\..\..\..\Downloads\ddls\ddls\RawModelProcessor.dll</HintPath>
+      <HintPath>RawModelProcessor.dll</HintPath>
     </Reference>
     <Reference Include="SLMCImporter">
-      <HintPath>..\..\..\..\Downloads\ddls\ddls\SLMCImporter.dll</HintPath>
+      <HintPath>SLMCImporter.dll</HintPath>
     </Reference>
   </ItemGroup>
  

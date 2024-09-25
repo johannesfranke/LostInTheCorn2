@@ -41,7 +41,7 @@ namespace LostInTheCorn2.map
             if (forwardColl.Intersects(doorPosition))
             {
                 Functional.doorInteraction = true;
-                if (Functional.KeyboardHelper.IsKeyPressedOnce(Keys.F))
+                if (Functional.KeyboardHelper.IsKeyPressedOnce(Keys.F)&&Functional.keyPicked)
                 {
                     Functional.keyUsed = true;
                     Functional.keyPicked = false;

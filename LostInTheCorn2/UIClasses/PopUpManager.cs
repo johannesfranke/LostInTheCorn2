@@ -26,12 +26,14 @@ namespace LostInTheCorn2.UIClasses
         String windowType;
         int height;
         int width;
+        Point itemSize;
 
         Texture2D keyTexture;
         Texture2D hatTexture;
         Texture2D backpackTexture;
 
         Texture2D windowTexture;
+        Texture2D windowTextureScare;
         Texture2D windowTextureButterfly;
         Texture2D mapOne;
         Texture2D mapTwo;
@@ -39,11 +41,16 @@ namespace LostInTheCorn2.UIClasses
 
         public PopUpManager()
         {
+            height = Visuals.GraphicsDevice.PresentationParameters.BackBufferHeight;
+            width = Visuals.GraphicsDevice.PresentationParameters.BackBufferWidth;
+
+            itemSize = new Point(width/6, width / 6);
             windowSize = new Point(256, 128);
             windowSize2 = new Point(270, 80);
             mapSize = new Point(270*2, 270*2);
             PopUpRequired = false;
             font = Functional.StandardFont;
+            windowTextureScare = Functional.ContentManager.Load<Texture2D>("PopUpScare");
             windowTexture = Functional.ContentManager.Load<Texture2D>("PopUpWindow");
             windowTextureButterfly = Functional.ContentManager.Load<Texture2D>("PopUpButterfly");
             mapOne = Functional.ContentManager.Load<Texture2D>("map1");
@@ -90,7 +97,7 @@ namespace LostInTheCorn2.UIClasses
             }
             else if (collisionWithCrow && !Functional.goalReached)
             {
-                windowType = "PopUpWindow";
+                windowType = "PopUpScare";
                 PopUpText = "I am the mighty scarecrow! \nBut I lost my hat. \nThink you can help me?";
                 PopUpRequired = true;
                 windowReset();
@@ -127,15 +134,15 @@ namespace LostInTheCorn2.UIClasses
         }
         public void Draw() {
             Visuals.SpriteBatch.Begin();
-            Visuals.SpriteBatch.Draw(backpackTexture, new Rectangle(0, 64, 64, 64), Color.White);
+            Visuals.SpriteBatch.Draw(backpackTexture, new Rectangle(0, itemSize.X/2, itemSize.X,itemSize.Y), Color.White);
             if (Functional.keyPicked)
             {
-                Visuals.SpriteBatch.Draw(keyTexture, new Rectangle(64, 64, 64, 64), Color.White);
+                Visuals.SpriteBatch.Draw(keyTexture, new Rectangle(0, itemSize.X/2 + itemSize.X, itemSize.X, itemSize.Y), Color.White);
             }
 
             if (Functional.itemPicked)
             {
-                Visuals.SpriteBatch.Draw(hatTexture, new Rectangle(128, 64, 64, 64), Color.White);
+                Visuals.SpriteBatch.Draw(hatTexture, new Rectangle(0, itemSize.X/2 + itemSize.X + itemSize.X, itemSize.X, itemSize.Y), Color.White);
             }
             if (PopUpRequired)
             {
@@ -149,6 +156,11 @@ namespace LostInTheCorn2.UIClasses
                 else if (windowType == "PopUpButterfly") {
                     Visuals.SpriteBatch.Draw(windowTextureButterfly, new Rectangle(WindowCords, windowSize2), new((byte)255, (byte)255, (byte)255, (byte)MathHelper.Clamp(mAlphaValue, 0, 255)));
                     Visuals.SpriteBatch.DrawString(font, PopUpText, TextCords + new Vector2(20,20), new((byte)0, (byte)0, (byte)0, (byte)MathHelper.Clamp(mAlphaValue, 0, 255)));
+                }
+                else if (windowType == "PopUpScare")
+                {
+                    Visuals.SpriteBatch.Draw(windowTextureScare, new Rectangle(WindowCords, windowSize), new((byte)255, (byte)255, (byte)255, (byte)MathHelper.Clamp(mAlphaValue, 0, 255)));
+                    Visuals.SpriteBatch.DrawString(font, PopUpText, TextCords, new((byte)0, (byte)0, (byte)0, (byte)MathHelper.Clamp(mAlphaValue, 0, 255)));
                 }
                 else {
                     Visuals.SpriteBatch.Draw(windowTexture, new Rectangle(WindowCords, windowSize), new((byte)255, (byte)255, (byte)255, (byte)MathHelper.Clamp(mAlphaValue, 0, 255)));
