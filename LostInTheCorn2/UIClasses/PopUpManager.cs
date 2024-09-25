@@ -29,6 +29,7 @@ namespace LostInTheCorn2.UIClasses
 
         Texture2D keyTexture;
         Texture2D hatTexture;
+        Texture2D backpackTexture;
 
         Texture2D windowTexture;
         Texture2D windowTextureButterfly;
@@ -47,8 +48,9 @@ namespace LostInTheCorn2.UIClasses
             windowTextureButterfly = Functional.ContentManager.Load<Texture2D>("PopUpButterfly");
             mapOne = Functional.ContentManager.Load<Texture2D>("map1");
             mapTwo = Functional.ContentManager.Load<Texture2D>("map2");
-            keyTexture = Functional.ContentManager.Load<Texture2D>("key2d");
-            hatTexture = Functional.ContentManager.Load<Texture2D>("strawhat");
+            keyTexture = Functional.ContentManager.Load<Texture2D>("Schlussel");
+            hatTexture = Functional.ContentManager.Load<Texture2D>("Hut");
+            backpackTexture = Functional.ContentManager.Load<Texture2D>("Rucksack");
         }
             public void Update(bool collisionWithKey, bool collisionWithBox, bool collisionWithCrow, bool collidingWithMap) {
             height = Visuals.GraphicsDevice.PresentationParameters.BackBufferHeight;
@@ -125,6 +127,7 @@ namespace LostInTheCorn2.UIClasses
         }
         public void Draw() {
             Visuals.SpriteBatch.Begin();
+            Visuals.SpriteBatch.Draw(backpackTexture, new Rectangle(0, 64, 64, 64), Color.White);
             if (Functional.keyPicked)
             {
                 Visuals.SpriteBatch.Draw(keyTexture, new Rectangle(64, 64, 64, 64), Color.White);
